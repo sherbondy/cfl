@@ -1,0 +1,17 @@
+{
+  "content": {
+    "files": "./**/*.{php,twig}"
+  },
+  "scripts": {
+    "src": "./static/src/js/",
+    "dest": "./static/js/",
+    "entries": "./static/src/js/*.js",
+    "files": "./static/src/js/**/*.js"
+  },
+  "styles": {
+    "src": "./static/src",
+    "dest": "./static/css/",
+    "entries": "./static/src/scss/*.scss",
+    "files": "./static/src/scss/**/*.scss"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "clover-theme",
+  "description": "Clover WordPress Theme",
+  "private": true,
+  "dependencies": {
+    "upbase": "git@github.com:Upstatement/ups-mixin-lib"
+  }
+}

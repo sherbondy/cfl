@@ -1,0 +1,27 @@
+{
+  "name": "upbase",
+  "description": "Bespoke Sass mixin library from Upstatement",
+  "main": "scss/_upbase.scss",
+  "license": "MIT",
+  "ignore": [
+    "**/*.",
+    "README.md",
+    "sassdoc"
+  ],
+  "keywords": [
+    "css",
+    "sass",
+    "scss",
+    "mixins"
+  ],
+  "homepage": "https://github.com/Upstatement/ups-mixin-lib",
+  "_release": "2ca94a2c76",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "2ca94a2c766d980f40f158729d78a0e60f03ea66"
+  },
+  "_source": "git@github.com:Upstatement/ups-mixin-lib.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:Upstatement/ups-mixin-lib"
+}
