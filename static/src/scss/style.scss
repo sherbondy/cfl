@@ -1,5 +1,21 @@
-$test-var: green;
+@charset "UTF-8";
 
-body {
-  color: $test-var;
-}
+
+// import upbase
+@import 'partials/variables';
+@import 'upbase/scss/upbase';
+
+// import base styles
+@import 'partials/mixins';
+@import 'partials/normalize';
+@import 'partials/base';
+@import 'partials/base-typography';
+@import 'partials/base-tables';
+@import 'partials/base-forms';
+
+
+// $test-var: green;
+
+// body {
+//   color: $test-var;
+// }

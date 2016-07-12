@@ -3,6 +3,7 @@
   "description": "Clover WordPress Theme",
   "private": true,
   "dependencies": {
-    "upbase": "git@github.com:Upstatement/ups-mixin-lib"
+    "upbase": "git@github.com:Upstatement/ups-mixin-lib",
+    "moment": "~2.14.1"
   }
 }

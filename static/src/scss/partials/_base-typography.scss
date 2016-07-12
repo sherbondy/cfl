@@ -1,0 +1,253 @@
+// Links
+// -------
+
+a {
+  color: $clr-link;
+  text-decoration: none;
+  word-wrap: break-word;
+}
+// Address `outline` inconsistency between Chrome and other browsers.
+a:focus {
+  outline: none;
+}
+// Improve readability when focused and also mouse hovered in all browsers.
+a:active,
+a:hover {
+  outline: 0;
+  color: $clr-purple--dark;
+}
+
+// Typography
+// -------
+// Address font sizes and margins set differently in IE 6/7.
+// Address font sizes within `section` and `article` in Firefox 4+, Safari 5, and Chrome.
+
+h1,
+.h1 {
+  font-size: $font-size-h1;
+  line-height: $line-height-h1;
+  margin: $font-margin-h1;
+}
+h2,
+.h2 {
+  font-size: $font-size-h2;
+  line-height: $line-height-h2;
+  margin: $font-margin-h2;
+}
+h3,
+.h3 {
+  font-size: $font-size-h3;
+  line-height: $line-height-h3;
+  margin: $font-margin-h3;
+}
+h4,
+.h4 {
+  font-size: $font-size-h4;
+  line-height: $line-height-h4;
+  margin: $font-margin-h4;
+}
+h5,
+.h5 {
+  font-size: $font-size-h5;
+  line-height: $line-height-h5;
+  margin: $font-margin-h5;
+}
+h6,
+.h6 {
+  font-size: $font-size-h6;
+  line-height: $line-height-h6;
+  margin: $font-margin-h6;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $clr-heading;
+  font-family: $font-family-heading;
+  font-weight: 600;
+}
+h1 small,
+h2 small,
+h3 small,
+h4 small,
+h5 small,
+h6 small {
+  font-size: .75em;
+  font-weight :normal;
+  color: $clr-heading-small;
+}
+hgroup {
+  margin: $font-margin-hgroup;
+}
+// remove margins from headings within hgroup
+hgroup h1,
+hgroup h2,
+hgroup h3,
+hgroup h4,
+hgroup h5,
+hgroup h6,
+hgroup p, {
+  margin: 0;
+}
+
+// Address styling not present in IE 7/8/9, Safari 5, and Chrome.
+abbr[title] {
+  border-bottom: 1px dotted;
+  cursor: help;
+}
+// Address style set to `bolder` in Firefox 3+, Safari 4/5, and Chrome.
+b,
+strong {
+  font-weight: 600;
+}
+blockquote {
+  margin: $font-margin-blockquote;
+}
+// Address styling not present in Safari 5 and Chrome.
+dfn {
+  font-style: italic;
+}
+// Address differences between Firefox and other browsers. Known issue:no IE 6/7 normalization.
+hr {
+  box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  height: 0;
+}
+// Address styling not present in IE 6/7/8/9.
+mark {
+  background: #ff0;
+  color: #000;
+}
+// Address margins set differently in IE 6/7.
+p,
+pre {
+  margin: 0;
+}
+// Correct font family set oddly in IE 6, Safari 4/5, and Chrome.
+code,
+kbd,
+pre,
+samp {
+  font-family: $font-family-monospace;
+  font-size: inherit;
+}
+// Improve readability of pre-formatted text in all browsers.
+pre {
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+// Address CSS quotes not supported in IE 6/7.
+q {
+  quotes: none;
+}
+// Address `quotes` property not supported in Safari 4.
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+// Address inconsistent and variable font size in all browsers.
+small {
+  font-size: 80%;
+}
+// Prevent `sub` and `sup` affecting `line-height` in all browsers.
+sub,
+sup {
+  font-size: $font-size-h6;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+// Always hide an element when it has the `hidden` HTML attribute.
+[hidden] {
+  display: none !important;
+}
+
+// Lists
+// -------
+
+// Address margins set differently in IE 6/7.
+dl,
+menu,
+ol,
+ul {
+  margin: $font-margin-list;
+}
+dd {
+  margin: $font-margin-dd;
+}
+// Address paddings set differently in IE 6/7.
+menu,
+ol,
+ul {
+  padding: $font-padding-list;
+}
+// Correct list images handled incorrectly in IE 7.
+nav ul,
+nav ol {
+  list-style: none;
+  list-style-image: none;
+  margin: 0;
+  padding: 0;
+}
+nav li a {
+  text-decoration: none;
+}
+// remove margin from nested lists
+ul ul,
+ul ol,
+ol ul,
+ol ol {
+  margin:0;
+}
+
+// Code
+// -------
+
+code {
+  font-size: .9em;
+  color: $clr-code;
+  background: $clr-code-bg;
+  padding: $font-padding-code;
+  word-break: break-word;
+}
+
+.code {
+  margin: $font-margin-code;
+  padding: 20px;
+  background: $clr-code-bg;
+  border: 1px solid $clr-gray-e;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.code + .code {
+  margin-top: -15px;
+}
+.code code {
+    white-space: pre;
+    word-wrap: normal;
+    padding: 0;
+    background: none;
+}
+
+.highlight {
+  background-color: $clr-highlight-tag;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  background: $clr-border;
+  margin: $spacing-lg 0;
+  padding: 0;
+}

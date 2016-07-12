@@ -21,24 +21,6 @@ $context = Timber::get_context();
 $context['posts'] = Timber::get_posts();
 $context['foo'] = 'bar';
 
-$request  = wp_remote_get( 'https://menu.cloverfoodlab.com/api/locations' );
-$response = wp_remote_retrieve_body( $request );
-
-// if (
-//     'OK' !== wp_remote_retrieve_response_message( $response )
-//     OR 200 !== wp_remote_retrieve_response_code( $response )
-// )
-
-// wp_send_json_error( $response );
-
-// $test['data'] = wp_send_json_success( $response );
-
-// $test['data'] = wp_send_json_success( $response );
-
-// $test['data'] = $response;
-
-$context['apiResponse'] = $response;
-
 $templates = array( 'index.twig' );
 
 if ( is_home() ) {

@@ -1,0 +1,33 @@
+{% extends "base.twig" %}
+
+{% block head %}
+  <script type="text/javascript">
+    var apiResponse= {{apiResponse}};
+  </script>
+  <script src="http://maps.google.com/maps/api/js?key=AIzaSyALZaQqg4ZNCJr2tLiicJJr4iUtUoz9A_s&?sensor=false"
+            type="text/javascript"></script>
+{% endblock %}
+
+{% block content %}
+  <div id="map" style="width: 100%; height: 400px;"></div>
+  <ul class="locations-mod">
+    <li class="location-item">
+      <h3 class="location__title">
+        <span class="location__title__name"></span>
+        <span class="location__title__distance"></span>
+      </h3>
+      <h4 class="location__status"></h4>
+      <a class="location__twitter" href="" target="_blank"></a>
+      <a class="location__address" href=""></a>
+      <dl class="location__hours">
+        <dt>Hours</dt>
+        <dd class="location__hours__day"></dd>
+      </dl>
+    </li>
+  </ul>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{site.theme.link}}/bower_components/moment/min/moment.min.js"></script>
+    <script src="{{site.theme.link}}/static/js/clover-api.js"></script>
+{% endblock %}
