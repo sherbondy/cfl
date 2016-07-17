@@ -1,0 +1,8 @@
+<ul class="default-repeater">
+	{% for item in content %}
+		<li class="default-repeater__item">
+		  <h4 class="default-repeater__title">{{item.title}}</h4>
+		  <div class="default-repeater__content">{{item.content}}</div>
+	  </li>
+	{% endfor %}
+</ul>

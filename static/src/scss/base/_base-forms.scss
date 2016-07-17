@@ -306,13 +306,11 @@ select[multiple] {
   font-size: $font-size-h6;
     *font-size: 90%; /*IE 6/7 - To reduce IE's oversized button text*/
     *overflow: visible; /*IE 6/7 - Because of IE's overly large left/right padding on buttons */
-    padding: 0.9em 15px;
-    color: $clr-purple;
-    border: 1px solid #999;  /*IE 6/7/8*/
-    border: 2px solid $clr-purple;  /*IE9 + everything else*/
-    background-color: transparent;
+    padding: 0.6em 15px;
+    color: $clr-background;
+    background-color: $clr-base;
     text-decoration: none;
-    border-radius: 3px;
+    border: none;
   //transition: all 0.2s ease;
 }
 .button-hover,
@@ -370,4 +368,8 @@ a.button-selected {
 }
 :-ms-input-placeholder {
    color: $clr-placeholder-text;
+}
+
+input:focus {
+  outline: none;
 }

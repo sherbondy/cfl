@@ -115,5 +115,4 @@ jQuery( document ).ready( function( $ ) {
   initLocations();
   console.log(locations);
 
-
 });

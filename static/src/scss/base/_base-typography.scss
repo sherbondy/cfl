@@ -5,6 +5,7 @@ a {
   color: $clr-link;
   text-decoration: none;
   word-wrap: break-word;
+  transition: all .2s $timing;
 }
 // Address `outline` inconsistency between Chrome and other browsers.
 a:focus {
@@ -14,7 +15,7 @@ a:focus {
 a:active,
 a:hover {
   outline: 0;
-  color: $clr-purple--dark;
+  box-shadow: 0 -1px #000 inset;
 }
 
 // Typography

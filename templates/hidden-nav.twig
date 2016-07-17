@@ -1,0 +1,42 @@
+<nav class="hidden-nav" role="navigation">
+  <ul class="nav-width">
+    <li class="nav__block">
+      <h5 class="nav__block__title"><a class="nav__block__title-link" href="/locations">Locations and Hours</a></h5>
+      <p class="nav__block__link"><a href="/locations">See what’s on the menu for each of our locations <b class="nav__block__date">{{now|date('F j Y')}}</b></a></p>
+    </li>
+    <li class="nav__block">
+      <h5 class="nav__block__title"><a class="nav__block__title-link" href="/events">Events</a></h5>
+      <p class="nav__block__link">Join us for our food development meeting tomorrow at 3:30</p>
+    </li>
+
+    <li class="nav__block">
+      <h5 class="nav__block__title">Careers at Clover</h5>
+      <ul class="nav__block__list">
+        <li class="nav__block__link">Welcome Samantha, our  latest employee</li>
+        <li class="nav__block__link"><a href="/careers">Join the team</a></li>
+        <li class="nav__block__link"><a href="/careers/training">Employee Training</a></li>
+      </ul>
+    </li>
+
+    {% if menu.get_items %}
+      <li class="nav__block">
+        <h5 class="nav__block__title">More</h5>
+        <ul class="nav__block__list">
+          {% for item in menu.get_items %}
+            <li class="nav__block__link">
+              <a href="{{item.get_link}}">{{item.title}}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endif %}
+
+  </ul>
+
+  <form action="/" class="primary-search" method="get">
+    <input class="input" id="primary-search-input" placeholder="Search" name="s">
+    <button class="submit submit--search" type="submit">Submit</button>
+  </form>
+
+
+</nav><!-- #nav -->

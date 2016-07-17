@@ -1,0 +1,26 @@
+@mixin font($family: false, $size: false, $weight: false, $style: false, $ls: false, $caps: false) {
+
+  @if ($family) {
+    font-family: $family;
+  }
+
+  @if ($size) {
+    font-size: $size;
+  }
+
+  @if ($weight) {
+    font-weight: $weight;
+  }
+
+  @if ($style) {
+    font-style: $style;
+  }
+
+  @if ($ls) {
+    letter-spacing: $ls;
+  }
+
+  @if $caps == caps {
+    text-transform: uppercase;
+  }
+}

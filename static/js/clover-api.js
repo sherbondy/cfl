@@ -120,22 +120,12 @@
 	  // var now = moment().format('HH:mm:ss');
 	  var now = moment('21:32:24', 'HH:mm:ss').format();
 	  console.log(today);
+	  console.log(now);
 	
 	  function findToday(location) {
 	    let meals = location.meals;
-	    // console.log(meals);
-	    meals.forEach(function (location, i) {
-	      location.days.forEach(function (day, i) {
-	        if (today === day) {
-	          console.log(location.name);
-	        }
-	      });
-	    });
+	    console.log(meals);
 	  }
-	
-	  function addHours(day, i) {
-	    console.log(day);
-	  };
 	
 	  function addLocationItem(location, i) {
 	    let $locationItem = $('.location-item');
@@ -150,10 +140,7 @@
 	    $this.find('.location__address').text(address).attr('href', `http://maps.google.com/?q=${ address }`);
 	
 	    $locationItem.eq(i).addClass('js-has-data');
-	    location.meals.forEach(function (day, i) {
-	      addHours(day);
-	    });
-	  };
+	  }
 	
 	  function initLocations() {
 	    locations.forEach(function (location, i) {
@@ -162,11 +149,11 @@
 	    });
 	
 	    $('.location-item').eq(0).remove();
-	  };
+	  }
 	
 	  initMap();
-	  console.log(locations);
 	  initLocations();
+	  console.log(locations);
 	});
 
 /***/ }

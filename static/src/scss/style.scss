@@ -2,20 +2,30 @@
 
 
 // import upbase
-@import 'partials/variables';
+@import 'base/variables';
 @import 'upbase/scss/upbase';
 
 // import base styles
-@import 'partials/mixins';
-@import 'partials/normalize';
-@import 'partials/base';
-@import 'partials/base-typography';
-@import 'partials/base-tables';
-@import 'partials/base-forms';
+@import 'base/mixins';
+@import 'base/font';
+@import 'base/normalize';
+@import 'base/base';
+@import 'base/base-typography';
+@import 'base/base-tables';
+@import 'base/base-forms';
 
 
-// $test-var: green;
+// import component styles
 
-// body {
-//   color: $test-var;
-// }
+@import 'partials/nav';
+@import 'partials/footer';
+@import 'partials/repeater';
+@import 'partials/instagram-feed';
+@import 'partials/wysiwyg-styles';
+@import 'partials/search';
+
+
+
+.content-wrapper {
+  padding: 20px;
+}

@@ -23,12 +23,12 @@ $clr-gray-f7:              #f7f7f7;
 $clr-gray-f9:              #f9f9f9;
 $clr-gray-f:               #ffffff;
 
-$gray--dark:                 $clr-gray-4;
-$gray--med:                  $clr-gray-6;
-$gray--light:                $clr-gray-d;
+$gray--dark:               $clr-gray-4;
+$gray--med:                $clr-gray-6;
+$gray--light:              $clr-gray-d;
 $clr-black:                $clr-gray-0;
 $clr-white:                $clr-gray-f;
-$white--semi-trans:          rgba($clr-white, 0.9);
+$white--semi-trans:        rgba($clr-white, 0.9);
 
 // RAINBOWS
 
@@ -37,18 +37,8 @@ $clr-purple--dark:         #555668;
 $clr-purple--light:        #B2B7FE;
 $clr-magenta--light:		   #dc9ffc;
 $clr-yellow:               #F5F24F;
-$background:                 $clr-white;
-$background-darken:          #E5E8F0;
-
-
-$clr-red:                  #f45345;
-$clr-salmon:               #f8bdb9;
-$clr-blue:                 #0000ff;
-$clr-slate:                #312d4b;
-$clr-neutral:              #f4f9f2;
-$clr-taupe:                #f6f5f4;
-$clr-brick-red:            #B94A48;
-$clr-magenta:				       #CC64FC;
+$clr-background:           $clr-white;
+$clr-background-darken:    #E5E8F0;
 
 
 // Gold
@@ -61,14 +51,14 @@ $clr-gold-dark:            #bc8151;
 $clr-base:                 $clr-black;
 $clr-base-tint-5:          rgba( $clr-base, 0.05 );
 $clr-base-tint-10:         rgba( $clr-base, 0.1 );
-$clr-body-bg:              $background;
-$clr-wrapper-bg:           $background;
+$clr-body-bg:              $clr-background;
+$clr-wrapper-bg:           $clr-background;
 $clr-gallery-bg:           $clr-base-tint-5;
 $clr-footer-bg:            $clr-base;
 $clr-inverted:             $clr-wrapper-bg;
 $clr-inverted-tint-10:     rgba( $clr-inverted, 0.1 );
 $clr-link:                 $clr-base;
-$clr-text:                 $gray--dark;
+$clr-text:                 $clr-base;
 $clr-link-active:          $clr-link;
 $clr-link-hover:           $clr-link;
 $clr-border:               $clr-base;
@@ -149,7 +139,10 @@ $font-margin-code:           30px 0;
 // Font Family
 $font-family-sans-serif:     'Work Sans', sans-serif;
 $font-family-sans:           $font-family-sans-serif;
+$sans:                       $font-family-sans-serif;
 $font-family-serif:          'Playfair Display', serif;
+$serif:                      $font-family-serif;
+
 $font-family-monospace:      'Source Code Pro', monospace;
 
 $font-family-sans:           $font-family-sans-serif;

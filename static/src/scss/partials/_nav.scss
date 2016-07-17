@@ -1,0 +1,37 @@
+.nav__width {
+  position: relative;
+}
+
+.nav__trigger {
+  @include absolute(0 0 0 n);
+  width: 50px;
+}
+
+
+// hidden nav
+
+.hidden-nav {
+  @include fixed(0 0 0 100%);
+  max-width: 320px;
+  width: 100%;
+  padding: 50px 15px 10px;
+  background: #fff;
+  // box-shadow: 0 0 20px rgba(0,0,0,.2);
+  transition: all .4s $timing;
+  border-left: 1px solid #000;
+
+  .js-nav-active & {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+.nav__block__title {
+  @include font($sans, 14px, 700, normal, .1em, caps);
+  margin: 0 0 5px;
+  border-bottom: 1px solid;
+}
+
+.nav__block {
+  padding: 10px 0;
+  @include font($sans, 17px);
+}

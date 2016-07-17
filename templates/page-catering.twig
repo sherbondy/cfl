@@ -1,0 +1,8 @@
+{% extends "page.twig" %}
+
+{% block additional_content %}
+<div class="instagram__feed">
+	<h4> {{post.get_field('feed_title')}}</h4>
+	<div class="content">{{post.get_field('shortcode')}}</div>
+</div>
+{% endblock %}

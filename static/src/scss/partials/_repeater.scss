@@ -1,0 +1,33 @@
+
+
+.default-repeater {
+  list-style: none;
+  padding-left: 0;
+}
+
+.default-repeater__item {
+  padding: 0;
+  border-bottom: 1px solid #000;
+  &:last-of-type {
+    border-bottom: 0;
+  }
+}
+
+.default-repeater__title {
+  cursor: pointer;
+  margin-bottom: 0;
+  padding: 20px 0;
+}
+
+.default-repeater__content {
+  display: none;
+  .js-repeater-is-open & {
+    display: block;
+  }
+  // wordpress styles
+  @extend %post-styles;
+}
+
+.article-body {
+  @extend %post-styles;
+}

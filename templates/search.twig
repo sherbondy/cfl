@@ -1,0 +1,16 @@
+{% extends "base.twig" %}
+
+{% block topper %}
+  <div class="search-topper">
+    <form action="/" class="search-topper__form" method="get">
+      <input class="search-topper__input" value="{{query}}" id="primary-search-input" placeholder="Search" name="s">
+      <button class="search-topper__submit" type="submit">Submit</button>
+    </form>
+  </div>
+{% endblock %}
+
+{% block content %}
+	{% for post in posts %}
+		{% include ['tease-'~post.post_type~'.twig', 'tease.twig'] %}
+	{% endfor %}
+{% endblock %}

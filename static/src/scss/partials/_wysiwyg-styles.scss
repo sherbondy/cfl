@@ -1,0 +1,225 @@
+@mixin paragraph-spacing {
+  margin-bottom: 1em;
+}
+
+$post-max-width: 700px;
+
+%post-styles  {
+
+  > p {
+    overflow: visible;
+    @include paragraph-spacing;
+  }
+
+  //
+  // WP Styles
+  //
+
+  .wp-caption {
+    margin-bottom: 20px;
+
+    &.alignleft {
+      float: left;
+      margin-right: 20px;
+    }
+
+    &.aligncenter {
+      margin-left: auto;
+      margin-right: auto;
+      display: inline-block;
+    }
+
+    &.alignright {
+      float: right;
+      margin-left: 20px;
+    }
+    .wp-caption-dd,
+    .wp-caption-text {
+      position: relative;
+      margin-top: 0;
+      padding-top: 8px;
+      text-align: left;
+      @include font($sans, 14px, 700);
+    }
+  }
+
+  .photo-credit {
+
+  }
+
+  .photo-credit-wrapper {
+
+    a {
+      display: block;
+    }
+
+    img {
+      display: block;
+    }
+
+    > .photo-credit {
+      top: auto;
+      bottom: 0;
+    }
+  }
+
+
+  img.aligncenter {
+    margin: 0 auto;
+    display: block;
+  }
+
+  img.alignleft {
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 10px;
+  }
+
+  img.alignright {
+    float: right;
+    margin-left: 20px;
+    margin-bottom: 10px;
+  }
+
+  div.pullquote-right {
+    text-align: right;
+  }
+
+  //
+  // Default Text Styles
+  //
+  > h1,
+  > h2,
+  > h3,
+  > h4,
+  > h5,
+  > h6,
+  > p,
+  > ul,
+  > ol,
+  > blockquote {
+    max-width: $post-max-width;
+  }
+
+
+
+  > h1,
+  > h2,
+  > h3,
+  > h4,
+  > h5,
+  > h6 {
+    line-height: 1.15;
+
+    // Remove extra space above headline when it's at the top of a story
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  > h1 {
+  }
+
+  > h2 {
+  }
+
+  > h3 {
+  }
+
+  > h4 {
+  }
+
+  > h4 + h4 {
+  }
+
+  > h5 {
+  }
+
+  > h6 {
+  }
+
+
+  //
+  // Lists
+  //
+
+  > ul,
+  > ol,
+  > ul ul,
+  > ul ol,
+  > ol ul,
+  > ol ol {
+    list-style-type: none;
+    @include paragraph-spacing;
+    padding-left: 30px;
+  }
+
+  > ol {
+    counter-reset: story-counter;
+  }
+
+  > ul li:before {
+    // margin-left: -15px;
+  }
+
+  > ol li:before {
+    // margin-left: -21px;
+  }
+
+  > ul li:before,
+  > ol li:before {
+    color: $clr-base;
+    display: inline-block;
+    padding-right: 10px;
+    margin-left: -35px;
+    width: 35px;
+    text-align: right;
+  }
+
+  > ul li:before {
+    content: "·";
+  }
+
+  > ol li:before {
+    content: counter(story-counter) ". "  ;
+    counter-increment: story-counter;
+  }
+
+  > ol ul li:before,
+  > ul ul li:before {
+    color: $clr-base;
+  }
+
+  > ol ol,
+  > ul ol,
+  > ol ul,
+  > ul ul {
+    counter-reset: story-subcounter;
+    margin-bottom: 0;
+  }
+
+  > ol ol li:before,
+  > ul ol li:before {
+    content: counter(story-subcounter, lower-alpha) ". "  ;
+    counter-increment: story-subcounter;
+    color: $clr-base;
+  }
+
+  > hr {
+    border-bottom: 6px solid $clr-base;
+    width: 25px;
+    margin: 40px auto 45px;
+    @include mq(750px) {
+      margin: 55px auto 60px;
+    }
+  }
+
+  > blockquote {
+    border-left: 3px solid  #888;
+    padding-left: 15px;
+    font-style: italic;
+    color: #888;
+    font-size: .98em;
+    margin-bottom: 20px;
+  }
+}
