@@ -1,7 +1,5 @@
 {% extends "base.twig" %}
 
 {% block content %}
-	{% for post in posts %}
-		{% include ['tease.twig'] %}
-	{% endfor %}
+  {% include 'components/paginated-grid.twig' %}
 {% endblock %}

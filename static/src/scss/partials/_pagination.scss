@@ -1,0 +1,35 @@
+.pagination__mod {
+  border-top: $border;
+  overflow: hidden;
+  @include font($sans, 13px, 800, normal, .05em, caps);
+}
+
+.pagination__list {
+  list-style: none;
+  margin: 0;
+  padding: 10px 0;
+  float: right;
+}
+
+.pagination__item {
+  display: inline-block;
+}
+
+.pagination__link {
+  padding: 2px 5px;
+
+  &:hover {
+    background: $clr-spot;
+    color: #fff;
+  }
+}
+
+.pagination__link--active,
+.pagination__link--active:hover {
+  background: #000;
+  color: #fff;
+}
+
+.pagination__link--ellip {
+  pointer-events: none;
+}

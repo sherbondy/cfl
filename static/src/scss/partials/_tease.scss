@@ -1,0 +1,122 @@
+.tease {
+  display: flex;
+  max-width: 900px;
+  margin: 0 auto;
+  @include mq($bp--desktop) {
+    margin-bottom: 20px;
+  }
+
+  .post-type-post & {
+    margin-left: 0;
+  }
+}
+
+
+.tease__inner {
+  padding: 0 0 40px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.tease__hgroup {
+
+  @include mq($bp--desktop) {
+    width: 55%;
+    float: right;
+    padding-left: 20px;
+  }
+}
+
+.tease__overline {
+  @include font($sans, 13px, 800, normal, .05em, caps);
+  margin-bottom: 6px;
+  display: inline-block;
+
+  &:hover {
+    box-shadow: none;
+    color: $clr-base;
+  }
+}
+
+.tease__hed {
+  @include font($sans, 21px, 800);
+  margin-bottom: 4px;
+
+  > a {
+    color: $clr-base;
+  }
+
+  @include mq($bp--desktop) {
+    @include font($size: 30px);
+  }
+}
+
+.tease__dek {
+  @include font($sans, 15px);
+
+  @include mq($bp--desktop) {
+    @include font($size: 18px);
+  }
+}
+
+.tease__grid {
+  // @include mq($bp--phablet) {
+  //   @include grid(2, 20px);
+  //   display: flex;
+  //   flex-wrap: wrap;
+  // }
+
+  // @include mq($bp--desktop) {
+  //   @include grid(3, 50px);
+  // }
+}
+
+
+.tease__img-mod {
+  position: relative;
+  display: block;
+  background-size: cover;
+  background-position: 50% 50%;
+  margin-bottom: 5px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px black inset;
+  transition: all .2s $timing;
+
+  @include mq($bp--desktop) {
+    width: 45%;
+    float: left;
+  }
+
+  &:hover {
+    box-shadow: 0 0 0 3px black inset;
+  }
+
+  &:before {
+    @include absolute(0);
+    display: block;
+    pointer-events: none;
+    content: '';
+    opacity: 1;
+    transition: all .3s $timing;
+    // background-color: #000;
+    background: radial-gradient(#444, #222);
+  }
+
+  &.tease__img-loaded:before {
+    opacity: 0;
+  }
+
+  &:after {
+    display: block;
+    pointer-events: none;
+    content: '';
+    position: relative;
+    width: 100%;
+    padding-top: 68%;
+  }
+}
+
+.tease__img {
+  @include absolute(0 0 n);
+  opacity: 0;
+}

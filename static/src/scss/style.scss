@@ -1,4 +1,4 @@
-@charset "UTF-8";
+@charset 'UTF-8';
 
 
 // import upbase
@@ -23,9 +23,8 @@
 @import 'partials/instagram-feed';
 @import 'partials/wysiwyg-styles';
 @import 'partials/search';
-
-
-
-.content-wrapper {
-  padding: 20px;
-}
+@import 'partials/tease';
+@import 'partials/article';
+@import 'partials/pagination';
+@import 'partials/page';
+@import 'partials/locations';

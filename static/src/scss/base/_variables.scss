@@ -28,7 +28,7 @@ $gray--med:                $clr-gray-6;
 $gray--light:              $clr-gray-d;
 $clr-black:                $clr-gray-0;
 $clr-white:                $clr-gray-f;
-$white--semi-trans:        rgba($clr-white, 0.9);
+$white--semi-trans:        rgba($clr-white, .9);
 
 // RAINBOWS
 
@@ -39,6 +39,8 @@ $clr-magenta--light:		   #dc9ffc;
 $clr-yellow:               #F5F24F;
 $clr-background:           $clr-white;
 $clr-background-darken:    #E5E8F0;
+$clr-blue:                 #0000FF;
+$clr-green:                #23c775;
 
 
 // Gold
@@ -49,15 +51,16 @@ $clr-gold-dark:            #bc8151;
 
 // Applications
 $clr-base:                 $clr-black;
-$clr-base-tint-5:          rgba( $clr-base, 0.05 );
-$clr-base-tint-10:         rgba( $clr-base, 0.1 );
+$clr-spot:                 $clr-blue;
+$clr-base-tint-5:          rgba( $clr-base, .05 );
+$clr-base-tint-10:         rgba( $clr-base, .1 );
 $clr-body-bg:              $clr-background;
 $clr-wrapper-bg:           $clr-background;
 $clr-gallery-bg:           $clr-base-tint-5;
 $clr-footer-bg:            $clr-base;
 $clr-inverted:             $clr-wrapper-bg;
-$clr-inverted-tint-10:     rgba( $clr-inverted, 0.1 );
-$clr-link:                 $clr-base;
+$clr-inverted-tint-10:     rgba( $clr-inverted, .1 );
+$clr-link:                 $clr-spot;
 $clr-text:                 $clr-base;
 $clr-link-active:          $clr-link;
 $clr-link-hover:           $clr-link;
@@ -65,21 +68,21 @@ $clr-border:               $clr-base;
 $clr-heading:              $clr-base;
 $clr-heading-small:        $clr-base;
 $clr-code:                 $clr-base;
-$clr-code-bg:              rgba( $clr-base, 0.1 );
+$clr-code-bg:              rgba( $clr-base, .1 );
 $clr-table-border:         $clr-border;
 $clr-table-head:           $clr-base;
-$clr-table-head-bg:        rgba( $clr-base, 0.1 );
+$clr-table-head-bg:        rgba( $clr-base, .1 );
 $clr-table-caption:        $clr-base;
 $clr-table-th-border:      $clr-border;
 $clr-table-td-border:      $clr-border;
-$clr-table-stripes:        rgba( $clr-base, 0.1 );
+$clr-table-stripes:        rgba( $clr-base, .1 );
 $clr-input-focusBorder:    $clr-border;
 $clr-button-bg:            transparent;
 $clr-button-text:          $clr-base;
 $clr-button-primary-bg:    $clr-base;
 $clr-button-primary-text:  $clr-white;
-$clr-placeholder-text:     rgba( $clr-base, 0.4 );
-$clr-highlight-tag:        rgba( $clr-base, 0.1 );
+$clr-placeholder-text:     rgba( $clr-base, .4 );
+$clr-highlight-tag:        rgba( $clr-base, .1 );
 $clr-footer-arrow:         darken( $clr-base, 15% );
 
 
@@ -132,12 +135,13 @@ $font-margin-hgroup:         $font-margin-base;
 $font-margin-list:           $font-margin-base;
 $font-padding-list:          0 0 0 40px;
 $font-margin-dd:             0 0 0 40px;
-$font-padding-code:          0.2em 0.4em;
+$font-padding-code:          .2em .4em;
 $font-margin-code:           30px 0;
 
 
 // Font Family
-$font-family-sans-serif:     'Work Sans', sans-serif;
+$font-family-sans-serif:     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+// $font-family-sans-serif:     'Work Sans', sans-serif;
 $font-family-sans:           $font-family-sans-serif;
 $sans:                       $font-family-sans-serif;
 $font-family-serif:          'Playfair Display', serif;
@@ -163,7 +167,7 @@ $font-weight--black:         700;
 
 $table-border:               1px solid $clr-table-border;
 $table-margin:               35px 0;
-$table-padding:              0.5em 1em;
+$table-padding:              .5em 1em;
 $table-caption-padding:      0 0 10px;
 
 // forms
@@ -177,14 +181,14 @@ $form-legend-padding:        0 0 4px;
 $form-fieldset-border:       0;
 $form-fieldset-margin:       30px 0;
 $form-fieldset-padding:      0;
-$form-label-margin:          0.5em 0 0.2em;
+$form-label-margin:          .5em 0 .2em;
 $form-row-margin:            0 0 10px;
-$form-input-margin:          0.25em 0;
-$form-input-padding:         0.5em 0.6em;
-$form-input-border:          1px solid #ccc;
-$form-input-shadow:          inset 0 1px 3px #eee;
+$form-input-margin:          .25em 0;
+$form-input-padding:         .5em .6em;
+$form-input-border:          1px solid #000;
+$form-input-shadow:          none;
 $form-input-borderRadius:    0;
-$form-input-focusShadow:     0 0 4px 0 rgba(18 ,159 ,234 ,0.2);
+$form-input-focusShadow:     none;
 
 // Layout
 // -------
@@ -209,10 +213,10 @@ $margin-row:                 -$spacing-lg;
 
 
 // Generic
-$bp--mobile:                  300px;
-$bp--phablet:                 400px;
-$bp--tablet:                  600px;
-$bp--tablet-xl:               768px;
+$bp--mobile:                  320px;
+$bp--phablet:                 550px;
+$bp--tablet:                  768px;
+$bp--tablet-xl:               950px;
 $bp--desktop:                 1070px;
 $bp--desktop-xl:              1200px;
 $bp--desktop-xxl:             1500px;
@@ -244,10 +248,10 @@ $zIndex-footer-shadow:   -1;
 // Timing
 // -------
 
-$timing:                     cubic-bezier(0.645,0.045,0.355,1);
-$timing-butter:              cubic-bezier(0.215, 0.61, 0.355, 1);
+$timing:                cubic-bezier(.645,.045,.355,1);
+$timing-butter:         cubic-bezier(.215, .61, .355, 1);
 
-
+$border:                1px solid #000;
 
 
 
@@ -267,8 +271,8 @@ $transition-fast: all .1s $timing;
 /* Button Styles
 ---------------------------------------------------------------------------*/
 
-$button-shadow: 2px 2px 3px 0 rgba(0,0,0,0.18);
-$button-shadow-hover: 3px 3px 5px 0 rgba(0,0,0,0.18);
+$button-shadow: 2px 2px 3px 0 rgba(0,0,0,.18);
+$button-shadow-hover: 3px 3px 5px 0 rgba(0,0,0,.18);
 $content-width: 90%;
 
 /* Fonts

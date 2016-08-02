@@ -1,0 +1,44 @@
+{% extends "base.twig" %}
+
+{% block content %}
+
+  {% block page_topper %}
+    {% if post.title %}
+      <h1 class="page-h1">{{post.title}}</h1>
+    {% endif %}
+    {% if post.content %}
+      <div class="article-body">
+        {{post.content}}
+      </div>
+    {% endif %}
+    <div class="events-mod">
+      {% for event in events %}
+        <dl class="event">
+          <dt class="event__title">{{event.timestamp}}</dt>
+          <dd class="event__desc"><a class="event__link" href="{{event.link}}">{{event.title}} at {{event.location}}, {{event.time}}</a></dd>
+        </dl>
+        <dl class="event">
+          <dt class="event__title">{{event.timestamp}}</dt>
+          <dd class="event__desc"><a class="event__link" href="{{event.link}}">{{event.title}} at {{event.location}}, {{event.time}}</a></dd>
+        </dl>
+        <dl class="event">
+          <dt class="event__title">{{event.timestamp}}</dt>
+          <dd class="event__desc"><a class="event__link" href="{{event.link}}">{{event.title}} at {{event.location}}, {{event.time}}</a></dd>
+        </dl>
+        <dl class="event">
+          <dt class="event__title">{{event.info}}</dt>
+          <dd class="event__desc"><a class="event__link" href="{{event.link}}">{{event.title}} at {{event.location}}, {{event.time}}</a></dd>
+        </dl>
+        <dl class="event">
+          <dt class="event__title">{{event.timestamp}}</dt>
+          <dd class="event__desc"><a class="event__link" href="{{event.link}}">{{event.title}} at {{event.location}}, {{event.time}}</a></dd>
+        </dl>
+        <dl class="event">
+          <dt class="event__title">{{event.timestamp}}</dt>
+          <dd class="event__desc"><a class="event__link" href="{{event.link}}">{{event.title}} at {{event.location}}, {{event.time}}</a></dd>
+        </dl>
+      {% endfor %}
+    </div>
+  {% endblock %}
+{% endblock %}
+

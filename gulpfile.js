@@ -110,7 +110,7 @@ function Serve() {
   browser.init(_.server);
 }
 
-Serve.description = "Serve up a local server via Browsersync!"
+Serve.description = "Serve up a local server via Browsersync!";
 Serve.flags = {
   '--open': "open a new browser tab!"
 };

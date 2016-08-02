@@ -1,0 +1,15 @@
+{% extends "base.twig" %}
+
+
+{% block content %}
+
+  {% block page_topper %}
+    {% if title %}
+      <h1 class="page-h1">Posts tagged {{title}}</h1>
+    {% endif %}
+  {% endblock %}
+  {% block page_body %}
+    {% include 'components/paginated-grid.twig' %}
+  {% endblock %}
+{% endblock %}
+

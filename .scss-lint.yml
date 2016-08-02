@@ -1,0 +1,75 @@
+scss_files: 'static/src/scss/**/*.scss'
+
+exclude: 'static/src/scss/base/**'
+
+linters:
+  BorderZero:
+    enabled: true
+  ColorKeyword:
+    enabled: false
+  ColorVariable:
+    enabled: false
+  Comment:
+    enabled: true
+  DeclarationOrder:
+    enabled: false
+  DuplicateProperty:
+    enabled: false
+  ElsePlacement:
+    enabled: true
+  EmptyLineBetweenBlocks:
+    enabled: true
+  EmptyRule:
+    enabled: true
+  HexLength:
+    enabled: false
+  HexNotation:
+    enabled: false
+  IdSelector:
+    enabled: true
+  ImportantRule:
+    enabled: false
+  Indentation:
+    enabled: true
+    width: 2
+    character: space
+  LeadingZero:
+    enabled: true
+  MergeableSelector:
+    enabled: true
+  NestingDepth:
+    enabled: false
+  PlaceholderInExtend:
+    enabled: false
+  PropertySortOrder:
+    enabled: false
+  PropertySpelling:
+    enabled: true
+  QualifyingElement:
+    enabled: false
+  SelectorDepth:
+    enabled: false
+  SelectorFormat:
+    enabled: false
+  Shorthand:
+    enabled: true
+  SingleLinePerSelector:
+    enabled: true
+  SpaceAfterComma:
+    enabled: true
+  SpaceAfterPropertyColon:
+    enabled: true
+  SpaceBeforeBrace:
+    enabled: false
+  SpaceBetweenParens:
+    enabled: true
+  StringQuotes:
+    enabled: true
+  TrailingSemicolon:
+    enabled: true
+  UnnecessaryParentReference:
+    enabled: true
+  VendorPrefix:
+    enabled: false
+  ZeroUnit:
+    enabled: true

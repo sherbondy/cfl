@@ -1,8 +1,8 @@
 @mixin paragraph-spacing {
-  margin-bottom: 1em;
+  margin: 0 0 1em;
 }
 
-$post-max-width: 700px;
+$post-max-width: 650px;
 
 %post-styles  {
 
@@ -33,6 +33,7 @@ $post-max-width: 700px;
       float: right;
       margin-left: 20px;
     }
+
     .wp-caption-dd,
     .wp-caption-text {
       position: relative;
@@ -41,10 +42,6 @@ $post-max-width: 700px;
       text-align: left;
       @include font($sans, 14px, 700);
     }
-  }
-
-  .photo-credit {
-
   }
 
   .photo-credit-wrapper {
@@ -99,6 +96,7 @@ $post-max-width: 700px;
   > ol,
   > blockquote {
     max-width: $post-max-width;
+    @include paragraph-spacing;
   }
 
 
@@ -117,26 +115,26 @@ $post-max-width: 700px;
     }
   }
 
-  > h1 {
-  }
+  // > h1 {
+  // }
 
-  > h2 {
-  }
+  // > h2 {
+  // }
 
-  > h3 {
-  }
+  // > h3 {
+  // }
 
-  > h4 {
-  }
+  // > h4 {
+  // }
 
-  > h4 + h4 {
-  }
+  // > h4 + h4 {
+  // }
 
-  > h5 {
-  }
+  // > h5 {
+  // }
 
-  > h6 {
-  }
+  // > h6 {
+  // }
 
 
   //
@@ -156,15 +154,20 @@ $post-max-width: 700px;
 
   > ol {
     counter-reset: story-counter;
+
+    li:before {
+      content: counter(story-counter) '. ';
+      counter-increment: story-counter;
+    }
   }
 
-  > ul li:before {
-    // margin-left: -15px;
-  }
+  // > ul li:before {
+  //   // margin-left: -15px;
+  // }
 
-  > ol li:before {
-    // margin-left: -21px;
-  }
+  // > ol li:before {
+  //   // margin-left: -21px;
+  // }
 
   > ul li:before,
   > ol li:before {
@@ -177,12 +180,7 @@ $post-max-width: 700px;
   }
 
   > ul li:before {
-    content: "·";
-  }
-
-  > ol li:before {
-    content: counter(story-counter) ". "  ;
-    counter-increment: story-counter;
+    content: '•';
   }
 
   > ol ul li:before,
@@ -200,7 +198,7 @@ $post-max-width: 700px;
 
   > ol ol li:before,
   > ul ol li:before {
-    content: counter(story-subcounter, lower-alpha) ". "  ;
+    content: counter(story-subcounter, lower-alpha) '. ';
     counter-increment: story-subcounter;
     color: $clr-base;
   }
@@ -209,6 +207,7 @@ $post-max-width: 700px;
     border-bottom: 6px solid $clr-base;
     width: 25px;
     margin: 40px auto 45px;
+
     @include mq(750px) {
       margin: 55px auto 60px;
     }

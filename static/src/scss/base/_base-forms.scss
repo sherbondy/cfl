@@ -105,6 +105,7 @@ input::-moz-focus-card {
 textarea {
   overflow: auto; /* 1 */
   vertical-align: top; /* 2 */
+  border: $border;
 }
 
 /* Forms: Style (adapted from Pure CSS v0.5.0)

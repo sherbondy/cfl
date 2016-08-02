@@ -1,4 +1,11 @@
 .footer {
+  padding: 50px;
   background-color: #000;
   color: #fff;
+  text-align: center;
+
+
+  @include mq($bp--nav-break) {
+   margin-left: $desktop-nav-width;
+  }
 }

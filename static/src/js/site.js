@@ -7,4 +7,22 @@ jQuery( document ).ready( function( $ ) {
   $('.default-repeater__title').on('click', function() {
     $(this).parent().toggleClass('js-repeater-is-open');
   });
+
+
+  $('.tease__img').load( function() {
+      var imgSrc = $(this).attr('src');
+      // debugger;
+      $(this).parent().css({
+          'background-image': 'url("' + imgSrc + '")'
+      }).addClass('tease__img-loaded');
+
+  }).each(function() {
+      if(this.complete) $(this).load();
+  });
+
+  $('#comment').on('focus', function() {
+      $(this).closest('.comment-form').addClass('js-comment-is-active');
+  });
+
+
 });

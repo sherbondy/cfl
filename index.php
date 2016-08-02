@@ -17,9 +17,18 @@ if ( ! class_exists( 'Timber' ) ) {
   echo 'Timber not activated. Make sure you activate the plugin in <a href="/wp-admin/plugins.php#timber">/wp-admin/plugins.php</a>';
   return;
 }
+global $paged;
+if (!isset($paged) || !$paged){
+    $paged = 1;
+}
 $context = Timber::get_context();
-$context['posts'] = Timber::get_posts();
-
+$args = array(
+  'posts_per_page' => 12,
+  'paged' => $paged
+);
+$context['posts'] = Timber::get_posts($args);
+$context['pagination'] = Timber::get_pagination();
+$context['current_page'] = $paged;
 $templates = array( 'index.twig' );
 
 if ( is_home() ) {

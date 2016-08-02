@@ -1,21 +1,25 @@
 {% extends "base.twig" %}
 
 {% block content %}
-	<div class="content-wrapper">
-		<article class="post-type-{{post.post_type}}" id="post-{{post.ID}}">
-			<section class="article-content">
-				<h1 class="article-h1">{{post.title}}</h1>
-				<p class="blog-author">
-					<span>By</span><a href="{{post.author.path}}"> {{ post.author.name }} </a><span>&bull;</span> {{ post.post_date|date}}
-				</p>
-				<div class="article-body">
-					{{post.content}}
+	<article class="post-type-{{post.post_type}}" id="post-{{post.ID}}">
+		<section class="article-content">
+			<div class="article-topper">
+				<div class="article-topper__hgroup">
+					<h1 class="article-h1">{{post.title}}</h1>
+					<p class="blog-meta">
+						<span class="blog-author">By<a href="{{post.author.path}}"> {{ post.author.name }} </a></span> <span class="blog-date">{{ post.post_date|date}}</span>
+					</p>
 				</div>
-			</section>
-		{% if post.comment_status != 'closed' %}
-			<section class="comments">
-				<div class="respond">
-					<h3 class="h2">Comments</h3>
+			</div>
+			<div class="article-body">
+				{{post.content}}
+			</div>
+		</section>
+	{% if post.comment_status != 'closed' %}
+		<section class="comments">
+			<h2 class="comments__title">{{post.get_comments().length}} Comments</h2>
+			<div class="comments__body">
+				<div class="comments__respond">
 					{{ fn('comment_form') }}
 				</div>
 				<div class="responses">
@@ -23,8 +27,51 @@
 						{% include "comment.twig" with {comment:cmt} %}
 					{% endfor %}
 				</div>
-			</section>
-		{% endif %}
-		</article>
-	</div><!-- /content-wrapper -->
+			</div>
+		</section>
+	{% endif %}
+
+	<section class="related-posts">
+		<h2 class="related-posts__title">Related Posts</h2>
+		<div class="tease__grid">
+			<div class="tease__grid">
+
+		    <article class="tease tease-{{post.next.post_type}}" id="tease-{{post.next.ID}}">
+		      <div class="tease__inner">
+
+		            <a href="{{post.next.link}}" class="tease__img-mod">
+		              {% if post.next.thumbnail.src %}
+		                <img class="tease__img" src="{{post.next.thumbnail.src}}" />
+		              {% endif %}
+		            </a>
+		          <div class="tease__hgroup">
+		            <!-- <a class="tease__overline" href="{{post.next.category.link}}">{{post.next.category}}</a> -->
+		        		<h2 class="tease__hed"><a href="{{post.next.link}}">{{post.next.title}}</a></h2>
+		        		<p class="tease__dek">{{post.next.get_preview|excerpt(27)}}</p>
+		          </div>
+		      </div>
+		    </article>
+
+
+		    <article class="tease tease-{{post.prev.post_type}}" id="tease-{{post.prev.ID}}">
+		      <div class="tease__inner">
+
+		            <a href="{{post.prev.link}}" class="tease__img-mod">
+		              {% if post.prev.thumbnail.src %}
+		                <img class="tease__img" src="{{post.prev.thumbnail.src}}" />
+		              {% endif %}
+		            </a>
+		          <div class="tease__hgroup">
+		            <!-- <a class="tease__overline" href="{{post.prev.category.link}}">{{post.prev.category}}</a> -->
+		        		<h2 class="tease__hed"><a href="{{post.prev.link}}">{{post.prev.title}}</a></h2>
+		        		<p class="tease__dek">{{post.prev.get_preview|excerpt(27)}}</p>
+		          </div>
+		      </div>
+		    </article>
+
+
+			</div>
+		</div>
+	</section>
+	</article>
 {% endblock %}

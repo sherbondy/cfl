@@ -8,6 +8,9 @@
     font-size: $size;
   }
 
+  @if ($size and $size > 20px) {
+    letter-spacing: 0.03em;
+  }
   @if ($weight) {
     font-weight: $weight;
   }
@@ -23,4 +26,8 @@
   @if $caps == caps {
     text-transform: uppercase;
   }
+
+  // @if ($family == $sans && $ls == false) {
+  //   letter-spacing: -.02em;
+  // }
 }

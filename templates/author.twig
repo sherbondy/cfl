@@ -1,7 +1,5 @@
-{% extends "base.twig" %}
+{% extends "archive.twig" %}
 
-{% block content %}
-	{% for post in posts %}
-		{% include ["tease-"~post.post_type~".twig", "tease.twig"] %}
-	{% endfor %}
+{% block page_topper %}
+  <h1 class="page-h1">More from {{author}}</h1>
 {% endblock %}

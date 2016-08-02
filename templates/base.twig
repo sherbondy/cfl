@@ -7,22 +7,10 @@
 {% endblock %}
 
 	<body class="{{body_class}}" data-template="base.twig">
-		<nav class="nav" >
-			{% block header %}
-				<div class="nav__width">
-					<h1 class="nav__logo" role="banner">
-						<a class="nav__logo__link" href="{{site.url}}" rel="home">Clover Food Labs</a>
-					</h1>
-					<button class="nav__trigger"></button>
-				</div>
-			{% endblock %}
-		</nav>
-
+		{% include 'nav.twig' %}
 
 		{% block topper %}
-		<div class="content-wrapper">
 			{% if title %}<h1>{{title}}</h1>{% endif %}
-		</div>
 		{% endblock %}
 
 		<section id="content" role="main" class="content-wrapper">
@@ -39,18 +27,15 @@
 			{% endif %}
 		</section>
 
-		{% include 'hidden-nav.twig' %}
-
 		{% block footer %}
-			<footer id="footer">
-				{% include 'footer.twig' %}
-			</footer>
+			{% include 'footer.twig' %}
 			{{ function('wp_footer') }}
 		{% endblock %}
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<script src="{{site.theme.link}}/static/js/site.js"></script>
 		{% block scripts %}
 		{% endblock %}
+		<script src="{{site.theme.link}}/static/js/site.js"></script>
+
 	</body>
 </html>

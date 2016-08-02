@@ -8,24 +8,35 @@
             type="text/javascript"></script>
 {% endblock %}
 
+{% block topper %}
+  <div class="map-container map-container--index" id="map"></div>
+  <div class="locations-form__mod">
+    <form action="">
+      <div class="location-form__select-mod">
+        <label for="showing">Showing</label>
+        <select name="" id="showing">
+          <option value="all">All Locations</option>
+          <option value="all">Trucks</option>
+          <option value="all">Restaurant</option>
+        </select>
+      </div>
+      <div class="location-form__select-mod">
+        <label for="sort">Sort by</label>
+        <select name="" id="sort">
+          <option value="all">Distance</option>
+          <option value="all">Location</option>
+          <option value="all">Open</option>
+        </select>
+      </div>
+    </form>
+  </div>
+{% endblock %}
+
+
 {% block content %}
-  <div class="map--container" id="map" style="width: 100%; height: 400px;"></div>
   <h1 class="article-h1">{{post.title}}</h1>
 
   <ul class="locations-mod">
-    <li class="location-item">
-      <h3 class="location__title">
-        <span class="location__title__name"></span>
-        <span class="location__title__distance"></span>
-      </h3>
-      <h4 class="location__status"></h4>
-      <a class="location__twitter" href="" target="_blank"></a>
-      <a class="location__address" href=""></a>
-      <dl class="location__hours">
-        <dt>Hours</dt>
-        <dd class="location__hours__day"></dd>
-      </dl>
-    </li>
   </ul>
 {% endblock %}
 

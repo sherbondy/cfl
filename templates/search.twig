@@ -10,7 +10,5 @@
 {% endblock %}
 
 {% block content %}
-	{% for post in posts %}
-		{% include ['tease-'~post.post_type~'.twig', 'tease.twig'] %}
-	{% endfor %}
+  {% include 'components/paginated-grid.twig' %}
 {% endblock %}

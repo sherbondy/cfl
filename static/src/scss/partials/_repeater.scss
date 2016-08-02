@@ -3,11 +3,13 @@
 .default-repeater {
   list-style: none;
   padding-left: 0;
+  margin-bottom: 0;
 }
 
 .default-repeater__item {
   padding: 0;
-  border-bottom: 1px solid #000;
+  border-bottom: $border;
+
   &:last-of-type {
     border-bottom: 0;
   }
@@ -15,12 +17,24 @@
 
 .default-repeater__title {
   cursor: pointer;
+  line-height: 1.2;
   margin-bottom: 0;
   padding: 20px 0;
+  transition: all .3s $timing;
+  // .js-repeater-is-open &,
+  // &:hover {
+  //   background: $clr-base;
+  //   padding-left: 20px;
+  //   color: #fff;
+  //   + .default-repeater__content {
+  //     margin-top: 20px;
+  //   }
+  // }
 }
 
 .default-repeater__content {
   display: none;
+
   .js-repeater-is-open & {
     display: block;
   }
@@ -29,5 +43,25 @@
 }
 
 .article-body {
+  overflow: hidden;
   @extend %post-styles;
+
+  > a {
+    display: block;
+    line-height: 0;
+    margin-bottom: 10px;
+
+    img {
+      width: 100%;
+      max-width: none;
+    }
+
+    @include mq($bp--phablet) {
+      margin-left: 20px;
+      float: right;
+      width: 50%;
+      max-width: 410px;
+    }
+  }
+
 }
