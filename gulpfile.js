@@ -13,6 +13,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var trash = require('trash');
 var uglify = require('gulp-uglify');
 var webpack = require('webpack-stream');
+const babel = require('gulp-babel');
 
 var configs = direque('./lib/gulp', {recurse: true});
 var isDev = configs.isDev;
@@ -25,10 +26,18 @@ var _ = configs.options;
  */
 function Scripts() {
   return gulp.src($.scripts.entries)
-  .pipe(named())
-  .pipe(webpack(_.webpack))
+  // .pipe(named())
+  // .pipe(webpack(_.webpack))
+  .pipe(babel({
+    presets: ['es2015']
+  }))
   .pipe(gulp.dest($.scripts.dest));
 }
+
+// function Scripts() {
+//   return gulp.src('/staticsrc/app.js')
+//     .pipe(gulp.dest('dist'));
+// }
 
 Scripts.description = "Pass entry scripts through Webpack, enabling ES6!";
 

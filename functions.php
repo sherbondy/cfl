@@ -13,23 +13,6 @@ Timber::$dirname = array('templates', 'views');
 
 class StarterSite extends TimberSite {
 
-	function __construct() {
-		add_theme_support( 'post-formats' );
-		add_theme_support( 'post-thumbnails' );
-		add_theme_support( 'menus' );
-		add_filter( 'timber_context', array( $this, 'add_to_context' ) );
-		add_filter( 'get_twig', array( $this, 'add_to_twig' ) );
-		// add_filter( 'the_content', array( $this, 'filter_ptags_on_images') );
-		add_filter('the_content', array( $this, 'filter_ptags_on_images') );
-		add_action( 'init', array( $this, 'register_post_types' ) );
-		add_action( 'init', array( $this, 'register_taxonomies' ) );
-		add_action( 'pre_get_posts', function ( $query ) {
-		    if ( $query->is_main_query() && !is_admin() && is_archive()) {
-		        $query->set( 'posts_per_page', 12 );
-		    }
-		} );
-		parent::__construct();
-	}
 
 	function register_post_types() {
 		//this is where you can register custom post types
@@ -54,6 +37,24 @@ class StarterSite extends TimberSite {
 		) );
 	}
 
+	function __construct() {
+		add_theme_support( 'post-formats' );
+		add_theme_support( 'post-thumbnails' );
+		add_theme_support( 'menus' );
+		add_filter( 'timber_context', array( $this, 'add_to_context' ) );
+		add_filter( 'get_twig', array( $this, 'add_to_twig' ) );
+		// add_filter( 'the_content', array( $this, 'filter_ptags_on_images') );
+		add_filter('the_content', array( $this, 'filter_ptags_on_images') );
+		add_action( 'init', array( $this, 'register_post_types' ) );
+		add_action( 'init', array( $this, 'register_taxonomies' ) );
+		add_action( 'pre_get_posts', function ( $query ) {
+		    if ( $query->is_main_query() && !is_admin() && is_archive()) {
+		        $query->set( 'posts_per_page', 12 );
+		    }
+		} );
+		parent::__construct();
+	}
+
 	function register_taxonomies() {
 		//this is where you can register custom taxonomies
 	}
@@ -65,8 +66,10 @@ class StarterSite extends TimberSite {
 		$context['notes'] = 'These values are available everytime you call Timber::get_context();';
 		$context['nav_more'] = new TimberMenu('Nav More');
 		$context['site'] = $this;
-		$args = array('category_name' => 'jobs');
-		$context['latest_employee'] = new TimberPost($args);
+		$args = array(
+		    'post_type' => 'events',
+		);
+		$context['events'] = Timber::get_posts($args);
 		return $context;
 	}
 

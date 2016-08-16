@@ -10,7 +10,7 @@
       <div class="tease__hgroup">
         <!-- <a class="tease__overline" href="{{post.category.link}}">{{post.category}}</a> -->
     		<h2 class="tease__hed"><a href="{{post.link}}">{{post.title}}</a></h2>
-    		<p class="tease__dek">{{post.get_preview|excerpt(27)}}</p>
+    		<p class="tease__dek">{{post.get_content|excerpt(57)}} <a href="{{post.link}}">Read More</a></p>
       </div>
   	{% endblock %}
   </div>

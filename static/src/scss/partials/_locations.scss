@@ -7,7 +7,10 @@
 }
 
 .map-container--index {
-  height: 300px;
+  height: 200px;
+  @include mq($bp--phablet) {
+    height: 300px;
+  }
   @include mq($bp--nav-break) {
    margin-left: $desktop-nav-width;
    height: 400px;
@@ -16,6 +19,7 @@
 
 .map-container--single {
   height: 200px;
+  border-top: $border;
   @include mq($bp--nav-break) {
    margin-left: $desktop-nav-width;
    height: 300px;
@@ -24,7 +28,7 @@
 
 .location-topper {
   padding: 20px;
-  background: #000;
+  // background: #000;
   @include mq($bp--nav-break) {
    padding: 50px;
    margin-left: $desktop-nav-width;
@@ -44,37 +48,48 @@
 }
 
 .location-topper__title {
-  color: #fff;
-  margin-bottom: 0;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #fff;
 
+  margin-bottom: 0;
   @include font($sans, 26px, 800);
   line-height: 1.05;
   margin: 0 0 8px -3px;
   @include mq($bp--nav-break) {
     @include font($size: 43px);
+    margin-bottom: 10px;
   }
   @include mq($bp--desktop) {
     @include font($size: 55px);
   }
 }
 
+.location-topper__about {
+  margin-bottom: 10px;
+}
+
 .location-topper__twitter {
-  color: #fff;
+  color: $clr-base;
+  font-weight: 700;
+  margin-right: 12px;
 }
 
 .location-topper__status {
+  padding: 2px 6px 3px;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+
   .js-location-is-closed & {
-    color: red;
+    background-color: red;
   }
 
   .js-location-is-open & {
-    color: $clr-green;
+    background-color: $clr-green;
   }
 }
 
-.default-repeater__link--menu-more {
+.default-repeater__title--link {
   display: block;
   color: $clr-base;
   &:hover {
@@ -101,9 +116,9 @@
   background: #000;
   color: #fff;
   margin-bottom: 10px;
-  padding: 6px;
+  padding: 4px 4px 4px 5px;
   line-height: 1;
-  @include font($sans, 15px, 800, normal, .025em, caps);
+  @include font($sans, 13px, 800, normal, .06em, caps);
 }
 
 .menu-info__mod {
@@ -115,6 +130,7 @@
 }
 
 .menu-info__modal-title {
+  line-height: 1.1;
   @include mq($bp--nav-break) {
     @include font($size: 44px);
   }
@@ -134,6 +150,7 @@
   padding: 20px;
   overflow: scroll;
   text-align: left;
+  z-index: 1;
 
   @include mq($bp--nav-break) {
     padding: 50px;
@@ -141,7 +158,7 @@
   }
 
   @include mq($bp--desktop) {
-    font-size: 19px;
+    font-size: 18px;
   }
 
   .modal-is-active & {
@@ -286,24 +303,47 @@
 .locations-mod {
   padding-left: 0;
   list-style: none;
-  @include mq($bp--phablet) {
+  @include mq($bp--desktop) {
     @include grid(2, 20px);
     display: flex;
     flex-wrap: wrap;
   }
-  @include mq($bp--desktop) {
-    @include grid(3, 30px);
-  }
+  // @include mq($bp--desktop) {
+  //   @include grid(3, 30px);
+  // }
 }
 
 .location-item {
-  margin-bottom: 30px;
   display: flex;
 }
 
+.location-tease__img {
+  @include size(80px);
+  min-width: 80px;
+  float: left;
+  margin-right: 10px;
+  // border-radius: 50%;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
 .location-item-inner {
-  border-bottom: 1px solid rgba(0,0,0,.1);
+  display: block;
+  box-shadow: 0 -1px rgba(0,0,0,.1) inset;
+  padding: 15px 0;
   width: 100%;
+  display: flex;
+  align-items: center;
+  .location-item:first-child & {
+    padding-top: 0;
+  }
+  .location-item:last-child & {
+    padding-bottom: 0;
+  }
+}
+
+.location-item-inner--temp {
+  display: none;
 }
 
 .location__title {
@@ -326,6 +366,8 @@
 
 .location__status {
   @include font($sans, 14px, 800, normal, 0.025em, caps);
+  margin-bottom: 0;
+
   .location-item--open & {
     color: $clr-green;
   }
@@ -351,8 +393,15 @@
 
 .location-form__select-mod {
   position: relative;
+  overflow: hidden;
+  &:first-child {
+    margin-bottom: 10px;
+  }
 
   @include mq($bp--phablet) {
+    &:first-child {
+      margin-bottom: 0;
+    }
     width: 50%;
     float: left;
     padding-right: 20px;
@@ -384,4 +433,13 @@
     background-position: 50% 50%;
     pointer-events: none;
   }
+}
+
+.location-cta {
+  margin-top: 85px;
+  max-width: 800px;
+}
+
+.location-cta__h {
+  margin-bottom: 5px;
 }

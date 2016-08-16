@@ -2,7 +2,7 @@ jQuery( document ).ready( function( $ ) {
   let locations = apiResponse;
   let eachLocation = locations.locations;
   let apiURL = 'https://menu.cloverfoodlab.com/api/';
-  let themeLoc = '/wp-content/themes/starter-theme';
+  let themeLoc = '/wp-content/themes/clover-theme';
 
   function initMap(lat, lng) {
     var styles = [
@@ -37,31 +37,34 @@ jQuery( document ).ready( function( $ ) {
       map.setCenter(new google.maps.LatLng(lat, lng));
       map.setZoom(15);
     } else {
-      if(navigator.geolocation) {
-        browserSupportFlag = true;
-        navigator.geolocation.getCurrentPosition(function(position) {
-          initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-          map.setCenter(initialLocation);
-        }, function() {
-          handleNoGeolocation(browserSupportFlag);
-        });
-      }
-      // Browser doesn't support Geolocation
-      else {
-        browserSupportFlag = false;
-        handleNoGeolocation(browserSupportFlag);
-      }
 
-      function handleNoGeolocation(errorFlag) {
-        if (errorFlag === true) {
-          // alert("Geolocation service failed.");
-          initialLocation = new google.maps.LatLng(42.3601, -71.0589);
-        } else {
-          // alert("Your browser doesn't support geolocation. We've placed you in Siberia.");
-          initialLocation = new google.maps.LatLng(42.3601, -71.0589);
-        }
-        map.setCenter(initialLocation);
-      }
+      let initialLocation = new google.maps.LatLng(42.3601, -71.0589);
+      map.setCenter(initialLocation);
+      // if(navigator.geolocation) {
+      //   browserSupportFlag = true;
+      //   navigator.geolocation.getCurrentPosition(function(position) {
+      //     initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+      //     map.setCenter(initialLocation);
+      //   }, function() {
+      //     handleNoGeolocation(browserSupportFlag);
+      //   });
+      // }
+      // // Browser doesn't support Geolocation
+      // else {
+      //   browserSupportFlag = false;
+      //   handleNoGeolocation(browserSupportFlag);
+      // }
+
+      // function handleNoGeolocation(errorFlag) {
+      //   if (errorFlag === true) {
+      //     // alert("Geolocation service failed.");
+      //     initialLocation = new google.maps.LatLng(42.3601, -71.0589);
+      //   } else {
+      //     // alert("Your browser doesn't support geolocation. We've placed you in Siberia.");
+      //     initialLocation = new google.maps.LatLng(42.3601, -71.0589);
+      //   }
+      //   map.setCenter(initialLocation);
+      // }
     }
 
     var infowindow = new google.maps.InfoWindow();
@@ -125,19 +128,21 @@ jQuery( document ).ready( function( $ ) {
     let currentStatusClass = isThisOpen(location) ? 'location-item--open' : 'location-item--closed';
     let twitterUrl = `https://twitter.com/${location.twitter}`;
     let googleUrl = `http://maps.google.com/?q=${address}`;
+    console.log(location);
 
-    let $locationItem = `<li class="location-item js-has-data ${currentStatusClass}" id="${thisLocationID}" data-status="${isThisOpen(location)}" data-truck="${isThisATruck(location)}">
-      <div class="location-item-inner">
-        <h3 class="location__title">
-          <a href="${window.location.href.split('/locations')[0]}/locations/location/?l=${eachLocation[i].slug}">
-            <span class="location__title__name">${location.description}</span>
-            <span class="location__title__distance">${distance}</span>
-          </a>
-        </h3>
-    <h4 class="location__status">${currentStatus}</h4>
-
-      </li>
-    </div>`;
+    let $locationItem = `
+    <li class="location-item js-has-data ${currentStatusClass}" id="${thisLocationID}" data-status="${isThisOpen(location)}" data-truck="${isThisATruck(location)}">
+      <a class="location-item-inner location-item-inner--${location.slug}" href="${window.location.href.split('/locations')[0]}/locations/location/?l=${eachLocation[i].slug}">
+        <div class="location-tease__img" style="background-image: url('${location.photo_url}')"> </div>
+        <div class"location-tease__hgroup">
+          <h3 class="location__title">
+              <span class="location__title__name">${location.description}</span>
+              <span class="location__title__distance">${distance}</span>
+          </h3>
+          <h4 class="location__status">${currentStatus}</h4>
+        </div>
+      </a>
+    </li>`;
     // <a class="location__twitter" href="${twitterUrl}" target="_blank">@${location.twitter}</a>
     // <a class="location__address" href="${googleUrl}" target="_blank">${address}</a>
     // <dl class="location__hours">
@@ -179,7 +184,7 @@ jQuery( document ).ready( function( $ ) {
   }
 
   function buildMenuItem(meal, slug) {
-    console.log(meal);
+    // console.log(meal);
     let menuItem = `
     <li class="default-repeater__item default-repeater__item--menu">
       <h4 class="default-repeater__title">Today&rsquo;s ${meal.name} Menu <span class="menu-info__hours">Served Sundays: 11am–9pm, Mon to Sat: 11am–12am</span></h4>
@@ -253,8 +258,7 @@ jQuery( document ).ready( function( $ ) {
         buildMenuItem(meal, slug);
         buildMenu(meal, slug, i);
         allMeals.push(meal.slug);
-        console.log(meal);
-
+        // console.log(meal);
       }
       // console.log(meal);
       // console.log(allMeals);

@@ -15,63 +15,48 @@
 				{{post.content}}
 			</div>
 		</section>
-	{% if post.comment_status != 'closed' %}
-		<section class="comments">
-			<h2 class="comments__title">{{post.get_comments().length}} Comments</h2>
-			<div class="comments__body">
-				<div class="comments__respond">
-					{{ fn('comment_form') }}
-				</div>
-				<div class="responses">
-					{% for cmt in post.get_comments() %}
-						{% include "comment.twig" with {comment:cmt} %}
-					{% endfor %}
+
+		<section class="related-posts">
+			<h2 class="related-posts__title">Related Posts</h2>
+			<div class="tease__grid">
+				<div class="tease__grid">
+
+			    <article class="tease tease-{{post.next.post_type}}" id="tease-{{post.next.ID}}">
+			      <div class="tease__inner">
+
+			            <a href="{{post.next.link}}" class="tease__img-mod">
+			              {% if post.next.thumbnail.src %}
+			                <img class="tease__img" src="{{post.next.thumbnail.src}}" />
+			              {% endif %}
+			            </a>
+			          <div class="tease__hgroup">
+			            <!-- <a class="tease__overline" href="{{post.next.category.link}}">{{post.next.category}}</a> -->
+			        		<h2 class="tease__hed"><a href="{{post.next.link}}">{{post.next.title}}</a></h2>
+			        		<p class="tease__dek">{{post.next.get_preview|excerpt(27)}}</p>
+			          </div>
+			      </div>
+			    </article>
+
+
+			    <article class="tease tease-{{post.prev.post_type}}" id="tease-{{post.prev.ID}}">
+			      <div class="tease__inner">
+
+			            <a href="{{post.prev.link}}" class="tease__img-mod">
+			              {% if post.prev.thumbnail.src %}
+			                <img class="tease__img" src="{{post.prev.thumbnail.src}}" />
+			              {% endif %}
+			            </a>
+			          <div class="tease__hgroup">
+			            <!-- <a class="tease__overline" href="{{post.prev.category.link}}">{{post.prev.category}}</a> -->
+			        		<h2 class="tease__hed"><a href="{{post.prev.link}}">{{post.prev.title}}</a></h2>
+			        		<p class="tease__dek">{{post.prev.get_preview|excerpt(27)}}</p>
+			          </div>
+			      </div>
+			    </article>
+
+
 				</div>
 			</div>
 		</section>
-	{% endif %}
-
-	<section class="related-posts">
-		<h2 class="related-posts__title">Related Posts</h2>
-		<div class="tease__grid">
-			<div class="tease__grid">
-
-		    <article class="tease tease-{{post.next.post_type}}" id="tease-{{post.next.ID}}">
-		      <div class="tease__inner">
-
-		            <a href="{{post.next.link}}" class="tease__img-mod">
-		              {% if post.next.thumbnail.src %}
-		                <img class="tease__img" src="{{post.next.thumbnail.src}}" />
-		              {% endif %}
-		            </a>
-		          <div class="tease__hgroup">
-		            <!-- <a class="tease__overline" href="{{post.next.category.link}}">{{post.next.category}}</a> -->
-		        		<h2 class="tease__hed"><a href="{{post.next.link}}">{{post.next.title}}</a></h2>
-		        		<p class="tease__dek">{{post.next.get_preview|excerpt(27)}}</p>
-		          </div>
-		      </div>
-		    </article>
-
-
-		    <article class="tease tease-{{post.prev.post_type}}" id="tease-{{post.prev.ID}}">
-		      <div class="tease__inner">
-
-		            <a href="{{post.prev.link}}" class="tease__img-mod">
-		              {% if post.prev.thumbnail.src %}
-		                <img class="tease__img" src="{{post.prev.thumbnail.src}}" />
-		              {% endif %}
-		            </a>
-		          <div class="tease__hgroup">
-		            <!-- <a class="tease__overline" href="{{post.prev.category.link}}">{{post.prev.category}}</a> -->
-		        		<h2 class="tease__hed"><a href="{{post.prev.link}}">{{post.prev.title}}</a></h2>
-		        		<p class="tease__dek">{{post.prev.get_preview|excerpt(27)}}</p>
-		          </div>
-		      </div>
-		    </article>
-
-
-			</div>
-		</div>
-	</section>
 	</article>
 {% endblock %}

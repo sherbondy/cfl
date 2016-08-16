@@ -11,4 +11,25 @@
 	{% endblock %}
 
   {% include 'hidden-nav.twig' %}
+
+
+  <footer class="nav__footer">
+    <ul class="nav__footer__width">
+      <li class="nav__footer__icon nav__footer__icon--twitter">
+        <a href="https://twitter.com/cloverfoodlab" class="nav__footer__link" target="_blank"></a>
+      </li>
+      <li class="nav__footer__icon nav__footer__icon--instagram">
+        <a href="https://www.instagram.com/cloverfoodlab_boston/" class="nav__footer__link" target="_blank"></a>
+      </li>
+      <li class="nav__footer__icon nav__footer__icon--email">
+        <a href="http://feeds.specificfeeds.com/cloverfoodlab" class="nav__footer__link" target="_blank"></a>
+      </li>
+      <li class="nav__footer__icon nav__footer__icon--search">
+        <form action="/" class="primary-search" method="get">
+          <input class="primary-search-input" id="primary-search-input" placeholder="Search" name="s">
+          <button class="submit submit--search" type="submit"></button>
+        </form>
+      </li>
+    </ul>
+  </footer>
 </nav>

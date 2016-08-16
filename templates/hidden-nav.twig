@@ -1,16 +1,25 @@
 <nav class="hidden-nav" role="navigation">
   <ul class="nav-width">
     <li class="nav__block">
-      <h5 class="nav__block__title"><a class="nav__block__title-link" href="/locations">Locations and Hours</a></h5>
-      <p class="nav__block__link"><a href="/locations">See what’s on the menu for each of our locations <b class="nav__block__date">{{now|date('F j Y')}}</b></a></p>
+      <h5 class="nav__block__title"><a class="nav__block__title-link" href="/about">About Clover</a></h5>
+      <p class="nav__block__link"><a href="/about">A letter from our CEO, Ayr.</a></p>
     </li>
     <li class="nav__block">
-      <h5 class="nav__block__title"><a class="nav__block__title-link" href="/events">Events</a></h5>
-      <p class="nav__block__link">Join us for our food development meeting tomorrow at 3:30</p>
+      <h5 class="nav__block__title"><a class="nav__block__title-link" href="/locations">Locations and Hours</a></h5>
+      <p class="nav__block__link"><a href="/locations">See what’s on the menu for each of our locations <b class="nav__block__date">{{now|date('F j, Y')}}</b></a></p>
     </li>
 
+    {% for event in events|slice(0, 1) %}
+      {% if event %}
+        <li class="nav__block">
+          <h5 class="nav__block__title"><a class="nav__block__title-link" href="/events">Events</a></h5>
+          <p class="nav__block__link"><a href="{{event.link}}">Join us for <b>{{event.post_title}}</b> tomorrow at 3:30</a></p>
+        </li>
+      {% endif %}
+    {% endfor %}
+
     <li class="nav__block">
-      <h5 class="nav__block__title">Careers at Clover</h5>
+      <h5 class="nav__block__title"><a class="nav__block__title-link" href="/careers">Careers at Clover</a></h5>
       <ul class="nav__block__list">
 
         {% for item in latest_employee %}
@@ -22,42 +31,24 @@
       </ul>
     </li>
 
-    {% if nav_more.get_items %}
-      <li class="nav__block">
-        <h5 class="nav__block__title">More</h5>
-        <ul class="nav__block__list">
-          {% for item in nav_more.get_items %}
-            <li class="nav__block__link">
-              <a href="{{item.get_link}}">{{item.title}}</a>
-            </li>
-          {% endfor %}
-        </ul>
-      </li>
-    {% endif %}
+    <li class="nav__block">
+      <h5 class="nav__block__title">More</h5>
+      <ul class="nav__block__list">
+        <li class="nav__block__link">
+          <a href="/food">Food</a>
+        </li>
+        <li class="nav__block__link">
+          <a href="/careers/training">Training</a>
+        </li>
+        <li class="nav__block__link">
+          <a href="/catering">Catering</a>
+        </li>
+        <li class="nav__block__link">
+          <a href="/csa">CSA</a>
+        </li>
+      </ul>
+    </li>
 
   </ul>
-
-  <footer class="nav__footer">
-    <ul class="nav__footer__width">
-      <li class="nav__footer__icon nav__footer__icon--twitter">
-        <a href="https://twitter.com/cloverfoodlab" class="nav__footer__link" target="_blank"></a>
-      </li>
-      <li class="nav__footer__icon nav__footer__icon--instagram">
-        <a href="https://www.instagram.com/cloverfoodlab_boston/" class="nav__footer__link" target="_blank"></a>
-      </li>
-      <li class="nav__footer__icon nav__footer__icon--email">
-        <a href="http://feeds.specificfeeds.com/cloverfoodlab" class="nav__footer__link" target="_blank"></a>
-      </li>
-      <li class="nav__footer__icon nav__footer__icon--search">
-        <form action="/" class="primary-search" method="get">
-          <input class="primary-search-input" id="primary-search-input" placeholder="Search" name="s">
-          <button class="submit submit--search" type="submit"></button>
-        </form>
-      </li>
-    </ul>
-  </footer>
-
-
-
 
 </nav><!-- #nav -->

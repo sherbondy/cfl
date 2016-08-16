@@ -12,31 +12,15 @@
       </div>
     {% endif %}
     <div class="events-mod">
-      {% for event in events %}
-        <dl class="event">
-          <dt class="event__title">{{event.timestamp}}</dt>
-          <dd class="event__desc"><a class="event__link" href="{{event.link}}">{{event.title}} at {{event.location}}, {{event.time}}</a></dd>
-        </dl>
-        <dl class="event">
-          <dt class="event__title">{{event.timestamp}}</dt>
-          <dd class="event__desc"><a class="event__link" href="{{event.link}}">{{event.title}} at {{event.location}}, {{event.time}}</a></dd>
-        </dl>
-        <dl class="event">
-          <dt class="event__title">{{event.timestamp}}</dt>
-          <dd class="event__desc"><a class="event__link" href="{{event.link}}">{{event.title}} at {{event.location}}, {{event.time}}</a></dd>
-        </dl>
-        <dl class="event">
-          <dt class="event__title">{{event.info}}</dt>
-          <dd class="event__desc"><a class="event__link" href="{{event.link}}">{{event.title}} at {{event.location}}, {{event.time}}</a></dd>
-        </dl>
-        <dl class="event">
-          <dt class="event__title">{{event.timestamp}}</dt>
-          <dd class="event__desc"><a class="event__link" href="{{event.link}}">{{event.title}} at {{event.location}}, {{event.time}}</a></dd>
-        </dl>
-        <dl class="event">
-          <dt class="event__title">{{event.timestamp}}</dt>
-          <dd class="event__desc"><a class="event__link" href="{{event.link}}">{{event.title}} at {{event.location}}, {{event.time}}</a></dd>
-        </dl>
+      {% for event in events|sort %}
+        <h1>{{event.info_date|date}} {{ "now"|date }}</h1>
+        {% if date(event.info_date|date) > ( "now"|date ) %}
+          <dl class="event">
+
+            <dt class="event__title">{{event.info_date|date("F j, Y")}}</dt>
+            <dd class="event__desc"><a class="event__link" href="{{event.link}}">{{event.title}} at {{event.location}}, {{event.info_time}}</a></dd>
+          </dl>
+        {% endif %}
       {% endfor %}
     </div>
   {% endblock %}

@@ -19,8 +19,20 @@
   cursor: pointer;
   line-height: 1.2;
   margin-bottom: 0;
-  padding: 20px 0;
+  padding: 20px 60px 20px 0px;
   transition: all .3s $timing;
+  position: relative;
+  @include font($sans, 18px, 800);
+
+  .default-repeater__item:not(.js-repeater-is-open) &:hover {
+    background-color: $clr-base;
+    color: $clr-white;
+    padding: 20px 50px 20px 10px;
+
+    &:after {
+      opacity: 0;
+    }
+  }
   // .js-repeater-is-open &,
   // &:hover {
   //   background: $clr-base;
@@ -30,6 +42,54 @@
   //     margin-top: 20px;
   //   }
   // }
+  //
+  &:before,
+  &:after {
+    content: '';
+    display: block;
+    @include absolute(0 0 n n);
+    height: 63px;
+    width: 50px;
+    // background-color: red;
+    background-repeat: no-repeat;
+    background-size: 12px;
+    background-position: 50% 50%;
+    transition: all .3s ease;
+    .js-repeater-is-open & {
+      transform: rotate(135deg);
+    }
+  }
+  &:after {
+    background-image: url('../img/icon--plus.svg');
+  }
+  &:before {
+    background-image: url('../img/icon--plus--white.svg');
+  }
+  .js-repeater-is-open &:hover {
+    &:before,
+    &:after {
+      transform: rotate(135deg) scale(1.2);
+    }
+  }
+
+  &.default-repeater__title--link {
+
+    &:after {
+      background-image: url('../img/icon--arrow-right.svg');
+      background-size: 14px;
+    }
+    &:before {
+      background-size: 14px;
+      background-image: url('../img/icon--arrow-right--white.svg');
+    }
+    .js-repeater-is-open &:hover {
+      &:before,
+      &:after {
+        transform: scale(1.2);
+      }
+    }
+  }
+
 }
 
 .default-repeater__content {

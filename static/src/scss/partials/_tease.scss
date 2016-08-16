@@ -1,12 +1,10 @@
 .tease {
   display: flex;
-  max-width: 900px;
+  // max-width: 900px;
+  max-width: 740px;
   margin: 0 auto;
   @include mq($bp--desktop) {
     margin-bottom: 20px;
-  }
-
-  .post-type-post & {
     margin-left: 0;
   }
 }
@@ -20,11 +18,11 @@
 
 .tease__hgroup {
 
-  @include mq($bp--desktop) {
-    width: 55%;
-    float: right;
-    padding-left: 20px;
-  }
+  // @include mq($bp--desktop) {
+  //   width: 55%;
+  //   float: right;
+  //   padding-left: 20px;
+  // }
 }
 
 .tease__overline {
@@ -77,15 +75,15 @@
   display: block;
   background-size: cover;
   background-position: 50% 50%;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
   overflow: hidden;
   box-shadow: 0 0 0 1px black inset;
   transition: all .2s $timing;
 
-  @include mq($bp--desktop) {
-    width: 45%;
-    float: left;
-  }
+  // @include mq($bp--desktop) {
+  //   width: 45%;
+  //   float: left;
+  // }
 
   &:hover {
     box-shadow: 0 0 0 3px black inset;

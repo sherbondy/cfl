@@ -39,11 +39,13 @@ $bp--nav-break: $bp--tablet;
 
 .nav__trigger {
   @include absolute(0 0 0 n);
-  width: 110px;
-  padding: 0 40px;
-  background: #fff;
+  width: 90px;
+  padding: 0 30px;
+  background: transparent;
 
   @include mq($bp--nav-break) {
+    width: 110px;
+    padding: 0 40px;
     display: none;
   }
 
@@ -98,7 +100,8 @@ $bp--nav-break: $bp--tablet;
 .hidden-nav {
   @include fixed(114px 0 0 100%);
   width: 100%;
-  padding: 20px;
+  padding: 20px 20px 80px;
+  overflow: scroll;
   background: #fff;
   // box-shadow: 0 0 20px rgba(0,0,0,.2);
   // transition: all .4s $timing;
@@ -124,21 +127,38 @@ $bp--nav-break: $bp--tablet;
 
 .nav__block__title {
   @include font($sans, 13px, 800, normal, .05em, caps);
-  margin: 0 0 5px;
-  border-bottom: 1px solid;
+  margin: 0;
+  // border-bottom: 1px solid;
 }
 
 .nav__block__title-link {
   color: $clr-base;
+  position: relative;
+
+  &:after {
+    display: block;
+    content: '';
+    @include absolute(0 n 0 100%);
+    width: 10px;
+    background-image: url('../img/icon--arrow-right.svg');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    opacity: 0;
+    transition: all .2s;
+  }
 
   &:hover {
     box-shadow: none;
     color: $clr-base;
+    &:after {
+      opacity: 1;
+      transform: translateX(4px);
+    }
   }
 }
 
 .nav__block {
-  padding: 0 0 20px;
+  padding: 0 0 27px;
   @include font($sans, 17px);
 
   &:last-child {
@@ -146,11 +166,23 @@ $bp--nav-break: $bp--tablet;
   }
 }
 
+.nav__block__link {
+  line-height: 1.3;
+  margin-bottom: 3px;
+}
+
 .nav__footer {
   @include fixed(n 0 0);
   padding: 0 20px 12px;
   background: #fff;
+  z-index: 1;
+  display: none;
+  .js-nav-active & {
+    display: block;
+  }
+
   @include mq($bp--nav-break) {
+    display: block;
     right: auto;
     width: ($desktop-nav-width - 1);
   }
