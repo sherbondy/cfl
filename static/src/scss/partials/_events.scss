@@ -1,0 +1,14 @@
+.event__title {
+  @include font($weight: 800);
+  width: 80px;
+  float: left;
+}
+
+
+.events-mod {
+  // opacity: 0;
+  // transition: all .2s ease;
+  // &.js-display-events {
+  //   opacity: 1;
+  // }
+}

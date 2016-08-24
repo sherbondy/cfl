@@ -37,6 +37,10 @@ $bp--nav-break: $bp--tablet;
   }
 }
 
+.nav-logo {
+  width: 100%;
+}
+
 .nav__trigger {
   @include absolute(0 0 0 n);
   width: 90px;

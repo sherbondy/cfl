@@ -337,12 +337,14 @@
   .location-item:first-child & {
     padding-top: 0;
   }
-  .location-item:last-child & {
-    padding-bottom: 0;
+  @include mq(max, $bp--desktop) {
+   .location-item:last-child & {
+     padding-bottom: 0;
+   }
   }
 }
 
-.location-item-inner--temp {
+.location-item--temp {
   display: none;
 }
 

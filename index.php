@@ -24,7 +24,8 @@ if (!isset($paged) || !$paged){
 $context = Timber::get_context();
 $args = array(
   'posts_per_page' => 12,
-  'paged' => $paged
+  'paged' => $paged,
+  'cat' => -34
 );
 $context['posts'] = Timber::get_posts($args);
 $context['pagination'] = Timber::get_pagination();

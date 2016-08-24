@@ -3,6 +3,9 @@ jQuery( document ).ready( function( $ ) {
   let eachLocation = locations.locations;
   let apiURL = 'https://menu.cloverfoodlab.com/api/';
   let themeLoc = '/wp-content/themes/clover-theme';
+  let userLocation = new google.maps.LatLng(42.3601, -71.0589);
+  let today = moment().format('dddd');
+  let now = moment().format('HH:mm:ss');
 
   function initMap(lat, lng) {
     var styles = [
@@ -39,32 +42,33 @@ jQuery( document ).ready( function( $ ) {
     } else {
 
       let initialLocation = new google.maps.LatLng(42.3601, -71.0589);
+      let browserSupportFlag;
       map.setCenter(initialLocation);
-      // if(navigator.geolocation) {
-      //   browserSupportFlag = true;
-      //   navigator.geolocation.getCurrentPosition(function(position) {
-      //     initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-      //     map.setCenter(initialLocation);
-      //   }, function() {
-      //     handleNoGeolocation(browserSupportFlag);
-      //   });
-      // }
-      // // Browser doesn't support Geolocation
-      // else {
-      //   browserSupportFlag = false;
-      //   handleNoGeolocation(browserSupportFlag);
-      // }
+      if(navigator.geolocation) {
+        browserSupportFlag = true;
+        navigator.geolocation.getCurrentPosition(function(position) {
+          initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+          map.setCenter(initialLocation);
+        }, function() {
+          handleNoGeolocation(browserSupportFlag);
+        });
+      }
+      // Browser doesn't support Geolocation
+      else {
+        browserSupportFlag = false;
+        handleNoGeolocation(browserSupportFlag);
+      }
 
-      // function handleNoGeolocation(errorFlag) {
-      //   if (errorFlag === true) {
-      //     // alert("Geolocation service failed.");
-      //     initialLocation = new google.maps.LatLng(42.3601, -71.0589);
-      //   } else {
-      //     // alert("Your browser doesn't support geolocation. We've placed you in Siberia.");
-      //     initialLocation = new google.maps.LatLng(42.3601, -71.0589);
-      //   }
-      //   map.setCenter(initialLocation);
-      // }
+      function handleNoGeolocation(errorFlag) {
+        if (errorFlag === true) {
+          // alert("Geolocation service failed.");
+          initialLocation = new google.maps.LatLng(42.3601, -71.0589);
+        } else {
+          // alert("Your browser doesn't support geolocation. We've placed you in Siberia.");
+          initialLocation = new google.maps.LatLng(42.3601, -71.0589);
+        }
+        map.setCenter(initialLocation);
+      }
     }
 
     var infowindow = new google.maps.InfoWindow();
@@ -74,6 +78,7 @@ jQuery( document ).ready( function( $ ) {
     for (i = 0; i < eachLocation.length; i++) {
       let locationStatus = isThisOpen(eachLocation[i]) ? 'open' : 'closed';
       let locationType = isThisATruck(eachLocation[i]) ? 'truck' : 'store';
+
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(eachLocation[i].latitude, eachLocation[i].longitude),
         map: map,
@@ -102,42 +107,64 @@ jQuery( document ).ready( function( $ ) {
     }
   }
 
-  var today = moment().format('dddd');
-  // var now = moment().format('HH:mm:ss');
-  var now = moment('21:32:24', 'HH:mm:ss').format();
-  console.log(today);
-  console.log(now);
-
-  function findToday(location) {
-    let meals = location.meals;
-  }
-
-  function isThisOpen(location) {
-    return location.is_operating;
+  function isThisOpen(location, type = 'trueFalse') {
+    if (type === 'trueFalse') {
+      return location.is_operating;
+    } else if (type === 'numbers') {
+      if (location.is_operating) {
+        return 0;
+      } else {
+        return 1;
+      }
+    }
   }
 
   function isThisATruck(location) {
     return location.is_truck;
   }
 
+  function returnTime(time) {
+    return moment(time, 'HH:mm:ss', false).format('h:mmA')
+  }
+
+  function findTodaysClosing(location) {
+    let num = 0;
+    let locationSlug;
+    location.meals.forEach(function (meal, i) {
+      num = meal.end_time;
+      for (var k in meal.days) {
+        if (meal.days[k] === today) {
+          num = meal.end_time;
+          locationSlug = location.slug;
+        }
+      }
+    });
+    // return num;
+    return returnTime(num);
+  }
+
   function buildLocationItem(location, i) {
+    let locationLatLong = new google.maps.LatLng(location.latitude, location.longitude);
+    let distance = google.maps.geometry.spherical.computeDistanceBetween(userLocation, locationLatLong, 3959);
+
     let address = `${location.address_street_1} ${location.address_city}, ${location.address_state} ${location.address_zip_code}`;
     let thisLocationID = `locations-mod-${i}`;
-    let distance = `${Math.round( (i + 1) * .1 * 10 ) / 10}mi`;
-    let currentStatus = isThisOpen(location) ? 'Open until 7:30pm' : 'Closed';
+    let distanceDisplay = `${Math.round( distance * 10 ) / 10}mi`;
+    let closingTime = findTodaysClosing(location);
+    // let currentStatus = isThisOpen(location) ? `Ope`2n until ${closingTime}` : 'Closed';
+    let currentStatus = isThisOpen(location) ? `Open until ${closingTime}` : 'Closed';
     let currentStatusClass = isThisOpen(location) ? 'location-item--open' : 'location-item--closed';
     let twitterUrl = `https://twitter.com/${location.twitter}`;
     let googleUrl = `http://maps.google.com/?q=${address}`;
-    console.log(location);
 
     let $locationItem = `
-    <li class="location-item js-has-data ${currentStatusClass}" id="${thisLocationID}" data-status="${isThisOpen(location)}" data-truck="${isThisATruck(location)}">
-      <a class="location-item-inner location-item-inner--${location.slug}" href="${window.location.href.split('/locations')[0]}/locations/location/?l=${eachLocation[i].slug}">
+    <li class="location-item location-item--${location.slug} js-has-data ${currentStatusClass}" id="${thisLocationID}" data-status="${isThisOpen(location)}" data-truck="${isThisATruck(location)}" data-distance="${distance}" data-name="${location.slug}">
+      <a class="location-item-inner" href="${window.location.href.split('/locations')[0]}/locations/location/?l=${eachLocation[i].slug}">
         <div class="location-tease__img" style="background-image: url('${location.photo_url}')"> </div>
         <div class"location-tease__hgroup">
           <h3 class="location__title">
               <span class="location__title__name">${location.description}</span>
-              <span class="location__title__distance">${distance}</span>
+              <span class="location__title__distance">${distanceDisplay}</span>
           </h3>
           <h4 class="location__status">${currentStatus}</h4>
         </div>
@@ -156,7 +183,6 @@ jQuery( document ).ready( function( $ ) {
   function buildLocationsIndex() {
     eachLocation.forEach(function(location, i) {
       buildLocationItem(location, i);
-      findToday(location);
     });
   }
 
@@ -169,6 +195,8 @@ jQuery( document ).ready( function( $ ) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
   }
+
+
 
   function setCurrentPage(location) {
     let expectedLoc = parseURL('l');
@@ -184,13 +212,20 @@ jQuery( document ).ready( function( $ ) {
   }
 
   function buildMenuItem(meal, slug) {
-    // console.log(meal);
-    let menuItem = `
-    <li class="default-repeater__item default-repeater__item--menu">
-      <h4 class="default-repeater__title">Today&rsquo;s ${meal.name} Menu <span class="menu-info__hours">Served Sundays: 11am–9pm, Mon to Sat: 11am–12am</span></h4>
-      <div class="default-repeater__content default-repeater__content--${meal.slug}">
-      </div>
-    </li>`;
+    // debugger;
+    let hours;
+    if (meal.days[0] !== meal.days[meal.days.length - 1]) {
+      hours = `${meal.days[0]} to ${meal.days[meal.days.length - 1]}`;
+    } else {
+      hours = `${meal.days[0]}`;
+    }
+    var menuItem = `
+      <li class="default-repeater__item default-repeater__item--menu default-repeater__item--menu--${meal.slug}">
+        <h4 class="default-repeater__title">${meal.name} Menu
+          <span class="menu-info__hours menu-info__hours--${meal.slug}">Served ${hours}: ${returnTime(meal.start_time)} - ${returnTime(meal.end_time)}</span>
+        </h4>
+        <div class="default-repeater__content default-repeater__content--${meal.slug}"></div>
+      </li>`;
 
     $('.default-repeater__item--menu').last().after(menuItem);
   }
@@ -248,6 +283,14 @@ jQuery( document ).ready( function( $ ) {
     });
   }
 
+  function setMenuHours(meal) {
+    if (meal.days[0] !== meal.days[meal.days.length - 1]) {
+      return `${meal.days[0]} to ${meal.days[meal.days.length - 1]}`;
+    } else {
+      return `${meal.days[0]}`;
+    }
+  }
+
   function setMenu(currentLocation) {
     let meals = currentLocation.meals;
     let slug = currentLocation.slug;
@@ -259,10 +302,11 @@ jQuery( document ).ready( function( $ ) {
         buildMenu(meal, slug, i);
         allMeals.push(meal.slug);
         // console.log(meal);
+      } else {
+        let hours = setMenuHours(meal);
+        let moreHours = `, ${hours}: ${returnTime(meal.start_time)} - ${returnTime(meal.end_time)}`
+        $(`.menu-info__hours--${meal.slug}`).append(moreHours);
       }
-      // console.log(meal);
-      // console.log(allMeals);
-
     });
 
     $('.default-repeater__item--menu:eq(0)').remove();
@@ -276,20 +320,72 @@ jQuery( document ).ready( function( $ ) {
 
     if (isThisOpen(location)) {
       $('body').addClass('js-location-is-open');
-      $('.default-repeater__item--menu:eq(0)').addClass('js-repeater-is-open');
       $('.location-topper__status').text('Open');
     } else {
       $('body').addClass('js-location-is-closed')
-      $('.default-repeater__item--menu--hours').addClass('js-repeater-is-open');
       $('.location-topper__status').text('Closed');
     }
   }
+
+  function openCurrentMenu(location) {
+
+    if (isThisOpen(location)) {
+      let locationSlug;
+      location.meals.forEach(function (meal, i) {
+        for (var k in meal.days) {
+          if (meal.days[k] === today && meal.end_time >= now && meal.start_time <= now) {
+            $(`.default-repeater__item--menu--${meal.slug}`).addClass('js-repeater-is-open');
+          }
+        }
+      });
+    } else {
+      $('.default-repeater__item--menu repeater__item--menu--${meal.slug}--hours').addClass('js-repeater-is-open');
+    }
+  }
+
+  function sortLocationsBy(option) {
+    $('.locations-mod').html(
+      $('.location-item').sort(function (a, b) {
+        if (option === 'distance') {
+          return (parseInt(a.getAttribute(`data-${option}`)) < parseInt(b.getAttribute(`data-${option}`))) ? -1 : (parseInt(a.getAttribute(`data-${option}`)) > parseInt(b.getAttribute(`data-${option}`))) ? 1 : 0;
+        } else {
+          return (a.getAttribute(`data-${option}`) < b.getAttribute(`data-${option}`)) ? -1 : (a.getAttribute(`data-${option}`) > b.getAttribute(`data-${option}`)) ? 1 : 0;
+        }
+      })
+    )
+  }
+
+  function filterLocationsBy(option) {
+    if (option === 'all') {
+      $('.location-item').show();
+    } else if (option === 'restaurants') {
+      $('.location-item').each(function() {
+        let $this = $(this);
+        $this.show();
+        if ( $this.attr(`data-truck`) !== 'false' ) {
+          $this.hide();
+        }
+      })
+    } else {
+      $('.location-item').each(function() {
+        console.log()
+        let $this = $(this);
+        $this.show();
+        if ( $this.attr(`data-${option}`) !== 'true' ) {
+          $this.hide();
+        }
+      })
+    }
+  }
+
 
 
   function initLocationIndex() {
     console.log('is index');
     initMap();
     buildLocationsIndex();
+    sortLocationsBy('distance');
+    $('.location-item--temp, .location-item--clovertrk3').remove();
   }
 
   function initLocationSingle() {
@@ -298,6 +394,7 @@ jQuery( document ).ready( function( $ ) {
     initMap(currentLocation.latitude, currentLocation.longitude);
     setMenu(currentLocation);
     setSingleTopperInfo(currentLocation);
+    openCurrentMenu(currentLocation);
   }
 
   if ($('body').hasClass('page-child')) {
@@ -314,5 +411,16 @@ jQuery( document ).ready( function( $ ) {
   $(document).keyup(function(e) {
     $('.menu-info__mod').removeClass('modal-is-active');
   });
+
+  $('#sort').on('change', function() {
+    let sortBy = $(this).find(':selected').val();
+    sortLocationsBy(sortBy);
+  })
+
+
+  $('#filter').on('change', function() {
+    let filterBy = $(this).find(':selected').val();
+    filterLocationsBy(filterBy);
+  })
 
 });

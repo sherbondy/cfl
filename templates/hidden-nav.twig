@@ -9,17 +9,31 @@
       <p class="nav__block__link"><a href="/locations">See what’s on the menu for each of our locations <b class="nav__block__date">{{now|date('F j, Y')}}</b></a></p>
     </li>
 
+
     {% for event in events|slice(0, 1) %}
+      {% if event.info_date == today %}
+        {% set date_text = 'today' %}
+      {% elseif  event.info_date == (today + 1) %}
+        {% set date_text = 'tomorrow' %}
+      {% else %}
+        {% set date_text = 'on ' ~ event.info_date|date("m.d") %}
+      {% endif %}
       {% if event %}
         <li class="nav__block">
           <h5 class="nav__block__title"><a class="nav__block__title-link" href="/events">Events</a></h5>
-          <p class="nav__block__link"><a href="{{event.link}}">Join us for <b>{{event.post_title}}</b> tomorrow at 3:30</a></p>
+          <p class="nav__block__link">
+            {% if event.url %}
+              <a href="{{event.url}}" target="_blank">Join us for <b>{{event.post_title}}</b> {{date_text}} at {{event.info_time|date("g:i")}}<span class="nav__block__small-cap">{{event.info_time|date("a")}}</span></a>
+            {% else %}
+              <a href="/events#{{event.id}}">Join us for <b>{{event.post_title}}</b> {{date_text}} at {{event.info_time|date("g:i")}}<span class="nav__block__small-cap">{{event.info_time|date("a")}}</span></a>
+            {% endif %}
+          </p>
         </li>
       {% endif %}
     {% endfor %}
 
     <li class="nav__block">
-      <h5 class="nav__block__title"><a class="nav__block__title-link" href="/careers">Careers at Clover</a></h5>
+      <h5 class="nav__block__title"><a class="nav__block__title-link" href="/events">Careers at Clover</a></h5>
       <ul class="nav__block__list">
 
         {% for item in latest_employee %}

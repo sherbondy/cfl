@@ -24,7 +24,6 @@
   	}
 	},
   "require": {
-	  "wpackagist-plugin/timber-library": "0.22.*",
-    "snilius/twig-sort-by-field"
+	  "wpackagist-plugin/timber-library": "0.22.*"
   }
 }
