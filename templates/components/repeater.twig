@@ -2,7 +2,18 @@
 	{% for item in content %}
 		<li class="default-repeater__item">
 		  <h4 class="default-repeater__title">{{item.title}}</h4>
-		  <div class="default-repeater__content">{{item.content}}</div>
+		  <div class="default-repeater__content-mod">
+        {% if item.content %}
+          <div class="default-repeater__content">
+            {{item.content}}
+          </div>
+        {% endif %}
+        {% if item.video %}
+          <div class="default-repeater__video-mod">
+            {{item.video}}
+          </div>
+        {% endif %}
+      </div>
 	  </li>
 	{% endfor %}
 </ul>

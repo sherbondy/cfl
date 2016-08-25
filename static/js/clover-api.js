@@ -116,7 +116,12 @@ jQuery(document).ready(function ($) {
   }
 
   function returnTime(time) {
-    return moment(time, 'HH:mm:ss', false).format('h:mmA');
+
+    return moment(time, 'HH:mm:ss', false).format('h:mma');
+
+    // let start = moment(time, 'HH:mm:ss', false);
+    // let remainder = (60 - start.minute()) % 60;
+    // return moment(start).add("minutes", remainder ).format('h:mmA');
   }
 
   function findTodaysClosing(location) {
@@ -197,7 +202,7 @@ jQuery(document).ready(function ($) {
     } else {
       hours = '' + meal.days[0];
     }
-    var menuItem = '\n      <li class="default-repeater__item default-repeater__item--menu default-repeater__item--menu--' + meal.slug + '">\n        <h4 class="default-repeater__title">' + meal.name + ' Menu\n          <span class="menu-info__hours menu-info__hours--' + meal.slug + '">Served ' + hours + ': ' + returnTime(meal.start_time) + ' - ' + returnTime(meal.end_time) + '</span>\n        </h4>\n        <div class="default-repeater__content default-repeater__content--' + meal.slug + '"></div>\n      </li>';
+    var menuItem = '\n      <li class="default-repeater__item default-repeater__item--menu default-repeater__item--menu--' + meal.slug + '">\n        <h4 class="default-repeater__title">' + meal.name + ' Menu\n          <span class="menu-info__hours menu-info__hours--' + meal.slug + '">Served ' + hours + ': ' + returnTime(meal.start_time) + ' - ' + returnTime(meal.end_time) + '</span>\n        </h4>\n        <div class="default-repeater__content-mod">\n          <div class="default-repeater__content default-repeater__content--' + meal.slug + '"></div>\n        </div>\n      </li>';
 
     $('.default-repeater__item--menu').last().after(menuItem);
   }
@@ -297,7 +302,7 @@ jQuery(document).ready(function ($) {
         }
       });
     } else {
-      $('.default-repeater__item--menu repeater__item--menu--${meal.slug}--hours').addClass('js-repeater-is-open');
+      $('.default-repeater__item--menu--hours').addClass('js-repeater-is-open');
     }
   }
 
@@ -334,6 +339,22 @@ jQuery(document).ready(function ($) {
     }
   }
 
+  function setHours(currentLocation) {
+    var days = { 'Sunday': [], 'Monday': [], 'Tuesday': [], 'Wednesday': [], 'Thursday': [], 'Friday': [], 'Saturday': [] };
+    currentLocation.meals.forEach(function (meal, i) {
+      for (var k in meal.days) {
+        days[meal.days[k]].push(meal.start_time);
+        days[meal.days[k]].push(meal.end_time);
+      }
+    });
+
+    for (var prop in days) {
+      // debugger;
+
+    }
+    console.log(days);
+  }
+
   function initLocationIndex() {
     console.log('is index');
     initMap();
@@ -346,6 +367,7 @@ jQuery(document).ready(function ($) {
     console.log('is single');
     var currentLocation = setCurrentPage(eachLocation);
     initMap(currentLocation.latitude, currentLocation.longitude);
+    setHours(currentLocation);
     setMenu(currentLocation);
     setSingleTopperInfo(currentLocation);
     openCurrentMenu(currentLocation);

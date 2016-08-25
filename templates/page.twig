@@ -8,6 +8,14 @@
 				{{post.content}}
 			</div>
 				{% include 'components/repeater.twig' with {'content': post.get_field('default_repeater')} %}
+
+			{% if post.get_field('shortcode') %}
+				<div class="instagram__feed">
+					<h4> {{post.get_field('feed_title')}}</h4>
+					<div class="content">{{post.get_field('shortcode')}}</div>
+				</div>
+			{% endif %}
+
     {% block additional_content %}
     {% endblock additional_content %}
 		</section>
