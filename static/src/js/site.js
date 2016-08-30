@@ -24,5 +24,11 @@ jQuery( document ).ready( function( $ ) {
       $(this).closest('.comment-form').addClass('js-comment-is-active');
   });
 
+  $('.primary-search-input').on('focus', function() {
+    $(this).parent().addClass('js-search-is-active');
+  }).on('blur', function() {
+    $(this).parent().removeClass('js-search-is-active');
+  });
 
+  quickShare();
 });

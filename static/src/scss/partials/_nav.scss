@@ -214,21 +214,25 @@ $social-icons: twitter, instagram, email, search;
 }
 
 .primary-search {
-  @include absolute(0);
+  @include absolute(0 0 0 n);
+  width: 40px;
+  transition: all .3s $timing;
+  &.js-search-is-active {
+    width: 100%;
+  }
 }
 
 .primary-search-input {
-  @include absolute(-1px 0 0 n);
-  width: 40px;
+  @include absolute(-1px 0 0 0);
   transition: all .3s $timing;
   padding: 0 50px 0 10px;
   border: none;
   cursor: pointer;
+  width: 100%;
   // &:hover,
-  &:focus {
+  .js-search-is-active & {
     cursor: text;
     border: 1px solid;
-    width: 100%;
   }
 }
 
@@ -241,7 +245,7 @@ $social-icons: twitter, instagram, email, search;
   background: transparent;
   width: 40px;
 
-  .primary-search-input:focus + & {
+  .js-search-is-active & {
     pointer-events: auto;
     opacity: 1;
   }

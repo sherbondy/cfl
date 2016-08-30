@@ -38,6 +38,38 @@ $comment-width: 650px;
   border-bottom: $border;
 }
 
+//
+// share mod
+//
+
+.article-share-prompt {
+  max-width: 1220px;
+  margin: 0 auto 50px;
+  padding: 0 0 50px;
+  border-bottom: $border;
+
+  h5 {
+    margin-bottom: 0;
+  }
+}
+
+
+
+//
+// related posts
+//
+
+// .related-posts {
+//   padding-top: 30px;
+//   border-top: $border;
+// }
+
+
+
+//
+// Comments
+//
+
 .comments {
   max-width: 1220px;
   margin: 0 auto 40px;
@@ -191,10 +223,4 @@ $comment-width: 650px;
 
 .logged-in-as {
   margin-bottom: 13px;
-}
-
-
-.related-posts {
-  padding-top: 30px;
-  border-top: $border;
 }

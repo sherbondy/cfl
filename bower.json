@@ -5,6 +5,7 @@
   "dependencies": {
     "upbase": "git@github.com:Upstatement/ups-mixin-lib",
     "moment": "~2.14.1",
-    "handlebars.js": "~4.0.5"
+    "handlebars.js": "~4.0.5",
+    "quickshare": "QuickShare#~1.3.7"
   }
 }

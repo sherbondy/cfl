@@ -1,11 +1,14 @@
 .search-topper {
   background: $clr-base;
-  padding: 50px 20px;
+  padding: 50px;
+
+  @include mq($bp--nav-break) {
+    margin-left: $desktop-nav-width;
+  }
 }
 
 .search-topper__form {
   max-width: 900px;
-  margin: 0 auto;
   width: 100%;
   position: relative;
   font-size: 60px;

@@ -272,17 +272,19 @@
   .hours__list {
     list-style: none;
     padding-left: 0;
-  }
-
-  .hours__item {
     overflow: hidden;
 
-    &:before {
-      display: none;
+    li {
+      overflow: hidden;
+      clear: both;
+      &:before {
+        display: none;
+      }
     }
   }
 
-  .hours__day {
+
+  li > b {
     width: 50%;
     max-width: 140px;
     float: left;
@@ -290,7 +292,7 @@
     @include font($sans, 16px, 500, normal, .025em, caps);
   }
 
-  .hours__hours {
+  li > span {
     width: 50%;
     float: left;
     margin-bottom: 5px;

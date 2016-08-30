@@ -8,6 +8,9 @@ jQuery(document).ready(function ($) {
   var userLocation = new google.maps.LatLng(42.3601, -71.0589);
   var today = moment().format('dddd');
   var now = moment().format('HH:mm:ss');
+  var days = { 'Sunday': { 'allHours': [] }, 'Monday': { 'allHours': [] }, 'Tuesday': { 'allHours': [] }, 'Wednesday': { 'allHours': [] }, 'Thursday': { 'allHours': [] }, 'Friday': { 'allHours': [] }, 'Saturday': { 'allHours': [] } };
+  var dayArray = Object.keys(days);
+  var dayArrayAbbr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   function initMap(lat, lng) {
     var styles = [{
@@ -64,7 +67,8 @@ jQuery(document).ready(function ($) {
 
     var infowindow = new google.maps.InfoWindow();
 
-    var marker, i;
+    var marker = void 0,
+        i = void 0;
 
     for (i = 0; i < eachLocation.length; i++) {
       var locationStatus = isThisOpen(eachLocation[i]) ? 'open' : 'closed';
@@ -95,6 +99,10 @@ jQuery(document).ready(function ($) {
         };
       }(marker, i));
     }
+  }
+
+  function isThisOperating(location) {
+    return location.is_operating;
   }
 
   function isThisOpen(location) {
@@ -141,28 +149,31 @@ jQuery(document).ready(function ($) {
   }
 
   function buildLocationItem(location, i) {
-    var locationLatLong = new google.maps.LatLng(location.latitude, location.longitude);
-    var distance = google.maps.geometry.spherical.computeDistanceBetween(userLocation, locationLatLong, 3959);
+    console.log(location);
+    if (isThisOperating(location)) {
+      var locationLatLong = new google.maps.LatLng(location.latitude, location.longitude);
+      var distance = google.maps.geometry.spherical.computeDistanceBetween(userLocation, locationLatLong, 3959);
 
-    var address = location.address_street_1 + ' ' + location.address_city + ', ' + location.address_state + ' ' + location.address_zip_code;
-    var thisLocationID = 'locations-mod-' + i;
-    var distanceDisplay = Math.round(distance * 10) / 10 + 'mi';
-    var closingTime = findTodaysClosing(location);
-    // let currentStatus = isThisOpen(location) ? `Ope`2n until ${closingTime}` : 'Closed';
-    var currentStatus = isThisOpen(location) ? 'Open until ' + closingTime : 'Closed';
-    var currentStatusClass = isThisOpen(location) ? 'location-item--open' : 'location-item--closed';
-    var twitterUrl = 'https://twitter.com/' + location.twitter;
-    var googleUrl = 'http://maps.google.com/?q=' + address;
+      var address = location.address_street_1 + ' ' + location.address_city + ', ' + location.address_state + ' ' + location.address_zip_code;
+      var thisLocationID = 'locations-mod-' + i;
+      var distanceDisplay = Math.round(distance * 10) / 10 + 'mi';
+      var closingTime = findTodaysClosing(location);
+      // let currentStatus = isThisOpen(location) ? `Ope`2n until ${closingTime}` : 'Closed';
+      var currentStatus = isThisOpen(location) ? 'Open until ' + closingTime : 'Closed';
+      var currentStatusClass = isThisOpen(location) ? 'location-item--open' : 'location-item--closed';
+      var twitterUrl = 'https://twitter.com/' + location.twitter;
+      var googleUrl = 'http://maps.google.com/?q=' + address;
 
-    var $locationItem = '\n    <li class="location-item location-item--' + location.slug + ' js-has-data ' + currentStatusClass + '" id="' + thisLocationID + '" data-status="' + isThisOpen(location) + '" data-truck="' + isThisATruck(location) + '" data-distance="' + distance + '" data-name="' + location.slug + '">\n      <a class="location-item-inner" href="' + window.location.href.split('/locations')[0] + '/locations/location/?l=' + eachLocation[i].slug + '">\n        <div class="location-tease__img" style="background-image: url(\'' + location.photo_url + '\')"> </div>\n        <div class"location-tease__hgroup">\n          <h3 class="location__title">\n              <span class="location__title__name">' + location.description + '</span>\n              <span class="location__title__distance">' + distanceDisplay + '</span>\n          </h3>\n          <h4 class="location__status">' + currentStatus + '</h4>\n        </div>\n      </a>\n    </li>';
-    // <a class="location__twitter" href="${twitterUrl}" target="_blank">@${location.twitter}</a>
-    // <a class="location__address" href="${googleUrl}" target="_blank">${address}</a>
-    // <dl class="location__hours">
-    //   <dt>Hours</dt>
-    //   <dd class="location__hours__day"></dd>
-    // </dl>
-    // $locationItem.eq(i).addClass('js-has-data');
-    $('.locations-mod').append($locationItem);
+      var $locationItem = '\n      <li class="location-item location-item--' + location.slug + ' js-has-data ' + currentStatusClass + '" id="' + thisLocationID + '" data-status="' + isThisOpen(location) + '" data-truck="' + isThisATruck(location) + '" data-distance="' + distance + '" data-name="' + location.slug + '">\n        <a class="location-item-inner" href="' + window.location.href.split('/locations')[0] + '/locations/location/?l=' + eachLocation[i].slug + '">\n          <div class="location-tease__img" style="background-image: url(\'' + location.photo_url + '\')"> </div>\n          <div class"location-tease__hgroup">\n            <h3 class="location__title">\n                <span class="location__title__name">' + location.description + '</span>\n                <span class="location__title__distance">' + distanceDisplay + '</span>\n            </h3>\n            <h4 class="location__status">' + currentStatus + '</h4>\n          </div>\n        </a>\n      </li>';
+      // <a class="location__twitter" href="${twitterUrl}" target="_blank">@${location.twitter}</a>
+      // <a class="location__address" href="${googleUrl}" target="_blank">${address}</a>
+      // <dl class="location__hours">
+      //   <dt>Hours</dt>
+      //   <dd class="location__hours__day"></dd>
+      // </dl>
+      // $locationItem.eq(i).addClass('js-has-data');
+      $('.locations-mod').append($locationItem);
+    }
   }
 
   function buildLocationsIndex() {
@@ -229,8 +240,8 @@ jQuery(document).ready(function ($) {
 
       // build items
       var items = data.items;
-      for (var key in items) {
-        var item = items[key];
+      for (var _key in items) {
+        var item = items[_key];
         var itemCat = item.category;
         var itemName = item.description;
         var isNew = item.is_new ? '<span class="js-is-new">New </span>' : '';
@@ -339,21 +350,106 @@ jQuery(document).ready(function ($) {
     }
   }
 
-  function setHours(currentLocation) {
-    var days = { 'Sunday': [], 'Monday': [], 'Tuesday': [], 'Wednesday': [], 'Thursday': [], 'Friday': [], 'Saturday': [] };
+  function setAllHours(currentLocation) {
     currentLocation.meals.forEach(function (meal, i) {
       for (var k in meal.days) {
-        days[meal.days[k]].push(meal.start_time);
-        days[meal.days[k]].push(meal.end_time);
+        days[meal.days[k]].allHours.push(parseInt(moment(meal.start_time, 'HH:mm:ss', false).format('HHmm')));
+        days[meal.days[k]].allHours.push(parseInt(moment(meal.end_time, 'HH:mm:ss', false).format('HHmm')));
       }
     });
 
-    for (var prop in days) {
+    // debugger;
+    function amOrPm(time) {
+      var Time = time.toString();
       // debugger;
-
+      if (time === Infinity || time === -Infinity) {
+        return 'Closed';
+      } else if (time < 1000) {
+        return Time.slice(0, 1) + ':' + Time.slice(1) + 'am';
+      } else if (time >= 1200) {
+        return moment(Time.slice(0, 2) + ':' + Time.slice(2) + 'pm', 'HH:mma', false).format('h:mma');
+      } else {
+        return Time.slice(0, 2) + ':' + Time.slice(2) + 'am';
+      }
     }
-    console.log(days);
+
+    for (var day in days) {
+      days[day].min = amOrPm(Math.min.apply(null, days[day].allHours));
+      days[day].max = amOrPm(Math.max.apply(null, days[day].allHours));
+    }
   }
+
+  function elminateRepeats(first, second) {
+    if (first === second) {
+      return first;
+    } else {
+      return first + ' – ' + second;
+    }
+  }
+
+  function setHours(days) {
+    console.log(days);
+    var openingTime = 0;
+    var closingTime = 0;
+    var prevIndex = 0;
+    var index = 0;
+    var hourTest = [];
+    var startDate = null;
+    for (var day in days) {
+      index = Object.keys(days).indexOf(day);
+      // debugger
+
+      console.log(null);
+      startDate = day;
+      if (days[day].min !== openingTime || days[day].max !== closingTime) {
+        if (index === prevIndex) {
+          hourTest.push('<li><b>' + dayArrayAbbr[index] + ':</b> <span>' + elminateRepeats(days[day].min, days[day].max) + '</span></li>');
+          prevIndex = Object.keys(days).indexOf(day);
+        } else if (index > 1) {
+          hourTest.push('<li><b>' + dayArrayAbbr[prevIndex] + ' – ' + dayArrayAbbr[index - 1] + ':</b> <span>' + elminateRepeats(days[dayArray[prevIndex]].min, days[dayArray[prevIndex]].max) + '</span></li>');
+          prevIndex = Object.keys(days).indexOf(day);
+        } else {
+          prevIndex = Object.keys(days).indexOf(day);
+        }
+        // debugger;
+        openingTime = days[day].min;
+        closingTime = days[day].max;
+      }
+
+      if (index === 6) {
+        // debugger;
+        if (prevIndex === 0 && days[day].min === openingTime && days[day].max === closingTime) {
+          // same as all days since sunday
+          hourTest = ['<li><b>Everyday:</b> <span>' + elminateRepeats(days[day].min, days[day].max) + '</span></li>'];
+        } else if (prevIndex !== 0 && days[day].min === openingTime && days[day].max === closingTime) {
+          // same as previous days
+          hourTest.push('<li><b>' + elminateRepeats(dayArrayAbbr[prevIndex], dayArrayAbbr[index]) + ':</b> <span>' + elminateRepeats(days[dayArray[prevIndex]].min, days[dayArray[prevIndex]].max) + '</span></li>');
+        } else if (prevIndex !== 0 && days[day].min !== openingTime || days[day].max !== closingTime) {
+          // different from previous span of days
+          hourTest.push('<li><b>' + elminateRepeats(dayArrayAbbr[prevIndex], dayArrayAbbr[index - 1]) + ':</b> <span>' + elminateRepeats(days[dayArray[prevIndex]].min, days[dayArray[prevIndex]].max) + '</span></li>');
+          hourTest.push('<li><b>' + dayArrayAbbr[index] + ':</b> <span>' + elminateRepeats(days[day].min, days[day].max) + '</span></li>');
+        } else {
+          hourTest.push('<li><b>' + dayArrayAbbr[index] + ':</b> <span>' + elminateRepeats(days[day].min, days[day].max) + '</span></li>');
+        }
+      }
+    }
+    console.log(hourTest);
+    // replace sat && sun with weekend
+    if (hourTest[hourTest.length - 1].slice(10) === hourTest[0].slice(10)) {
+      console.log('test');
+      hourTest[0] = '<li><b>Weekends ' + hourTest[0].slice(10);
+      hourTest[hourTest.length - 1] = '';
+    }
+
+    if (hourTest[1].slice(0, 16) === "<li><b>Mon – Fri") {
+      hourTest[1] = '<li><b>Weekdays' + hourTest[1].slice(16);
+      // debugger
+    }
+
+    hourTest.forEach(function (hours) {
+      $('.hours__list').append(hours);
+    });
+  };
 
   function initLocationIndex() {
     console.log('is index');
@@ -367,7 +463,8 @@ jQuery(document).ready(function ($) {
     console.log('is single');
     var currentLocation = setCurrentPage(eachLocation);
     initMap(currentLocation.latitude, currentLocation.longitude);
-    setHours(currentLocation);
+    setAllHours(currentLocation);
+    setHours(days);
     setMenu(currentLocation);
     setSingleTopperInfo(currentLocation);
     openCurrentMenu(currentLocation);
