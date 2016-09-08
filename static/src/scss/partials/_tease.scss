@@ -9,6 +9,15 @@
   }
 }
 
+.tease--no-image + .tease--image,
+.tease--no-image:not(:first-child) {
+  border-top: 2px solid $clr-base;
+  padding-top: 40px;
+  @include mq($bp--desktop) {
+    padding-top: 60px;
+  }
+}
+
 
 .tease__inner {
   padding: 0 0 40px;
@@ -38,7 +47,7 @@
 
 .tease__hed {
   @include font($sans, 21px, 800);
-  margin-bottom: 4px;
+  margin-bottom: 8px;
 
   > a {
     color: $clr-base;
@@ -117,4 +126,17 @@
 .tease__img {
   @include absolute(0 0 n);
   opacity: 0;
+}
+
+
+.tease__date {
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+  font-weight: 800;
+  font-size: 0.85em;
+}
+
+.tease__archive-header {
+  @include font($sans, 14px, 700, normal, .6px, caps);
+  margin-bottom: 6px;
 }

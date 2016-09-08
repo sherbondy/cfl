@@ -27,7 +27,17 @@ $args = array(
   'paged' => $paged,
   'cat' => -34
 );
+
+$context['random_posts'] = Timber::query_posts(
+  array(
+    'showposts' => 1,
+    'orderby' => 'rand',
+    'cat' => -34
+  ));
+
 $context['posts'] = Timber::get_posts($args);
+
+
 $context['pagination'] = Timber::get_pagination();
 $context['current_page'] = $paged;
 $templates = array( 'index.twig' );

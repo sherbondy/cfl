@@ -1,16 +1,35 @@
-<article class="tease tease-{{post.post_type}}" id="tease-{{post.ID}}">
+
+{% if archive %}
+  {% set archiveClass = "tease--archive" %}
+{% else %}
+  {% set archiveClass = "tease--current" %}
+{% endif %}
+
+{% if post.thumbnail.src %}
+  {% set imageClass = "tease--image" %}
+{% else %}
+  {% set imageClass = "tease--no-image" %}
+{% endif %}
+
+
+  <article class="tease tease-{{post.post_type}} {{imageClass}} {{archiveClass}}" id="tease-{{post.ID}}">
   <div class="tease__inner">
   	{% block content %}
 
+      {% if post.thumbnail.src %}
         <a href="{{post.link}}" class="tease__img-mod">
-          {% if post.thumbnail.src %}
-            <img class="tease__img" src="{{post.thumbnail.src}}" />
-          {% endif %}
+          <img class="tease__img" src="{{post.thumbnail.src}}" />
         </a>
+      {% endif %}
+
       <div class="tease__hgroup">
         <!-- <a class="tease__overline" href="{{post.category.link}}">{{post.category}}</a> -->
+
+        {% if archive %}
+          <h5 class="tease__archive-header">From the archives</h5>
+        {% endif %}
     		<h2 class="tease__hed"><a href="{{post.link}}">{{post.title}}</a></h2>
-    		<p class="tease__dek">{{post.get_content|excerpt(57)}} <a href="{{post.link}}">Read More</a></p>
+    		<p class="tease__dek"><span class="tease__date">{{post.date|date("d M, Y")}}:</span> {{post.get_content|excerpt(57)}} <a href="{{post.link}}">Read More</a></p>
       </div>
   	{% endblock %}
   </div>

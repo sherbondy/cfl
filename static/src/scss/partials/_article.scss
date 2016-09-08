@@ -35,7 +35,7 @@ $comment-width: 650px;
   max-width: 1220px;
   margin: 0 auto 50px;
   padding: 0 0 50px;
-  border-bottom: $border;
+  border-bottom: 2px solid $clr-base;
 }
 
 //
@@ -43,14 +43,45 @@ $comment-width: 650px;
 //
 
 .article-share-prompt {
-  max-width: 1220px;
-  margin: 0 auto 50px;
-  padding: 0 0 50px;
-  border-bottom: $border;
+  max-width: 650px;
+  margin-top: 20px;
+  padding: 35px 0 0;
+  border-top: $border;
 
   h5 {
-    margin-bottom: 0;
+    margin-bottom: 10px;
   }
+}
+
+.article-share-prompt__link {
+  display: inline-block;
+  padding: 11px 15px;
+  background: $clr-base;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 3px;
+  &:after {
+    display: inline-block;
+    content: '';
+    width: 30px;
+    background: url('../img/icon--twitter--white.svg');
+    height: 1em;
+    width: 1em;
+    background-size: contain;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    margin-left: 12px;
+  }
+
+  &:hover {
+    background-color: $clr-spot;
+  }
+}
+
+.article-share-prompt__link__text {
+  padding: 4px 13px 4px 0;
+  border-right: 1px solid #fff;
+  @include font($sans, 16px);
 }
 
 

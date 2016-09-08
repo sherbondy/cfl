@@ -2,7 +2,7 @@ $desktop-nav-width: 320px;
 $bp--nav-break: $bp--tablet;
 
 .nav {
-  height: 114px;
+  @include absolute(0 0 n 0);
   z-index: 1;
   background: #fff;
 
@@ -22,15 +22,20 @@ $bp--nav-break: $bp--tablet;
 
 .nav__width {
   position: relative;
-  padding: 20px;
-  // max-width: 1220px;
+  padding: 10px 20px;
+  z-index: 2;
   // margin: 0 auto;
   // border-bottom: $border;
 }
 
 .nav__logo__link {
   display: block;
-  max-width: 250px;
+  max-width: 210px;
+  line-height: 1;
+
+  @include mq($bp--phablet) {
+    max-width: 230px;
+  }
 
   &:hover {
     box-shadow: none;
@@ -60,12 +65,15 @@ $bp--nav-break: $bp--tablet;
 }
 
 .content-wrapper {
-  padding: 20px;
+  padding: 99px 20px 20px;
   max-width: 1220px;
   margin: 0 auto;
   position: relative;
   background-color: #fff;
 
+  @include mq($bp--phablet) {
+    padding-top: 110px;
+  }
 
   @include mq($bp--nav-break) {
    padding: 50px;
@@ -102,18 +110,21 @@ $bp--nav-break: $bp--tablet;
 // hidden nav
 
 .hidden-nav {
-  @include fixed(114px 0 0 100%);
+  @include fixed(0 100% 0 n);
   width: 100%;
-  padding: 20px 20px 80px;
+  padding: 99px 20px 80px;
   overflow: scroll;
   background: #fff;
   // box-shadow: 0 0 20px rgba(0,0,0,.2);
-  // transition: all .4s $timing;
+  transition: all .3s $timing;
   z-index: 1;
-  display: none;
+  // display: none;
+  @include mq($bp--phablet) {
+    padding-top: 110px;
+  }
 
   .js-nav-active & {
-    transform: translate3d(-100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
     display: block;
   }
 
@@ -122,6 +133,7 @@ $bp--nav-break: $bp--tablet;
     position: static;
     left: 0;
     display: block;
+    padding-top: 20px;
 
     .js-nav-active & {
       transform: translate3d(0, 0, 0);
@@ -176,17 +188,20 @@ $bp--nav-break: $bp--tablet;
 }
 
 .nav__footer {
-  @include fixed(n 0 0);
+  @include fixed(n 0 0 0);
+  transform: translate3d(-100%, 0, 0);
+  transition: all .3s $timing;
   padding: 0 20px 12px;
   background: #fff;
   z-index: 1;
-  display: none;
+  // display: none;
   .js-nav-active & {
+    transform: translate3d(0, 0, 0);
     display: block;
   }
 
   @include mq($bp--nav-break) {
-    display: block;
+    transform: translate3d(0, 0, 0);
     right: auto;
     width: ($desktop-nav-width - 1);
   }

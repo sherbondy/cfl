@@ -347,19 +347,20 @@ jQuery( document ).ready( function( $ ) {
   }
 
   function openCurrentMenu(location) {
-
-    if (isThisOpen(location)) {
+    // debugger;
+    // if (isThisOpen(location)) {
+      $('.default-repeater__item--menu--hours').addClass('js-repeater-is-open');
       let locationSlug;
       location.meals.forEach(function (meal, i) {
         for (let k in meal.days) {
           if (meal.days[k] === today && meal.end_time >= now && meal.start_time <= now) {
             $(`.default-repeater__item--menu--${meal.slug}`).addClass('js-repeater-is-open');
+            $('.default-repeater__item--menu--hours').removeClass('js-repeater-is-open');
           }
         }
       });
-    } else {
-      $('.default-repeater__item--menu--hours').addClass('js-repeater-is-open');
-    }
+    // } else {
+    // }
   }
 
   function sortLocationsBy(option) {

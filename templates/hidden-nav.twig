@@ -2,63 +2,68 @@
   <ul class="nav-width">
     <li class="nav__block">
       <h5 class="nav__block__title"><a class="nav__block__title-link" href="/about">About Clover</a></h5>
-      <p class="nav__block__link"><a href="/about">A letter from our CEO, Ayr.</a></p>
+      <p class="nav__block__link"><a href="/about">A letter from our CEO, Ayr. Our origins, our food, our mistakes</a></p>
     </li>
     <li class="nav__block">
-      <h5 class="nav__block__title"><a class="nav__block__title-link" href="/locations">Locations and Hours</a></h5>
-      <p class="nav__block__link"><a href="/locations">See what’s on the menu for each of our locations <b class="nav__block__date">{{now|date('F j, Y')}}</b></a></p>
+      <h5 class="nav__block__title"><a class="nav__block__title-link" href="/locations">Locations</a></h5>
+      <p class="nav__block__link"><a href="/locations">Today&rsquo;s menu, {{now|date('m.d')}}</a></p>
+      <p class="nav__block__link"><a href="/locations">Locations &amp; Hours</a></p>
     </li>
 
 
-    {% for event in events|slice(0, 1) %}
-      {% if event.info_date == today %}
-        {% set date_text = 'today' %}
-      {% elseif  event.info_date == (today + 1) %}
-        {% set date_text = 'tomorrow' %}
-      {% else %}
-        {% set date_text = 'on ' ~ event.info_date|date("m.d") %}
-      {% endif %}
-      {% if event %}
-        <li class="nav__block">
-          <h5 class="nav__block__title"><a class="nav__block__title-link" href="/events">Events</a></h5>
-          <p class="nav__block__link">
-            {% if event.url %}
-              <a href="{{event.url}}" target="_blank">Join us for <b>{{event.post_title}}</b> {{date_text}} at {{event.info_time|date("g:i")}}<span class="nav__block__small-cap">{{event.info_time|date("a")}}</span></a>
-            {% else %}
-              <a href="/events#{{event.id}}">Join us for <b>{{event.post_title}}</b> {{date_text}} at {{event.info_time|date("g:i")}}<span class="nav__block__small-cap">{{event.info_time|date("a")}}</span></a>
-            {% endif %}
-          </p>
-        </li>
-      {% endif %}
-    {% endfor %}
-
     <li class="nav__block">
-      <h5 class="nav__block__title"><a class="nav__block__title-link" href="/events">Careers at Clover</a></h5>
+      <h5 class="nav__block__title"><a class="nav__block__title-link" href="/events">Events</a></h5>
       <ul class="nav__block__list">
-
-        {% for item in latest_employee %}
-          <li class="nav__block__link">{{item.post_title}}</li>
-        {% endfor %}
-
-        <li class="nav__block__link"><a href="/careers">Join the team</a></li>
-        <li class="nav__block__link"><a href="/careers/training">Employee Training</a></li>
+      {% for event in events|slice(0, 1) %}
+        {% if event.info_date == today %}
+          {% set date_text = 'today' %}
+        {% elseif  event.info_date == (today + 1) %}
+          {% set date_text = 'tomorrow' %}
+        {% else %}
+          {% set date_text = 'on ' ~ event.info_date|date("m.d") %}
+        {% endif %}
+          {% if event %}
+            <li class="nav__block__link">
+              {% if event.url %}
+                <a href="{{event.url}}" target="_blank">Join us for {{event.post_title}} {{date_text}} at {{event.info_time|date("g:i")}}<span class="nav__block__small-cap">{{event.info_time|date("a")}}</span></a>
+              {% else %}
+                <a href="/events#{{event.id}}">Join us for {{event.post_title}} {{date_text}} at {{event.info_time|date("g:i")}}<span class="nav__block__small-cap">{{event.info_time|date("a")}}</span></a>
+              {% endif %}
+            </li>
+        {% else %}
+        {% endif %}
+      {% endfor %}
+        {% if events %}
+          <li class="nav__block__link"><a href="/events">Other Events</a></li>
+        {% else %}
+          <li class="nav__block__link"><a href="/events">Events at Clover</a></li>
+        {% endif %}
       </ul>
     </li>
 
     <li class="nav__block">
-      <h5 class="nav__block__title">More</h5>
+      <h5 class="nav__block__title"><a class="nav__block__title-link" href="/careers">Careers at Clover</a></h5>
+      <ul class="nav__block__list">
+
+        <li class="nav__block__link"><a href="/careers">Welcome Lucia, our newest employee</a></li>
+        <li class="nav__block__link"><a href="/careers">Join the team</a></li>
+      </ul>
+    </li>
+
+    <li class="nav__block">
+      <h5 class="nav__block__title">Learn More</h5>
       <ul class="nav__block__list">
         <li class="nav__block__link">
-          <a href="/food">Food</a>
+          <a href="/food">Food Philosophy</a>
         </li>
         <li class="nav__block__link">
-          <a href="/careers/training">Training</a>
+          <a href="/careers/training">Employee Training</a>
+        </li>
+        <li class="nav__block__link">
+          <a href="/csa">Farm Share Pick-ups</a>
         </li>
         <li class="nav__block__link">
           <a href="/catering">Catering</a>
-        </li>
-        <li class="nav__block__link">
-          <a href="/csa">CSA</a>
         </li>
       </ul>
     </li>

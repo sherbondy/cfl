@@ -1,5 +1,17 @@
 {% extends "base.twig" %}
 
 {% block content %}
-  {% include 'components/paginated-grid.twig' %}
+
+  <div class="tease__grid">
+    {% for post in posts %}
+      {% if loop.index == 6 %}
+        {% for post in random_posts %}
+            {% include ['tease.twig'] with {'archive': 'true'} %}
+        {% endfor %}
+      {% endif %}
+      {% include ['tease.twig'] %}
+    {% endfor %}
+  </div>
+  {% include 'pagination.twig' %}
+
 {% endblock %}

@@ -14,49 +14,58 @@
 			<div class="article-body">
 				{{post.content}}
 			</div>
-		</section>
-		<section class="article-share-prompt">
-			<h5>Like what you read?</h5>
-			<p>Keep the conversation going on <a class="qs-link" data-qs-service="twitter" data-qs-tweet-body="Clover Blog: {{post.title}}">Twitter</a>.</p>
+			<section class="article-share-prompt">
+				<h5>Like what you read?</h5>
+				<a class="qs-link article-share-prompt__link" data-qs-service="twitter" data-qs-tweet-body="Clover Blog: {{post.title}}"><span class="article-share-prompt__link__text">Continue the conversation!</span></a>
+
+			</section>
 		</section>
 		<section class="related-posts">
-			<h2 class="related-posts__title">Related Posts</h2>
+			<h6 class="related-posts__title">Next Posts</h6>
 			<div class="tease__grid">
 				<div class="tease__grid">
 
-			    <article class="tease tease-{{post.next.post_type}}" id="tease-{{post.next.ID}}">
-			      <div class="tease__inner">
+				{% if post.prev.thumbnail.src %}
+				  <article class="tease tease-{{post.prev.post_type}} tease--image" id="tease-{{post.prev.ID}}">
+				{% else %}
+				  <article class="tease tease-{{post.prev.post_type}}  tease--no-image" id="tease-{{post.prev.ID}}">
+				{% endif %}
+				  <div class="tease__inner">
+				      {% if post.prev.thumbnail.src %}
+				        <a href="{{post.prev.link}}" class="tease__img-mod">
+				          <img class="tease__img" src="{{post.prev.thumbnail.src}}" />
+				        </a>
+				      {% endif %}
 
-			            <a href="{{post.next.link}}" class="tease__img-mod">
-			              {% if post.next.thumbnail.src %}
-			                <img class="tease__img" src="{{post.next.thumbnail.src}}" />
-			              {% endif %}
-			            </a>
-			          <div class="tease__hgroup">
-			            <!-- <a class="tease__overline" href="{{post.next.category.link}}">{{post.next.category}}</a> -->
-			        		<h2 class="tease__hed"><a href="{{post.next.link}}">{{post.next.title}}</a></h2>
-			        		<p class="tease__dek">{{post.next.get_preview|excerpt(27)}}</p>
-			          </div>
-			      </div>
-			    </article>
+				      <div class="tease__hgroup">
+				        <!-- <a class="tease__overline" href="{{post.prev.category.link}}">{{post.prev.category}}</a> -->
+				    		<h2 class="tease__hed"><a href="{{post.prev.link}}">{{post.prev.title}}</a></h2>
+				    		<p class="tease__dek"><span class="tease__date">{{post.prev.date|date("m.d")}}:</span> {{post.prev.get_content|excerpt(57)}} <a href="{{post.prev.link}}">Read More</a></p>
+				      </div>
+				  </div>
+				</article>
 
 
-			    <article class="tease tease-{{post.prev.post_type}}" id="tease-{{post.prev.ID}}">
-			      <div class="tease__inner">
+				{% if post.next.thumbnail.src %}
+				  <article class="tease tease-{{post.next.post_type}} tease--image" id="tease-{{post.next.ID}}">
+				{% else %}
+				  <article class="tease tease-{{post.next.post_type}}  tease--no-image" id="tease-{{post.next.ID}}">
+				{% endif %}
+				  <div class="tease__inner">
 
-			            <a href="{{post.prev.link}}" class="tease__img-mod">
-			              {% if post.prev.thumbnail.src %}
-			                <img class="tease__img" src="{{post.prev.thumbnail.src}}" />
-			              {% endif %}
-			            </a>
-			          <div class="tease__hgroup">
-			            <!-- <a class="tease__overline" href="{{post.prev.category.link}}">{{post.prev.category}}</a> -->
-			        		<h2 class="tease__hed"><a href="{{post.prev.link}}">{{post.prev.title}}</a></h2>
-			        		<p class="tease__dek">{{post.prev.get_preview|excerpt(27)}}</p>
-			          </div>
-			      </div>
-			    </article>
+				      {% if post.next.thumbnail.src %}
+				        <a href="{{post.next.link}}" class="tease__img-mod">
+				          <img class="tease__img" src="{{post.next.thumbnail.src}}" />
+				        </a>
+				      {% endif %}
 
+				      <div class="tease__hgroup">
+				        <!-- <a class="tease__overline" href="{{post.next.category.link}}">{{post.next.category}}</a> -->
+				    		<h2 class="tease__hed"><a href="{{post.next.link}}">{{post.next.title}}</a></h2>
+				    		<p class="tease__dek"><span class="tease__date">{{post.next.date|date("m.d")}}:</span> {{post.next.get_content|excerpt(57)}} <a href="{{post.next.link}}">Read More</a></p>
+				      </div>
+				  </div>
+				</article>
 
 				</div>
 			</div>

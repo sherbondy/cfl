@@ -100,6 +100,19 @@
 .menu-info__hours {
   font-size: .85em;
   font-weight: 400;
+  display: none;
+  margin-top: 10px;
+
+  @include mq(max, $bp--tablet) {
+    .js-repeater-is-open & {
+      display: block;
+    }
+  }
+
+  @include mq($bp--tablet) {
+    margin-top: 0;
+    display: inline;
+  }
 }
 
 .default-repeater__item--menu .default-repeater__content {
@@ -242,9 +255,8 @@
 
 .menu-info__trigger--open {
   padding: 0;
-  width: 20px;
-  height: 20px;
-  font-size: 13px;
+  @include size(17px);
+  @include font($sans, 11px, 700);
   border-radius: 50%;
   background: #eee;
   color: #000;
@@ -440,10 +452,28 @@
 }
 
 .location-cta {
-  margin-top: 85px;
+  margin-top: 55px;
   max-width: 800px;
 }
 
 .location-cta__h {
   margin-bottom: 5px;
+}
+
+
+.location-cta__text {
+  max-width: 600px;
+  margin-bottom: 17px;
+}
+
+.location-cta__btn {
+  background-color: $clr-base;
+  color: #fff;
+  border-radius: 2px;
+  padding: 8px 15px;
+  display: inline-block;
+  transition: all .2s ease;
+  &:hover {
+    background-color: $clr-spot;
+  }
 }
