@@ -9,6 +9,7 @@ jQuery( document ).ready( function( $ ) {
   let days = {'Sunday': {'allHours':[]}, 'Monday': {'allHours':[]}, 'Tuesday': {'allHours':[]}, 'Wednesday': {'allHours':[]}, 'Thursday': {'allHours':[]}, 'Friday': {'allHours':[]}, 'Saturday': {'allHours':[]}};
   let dayArray = Object.keys( days );
   let dayArrayAbbr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+  let isMobile = $(window).width() >= 768;
 
   function initMap(lat, lng) {
     let styles = [
@@ -32,6 +33,7 @@ jQuery( document ).ready( function( $ ) {
       }
     ];
     let map = new google.maps.Map(document.getElementById('map'), {
+      draggable: isMobile,
       zoom: 14,
       scrollwheel: false,
       // center: new google.maps.LatLng(42.3601, -71.0589),

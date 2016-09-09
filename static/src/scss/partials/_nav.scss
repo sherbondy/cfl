@@ -2,14 +2,19 @@ $desktop-nav-width: 320px;
 $bp--nav-break: $bp--tablet;
 
 .nav {
-  @include absolute(0 0 n 0);
+  @include fixed(0 0 n 0);
   z-index: 1;
   background: #fff;
 
-  .js-nav-active & {
+  .js-top-nav & {
     @include fixed(0 0 n 0);
+    transition: 0
   }
 
+  .js-hide-top-nav & {
+    @include absolute(0 0 n 0);
+    transition: 0
+  }
   @include mq($bp--nav-break) {
     @include fixed(0 n 0 0);
     width: $desktop-nav-width;
@@ -94,7 +99,7 @@ $bp--nav-break: $bp--tablet;
     @include absolute(0);
     background: #000;
     content: '';
-    display: block
+    display: block;
   }
 
   &:before {
@@ -103,6 +108,19 @@ $bp--nav-break: $bp--tablet;
 
   &:after {
     transform: translateY(250%);
+  }
+
+  .js-nav-active & {
+    margin: 0 auto;
+    width: 80%;
+    background-color: transparent;
+    &:before {
+      transform: rotate(45deg);
+    }
+
+    &:after {
+      transform: rotate(-45deg);
+    }
   }
 }
 

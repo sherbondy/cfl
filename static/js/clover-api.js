@@ -11,6 +11,7 @@ jQuery(document).ready(function ($) {
   var days = { 'Sunday': { 'allHours': [] }, 'Monday': { 'allHours': [] }, 'Tuesday': { 'allHours': [] }, 'Wednesday': { 'allHours': [] }, 'Thursday': { 'allHours': [] }, 'Friday': { 'allHours': [] }, 'Saturday': { 'allHours': [] } };
   var dayArray = Object.keys(days);
   var dayArrayAbbr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  var isMobile = $(window).width() >= 768;
 
   function initMap(lat, lng) {
     var styles = [{
@@ -22,6 +23,7 @@ jQuery(document).ready(function ($) {
       "stylers": [{ "visibility": "simplified" }, { "gamma": 1.39 }]
     }, {}];
     var map = new google.maps.Map(document.getElementById('map'), {
+      draggable: isMobile,
       zoom: 14,
       scrollwheel: false,
       // center: new google.maps.LatLng(42.3601, -71.0589),

@@ -29,7 +29,7 @@
           <h5 class="tease__archive-header">From the archives</h5>
         {% endif %}
     		<h2 class="tease__hed"><a href="{{post.link}}">{{post.title}}</a></h2>
-    		<p class="tease__dek"><span class="tease__date">{{post.date|date("d M, Y")}}:</span> {{post.get_content|excerpt(57)}} <a href="{{post.link}}">Read More</a></p>
+    		<p class="tease__dek"><span class="tease__date">{{post.date|date("j F, Y")}}:</span> {{post.get_content|excerpt(57)}} <a href="{{post.link}}">Read More</a></p>
       </div>
   	{% endblock %}
   </div>

@@ -30,5 +30,35 @@ jQuery(document).ready(function ($) {
     $(this).parent().removeClass('js-search-is-active');
   });
 
+  var wWidth = $(window).width();
+
+  $(window).resize(function () {
+    wWidth = $(window).width();
+
+    console.log(wWidth);
+  });
+
+  if (wWidth <= 768) {
+    console.log(wWidth);
+    var lastScrollTop = 0;
+    $(window).scroll(function (event) {
+
+      var st = $(this).scrollTop();
+
+      if (st < lastScrollTop) {
+        $('body').removeClass('js-hide-top-nav');
+      } else {
+        $('body').addClass('js-hide-top-nav');
+      }
+
+      if ($(this).scrollTop() > 100) {
+        $('body').addClass('js-past-nav');
+      } else {
+        $('body').removeClass('js-past-nav');
+      }
+      lastScrollTop = st;
+    });
+  }
+
   quickShare();
 });
