@@ -5,16 +5,20 @@
 
 .page-h1 {
 
-  @include font($sans, 38px, 800);
+  border-bottom: 2px solid;
+  padding-bottom: .45em;
+  margin-bottom: .5em;
+  @include font($sans, 28px, 800);
   line-height: 1.05;
+
   @include mq($bp--phablet) {
-    @include font($size: 55px);
+    @include font($size: 34px);
     margin-left: -3px;
   }
   @include mq($bp--tablet) {
-    @include font($size: 65px);
+    @include font($size: 42px);
   }
   @include mq($bp--desktop) {
-    @include font($sans, 75px, 800);
+    @include font($sans, 55px);
   }
 }

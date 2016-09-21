@@ -1,10 +1,58 @@
-
-
 .map-container {
   @include mq($bp--nav-break) {
    margin-left: $desktop-nav-width;
   }
+  @include mq(max, $bp--tablet) {
+    * {
+      pointer-events: none;
+    }
+  }
 }
+
+.map-is-fullscreen {
+
+  @include mq(max, $bp--tablet) {
+    .topper-block-mod,
+    .map-container {
+      @include fixed(0 0 50px);
+      position: fixed !important;
+      height: auto;
+      z-index: 999;
+    }
+
+    * {
+      pointer-events: auto;
+    }
+
+    .locations-form__mod {
+      @include fixed(n 0 0 0);
+      height: 50px;
+      z-index: 999;
+      padding: 10px;
+      form {
+        display: none;
+      }
+    }
+
+    .location-address {
+      width: calc(100% - 75px);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+    }
+  }
+}
+
+.map-close {
+  display: none;
+  padding: 0.2em 15px;
+  .map-is-fullscreen & {
+    display: block;
+    @include absolute(5px 5px 5px n);
+  }
+}
+
 
 .map-container--index {
   height: 200px;
@@ -64,6 +112,7 @@
 
 .location-topper__about {
   margin-bottom: 10px;
+  max-width: 750px;
 }
 
 .location-topper__twitter {
@@ -101,6 +150,7 @@
   font-size: .85em;
   font-weight: 400;
   display: none;
+  font-family: $serif;
   margin-top: 10px;
 
   @include mq(max, $bp--tablet) {
@@ -156,7 +206,7 @@
   display: none;
   @include fixed(0);
   white-space: normal;
-  @include font($sans, 16px, 400);
+  @include font($serif, 16px, 400);
   line-height: 1.5;
   color: #000;
   background: #fff;
@@ -191,7 +241,7 @@
 
 .js-is-new {
   color: $clr-green;
-  @include font($sans, 13px, 800, $ls: .05em, $caps: caps);
+  @include font($sans, 12px, 800, $ls: .05em, $caps: caps);
 }
 
 .menu__item-name {
@@ -242,6 +292,9 @@
   right: 20px;
   top: 20px;
   transition: all .2s $timing;
+  padding-top: 11px;
+  padding-bottom: 13px;
+  @include font($sans, 11px, 700, normal, 1px, caps);
 
   &:hover {
     background: $clr-spot;
@@ -268,13 +321,6 @@
 }
 
 
-.menu-info__trigger--close {
-  font-size: 20px;
-  width: 47px;
-  padding-top: 11px;
-  padding-bottom: 13px;
-  // font-weight: 800;
-}
 
 
 // hours
@@ -365,7 +411,10 @@
 .location__title {
   color: $clr-base;
   margin-bottom: 3px;
-  @include font($sans, 18px, $ls: 0);
+  @include font($sans, 16px, $ls: 0);
+  @include mq($bp--phablet) {
+    @include font($size: 18px);
+  }
 
   .location-item--closed & {
     color: #999;
@@ -381,8 +430,11 @@
 
 
 .location__status {
-  @include font($sans, 14px, 800, normal, 0.025em, caps);
+  @include font($sans, 12px, 800, normal, 0.025em, caps);
   margin-bottom: 0;
+  @include mq($bp--phablet) {
+    @include font($size: 14px);
+  }
 
   .location-item--open & {
     color: $clr-green;
@@ -397,6 +449,7 @@
   background: #F8F8F8;
   border-top: $border;
   overflow: hidden;
+  position: relative;
   @include mq($bp--nav-break) {
     padding: 30px 50px;
     margin-left: $desktop-nav-width;
@@ -414,7 +467,7 @@
     margin-bottom: 10px;
   }
 
-  @include mq($bp--phablet) {
+  @include mq(950px) {
     &:first-child {
       margin-bottom: 0;
     }

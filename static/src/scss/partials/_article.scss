@@ -10,14 +10,14 @@ $comment-width: 650px;
 }
 
 .article-h1 {
-  @include font($sans, 32px, 800);
+  @include font($sans, 22px, 800);
   line-height: 1.05;
   margin: 0 0 8px -3px;
   @include mq($bp--phablet) {
-    @include font($size: 43px);
+    @include font($size: 31px);
   }
   @include mq($bp--tablet) {
-    @include font($size: 60px);
+    @include font($size: 43px);
   }
 }
 
@@ -43,7 +43,6 @@ $comment-width: 650px;
 //
 
 .article-share-prompt {
-  max-width: 650px;
   margin-top: 20px;
   padding: 35px 0 0;
   border-top: $border;
@@ -71,6 +70,7 @@ $comment-width: 650px;
     background-position: 50% 50%;
     background-repeat: no-repeat;
     margin-left: 12px;
+    margin-bottom: -2px;
   }
 
   &:hover {

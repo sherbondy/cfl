@@ -1,14 +1,37 @@
 .event__title {
-  @include font($weight: 800);
-  width: 80px;
+  width: 55px;
   float: left;
+  @include font($sans, .85em, 700);
+  line-height: 1.85em;
+  @include mq($bp--tablet) {
+    width: 68px;
+  }
 }
 
 
-.events-mod {
-  // opacity: 0;
-  // transition: all .2s ease;
-  // &.js-display-events {
-  //   opacity: 1;
-  // }
+.events__title {
+  margin-bottom: 10px;
+  border-bottom: 2px solid $clr-base;
+  padding-bottom: 2px;
+  @include font($sans, 22px)
+  @include mq($bp--tablet) {
+    @include font($size: 24px)
+    padding-bottom: 4px;
+  }
+}
+
+.events__mod {
+  margin-top: 30px;
+}
+
+.event__desc {
+  margin-left: 0;
+  margin-bottom: 5px;
+  overflow: hidden;
+}
+
+.events__list {
+  @include mq($bp--phablet) {
+    @include font($serif, 21px);
+  }
 }

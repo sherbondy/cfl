@@ -8,9 +8,9 @@
     font-size: $size;
   }
 
-  @if ($size and $size > 20px) {
-    letter-spacing: 0.03em;
-  }
+  // @if ($size and $size > 20px) {
+  //   letter-spacing: 0.03em;
+  // }
   @if ($weight) {
     font-weight: $weight;
   }

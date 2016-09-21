@@ -14,7 +14,7 @@
   border-top: 2px solid $clr-base;
   padding-top: 40px;
   @include mq($bp--desktop) {
-    padding-top: 60px;
+    padding-top: 55px;
   }
 }
 
@@ -54,12 +54,12 @@
   }
 
   @include mq($bp--desktop) {
-    @include font($size: 30px);
+    @include font($size: 27px);
   }
 }
 
 .tease__dek {
-  @include font($sans, 15px);
+  @include font($serif, 16px);
 
   @include mq($bp--desktop) {
     @include font($size: 18px);
@@ -132,8 +132,9 @@
 .tease__date {
   text-transform: uppercase;
   letter-spacing: 0.2px;
-  font-weight: 800;
-  font-size: 0.85em;
+  font-weight: 700;
+  font-size: 0.75em;
+  font-family: $sans;
 }
 
 .tease__archive-header {

@@ -12,20 +12,23 @@
       </div>
     {% endif %}
 
-    <div class="events-mod">
-      {% for event in events %}
-        {% if event.info_date|date("Ymd") >= ( "now"|date("Ymd") ) %}
-          <dl class="event" data-date="{{event.info_date}}">
-            <dt class="event__title" id="{{event.id}}">{{event.info_date|date("m.d")}}</dt>
-            {% if event.url %}
-              <dd class="event__desc"><a class="event__link" href="{{event.url}}">{{event.title}} at {{event.location}}, {{event.info_time|date("g:ia")}}</a></dd>
-            {% else %}
-              <dd class="event__desc">{{event.title}} at {{event.location}}, {{event.info_time|date("g:ia")}}</dd>
+    {% if events %}
+      <div id="events" class="events__mod">
+        <h3 class="events__title">Upcoming Events</h3>
+        <dl class="events__list" data-3date="{{event.info_date}}">
+          {% for event in events %}
+            {% if event.info_date|date("Ymd") >= ( "now"|date("Ymd") ) %}
+              <dt class="event__title" id="{{event.id}}">{{event.info_date|date("m.d")}}</dt>
+              {% if event.url %}
+                <dd class="event__desc"><a class="event__link" href="{{event.url}}">{{event.title}} at {{event.location}}, {{event.info_time|date("g:ia")}}</a></dd>
+              {% else %}
+                <dd class="event__desc">{{event.title}} at {{event.location}}, {{event.info_time|date("g:ia")}}</dd>
+              {% endif %}
             {% endif %}
-          </dl>
-        {% endif %}
-      {% endfor %}
-    </div>
+          {% endfor %}
+        </dl>
+      </div>
+    {% endif %}
   {% endblock %}
 {% endblock %}
 

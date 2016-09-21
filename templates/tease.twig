@@ -1,8 +1,13 @@
 
 {% if archive %}
   {% set archiveClass = "tease--archive" %}
+  {% set is_archive = true %}
+{% elseif post.date|date("Ymd") < "-180 days"|date("Ymd") %}
+  {% set archiveClass = "tease--archive" %}
+  {% set is_archive = true %}
 {% else %}
   {% set archiveClass = "tease--current" %}
+  {% set is_archive = false %}
 {% endif %}
 
 {% if post.thumbnail.src %}
@@ -12,7 +17,7 @@
 {% endif %}
 
 
-  <article class="tease tease-{{post.post_type}} {{imageClass}} {{archiveClass}}" id="tease-{{post.ID}}">
+<article class="tease tease-{{post.post_type}} {{imageClass}} {{archiveClass}}" id="tease-{{post.ID}}">
   <div class="tease__inner">
   	{% block content %}
 
@@ -25,7 +30,7 @@
       <div class="tease__hgroup">
         <!-- <a class="tease__overline" href="{{post.category.link}}">{{post.category}}</a> -->
 
-        {% if archive %}
+        {% if is_archive %}
           <h5 class="tease__archive-header">From the archives</h5>
         {% endif %}
     		<h2 class="tease__hed"><a href="{{post.link}}">{{post.title}}</a></h2>

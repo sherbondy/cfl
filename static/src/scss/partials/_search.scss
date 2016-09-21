@@ -10,6 +10,16 @@
   width: 100%;
   position: relative;
   font-size: 60px;
+  @include font($sans, 28px);
+  @include mq($bp--phablet) {
+    @include font($size: 34px);
+  }
+  @include mq($bp--tablet) {
+    @include font($size: 42px);
+  }
+  @include mq($bp--desktop) {
+    @include font($sans, 55px);
+  }
 }
 
 .search-topper__input {

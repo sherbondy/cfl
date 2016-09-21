@@ -1,14 +1,17 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="33px" height="33px" viewBox="0 0 33 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>Fill 7 Copy</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="10.-nav" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Open" transform="translate(-337.000000, -822.000000)" fill="#000000">
-            <g id="Group-4" transform="translate(20.000000, 800.000000)">
-                <path d="M331.389745,45.5874231 C326.160636,45.5874231 321.906564,41.3298804 321.906564,36.1042412 C321.906564,30.8751321 326.160636,26.6175894 331.389745,26.6175894 C336.618855,26.6175894 340.872927,30.8751321 340.872927,36.1042412 C340.872927,41.3298804 336.618855,45.5874231 331.389745,45.5874231 M349.339434,51.5972552 L342.146373,44.404194 C343.929892,42.0967239 345.036783,39.2410127 345.036783,36.1042412 C345.036783,28.5780715 338.912445,22.4572033 331.389745,22.4572033 C323.867046,22.4572033 317.742708,28.5780715 317.742708,36.1042412 C317.742708,43.6304108 323.867046,49.7478092 331.389745,49.7478092 C334.526517,49.7478092 337.385698,48.6409175 339.693168,46.8573992 L346.886229,54.0504603 C347.226278,54.3905086 347.670422,54.5605327 348.114567,54.5605327 C348.558711,54.5605327 349.002856,54.3905086 349.339434,54.0504603 C350.019531,53.3738337 350.019531,52.2773517 349.339434,51.5972552" id="Fill-7-Copy"></path>
-            </g>
-        </g>
-    </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 20.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 33 33" style="enable-background:new 0 0 33 33;" xml:space="preserve">
+<title>Fill 7 Copy</title>
+<desc>Created with Sketch.</desc>
+<g id="_x31_0.-nav_2_">
+	<g id="Open_2_" transform="translate(-337.000000, -822.000000)">
+		<g id="Group-4_2_" transform="translate(20.000000, 800.000000)">
+			<path id="Fill-7-Copy_2_" d="M331.1,46.5c-5.7,0-10.4-4.7-10.4-10.4c0-5.7,4.7-10.4,10.4-10.4c5.7,0,10.4,4.7,10.4,10.4
+				C341.5,41.8,336.8,46.5,331.1,46.5 M349,51.6l-7.2-7.2c1.8-2.3,2.9-5.2,2.9-8.3c0-7.5-6.1-13.6-13.6-13.6s-13.6,6.1-13.6,13.6
+				s6.1,13.6,13.6,13.6c3.1,0,6-1.1,8.3-2.9l7.2,7.2c0.3,0.3,0.8,0.5,1.2,0.5s0.9-0.2,1.2-0.5C349.7,53.4,349.7,52.3,349,51.6"/>
+		</g>
+	</g>
+</g>
 </svg>

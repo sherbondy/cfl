@@ -10,6 +10,10 @@ if ( ! class_exists( 'Timber' ) ) {
 }
 
 
+if ( function_exists('acf_add_options_page') ) {
+	acf_add_options_page();
+}
+
 Timber::$dirname = array('templates', 'views');
 
 date_default_timezone_set('America/New_York');
@@ -57,6 +61,7 @@ class StarterSite extends TimberSite {
 		parent::__construct();
 	}
 
+
 	function arphabet_widgets_init() {
 
 		register_sidebar( array(
@@ -70,6 +75,7 @@ class StarterSite extends TimberSite {
 
 	}
 
+
 	function register_taxonomies() {
 		//this is where you can register custom taxonomies
 	}
@@ -77,6 +83,8 @@ class StarterSite extends TimberSite {
     return preg_replace('/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', '\1\2\3', $content);
 	}
 	function add_to_context( $context ) {
+
+		$context['options'] = get_fields('option');
 		$context['locations'] = wp_remote_get( 'https://menu.cloverfoodlab.com/api/locations' );
 		$context['notes'] = 'These values are available everytime you call Timber::get_context();';
 		$context['nav_more'] = new TimberMenu('Nav More');
@@ -107,15 +115,14 @@ class StarterSite extends TimberSite {
 	}
 
 
-	function myfoo( $text ) {
-		$text .= ' bar!';
-		return $text;
+	function convert_youtube_playlist( $text ) {
+		echo str_replace("youtube.com/embed/", "youtube.com/v/", $text);
 	}
 
 	function add_to_twig( $twig ) {
 		/* this is where you can add your own fuctions to twig */
 		$twig->addExtension( new Twig_Extension_StringLoader() );
-		$twig->addFilter('myfoo', new Twig_SimpleFilter('myfoo', array($this, 'myfoo')));
+		$twig->addFilter('convert_youtube_playlist', new Twig_SimpleFilter('convert_youtube_playlist', array($this, 'convert_youtube_playlist')));
 		return $twig;
 	}
 

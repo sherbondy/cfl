@@ -8,26 +8,29 @@
 {% endblock %}
 
 {% block topper %}
-  <div class="map-container map-container--index" id="map"></div>
-  <div class="locations-form__mod">
-    <form action="">
-      <div class="location-form__select-mod">
-        <label for="filter">Showing</label>
-        <select name="" id="filter">
-          <option value="all">All Locations</option>
-          <option value="truck">Trucks</option>
-          <option value="restaurants">Restaurants</option>
-          <option value="status">Just what&rsquo;s open</option>
-        </select>
-      </div>
-      <div class="location-form__select-mod">
-        <label for="sort">Sort by</label>
-        <select name="" id="sort">
-          <option value="distance">Distance</option>
-          <option value="name">Name</option>
-        </select>
-      </div>
-    </form>
+  <div class="topper-block-mod">
+    <div class="map-container map-container--index" id="map"></div>
+    <div class="locations-form__mod">
+      <form action="">
+        <div class="location-form__select-mod">
+          <label for="filter">Showing</label>
+          <select name="" id="filter">
+            <option value="all">All Locations</option>
+            <option value="truck">Trucks</option>
+            <option value="restaurants">Restaurants</option>
+            <option value="status">Just what&rsquo;s open</option>
+          </select>
+        </div>
+        <div class="location-form__select-mod">
+          <label for="sort">Sort by</label>
+          <select name="" id="sort">
+            <option value="distance">Distance</option>
+            <option value="name">Name</option>
+          </select>
+        </div>
+      </form>
+      <button class="map-close">Close</button>
+    </div>
   </div>
 {% endblock %}
 

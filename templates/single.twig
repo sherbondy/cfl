@@ -21,7 +21,13 @@
 			</section>
 		</section>
 		<section class="related-posts">
-			<h6 class="related-posts__title">Next Posts</h6>
+
+			{% if post.prev.date|date("Ymd") < "-180 days"|date("Ymd") %}
+			  <h6 class="related-posts__title">More from the Archives</h6>
+			{% else %}
+				<h6 class="related-posts__title">Next Posts</h6>
+			{% endif %}
+
 			<div class="tease__grid">
 				<div class="tease__grid">
 
@@ -40,7 +46,7 @@
 				      <div class="tease__hgroup">
 				        <!-- <a class="tease__overline" href="{{post.prev.category.link}}">{{post.prev.category}}</a> -->
 				    		<h2 class="tease__hed"><a href="{{post.prev.link}}">{{post.prev.title}}</a></h2>
-				    		<p class="tease__dek"><span class="tease__date">{{post.prev.date|date("m.d")}}:</span> {{post.prev.get_content|excerpt(57)}} <a href="{{post.prev.link}}">Read More</a></p>
+				    		<p class="tease__dek"><span class="tease__date">{{post.prev.date|date("j F, Y")}}:</span> {{post.prev.get_content|excerpt(57)}} <a href="{{post.prev.link}}">Read More</a></p>
 				      </div>
 				  </div>
 				</article>
@@ -62,7 +68,7 @@
 				      <div class="tease__hgroup">
 				        <!-- <a class="tease__overline" href="{{post.next.category.link}}">{{post.next.category}}</a> -->
 				    		<h2 class="tease__hed"><a href="{{post.next.link}}">{{post.next.title}}</a></h2>
-				    		<p class="tease__dek"><span class="tease__date">{{post.next.date|date("m.d")}}:</span> {{post.next.get_content|excerpt(57)}} <a href="{{post.next.link}}">Read More</a></p>
+				    		<p class="tease__dek"><span class="tease__date">{{post.next.date|date("j F, Y")}}:</span> {{post.next.get_content|excerpt(57)}} <a href="{{post.next.link}}">Read More</a></p>
 				      </div>
 				  </div>
 				</article>

@@ -9,9 +9,10 @@ jQuery( document ).ready( function( $ ) {
   let days = {'Sunday': {'allHours':[]}, 'Monday': {'allHours':[]}, 'Tuesday': {'allHours':[]}, 'Wednesday': {'allHours':[]}, 'Thursday': {'allHours':[]}, 'Friday': {'allHours':[]}, 'Saturday': {'allHours':[]}};
   let dayArray = Object.keys( days );
   let dayArrayAbbr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-  let isMobile = $(window).width() >= 768;
+  let isMobile = $(window).width() < 768;
 
-  function initMap(lat, lng) {
+
+  function initMap(isDraggable, lat, lng) {
     let styles = [
       {
         "featureType": "water",
@@ -33,7 +34,7 @@ jQuery( document ).ready( function( $ ) {
       }
     ];
     let map = new google.maps.Map(document.getElementById('map'), {
-      draggable: isMobile,
+      draggable: isDraggable,
       zoom: 14,
       scrollwheel: false,
       // center: new google.maps.LatLng(42.3601, -71.0589),
@@ -53,6 +54,7 @@ jQuery( document ).ready( function( $ ) {
         browserSupportFlag = true;
         navigator.geolocation.getCurrentPosition(function(position) {
           initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+          userLocation = initialLocation;
           map.setCenter(initialLocation);
         }, function() {
           handleNoGeolocation(browserSupportFlag);
@@ -118,16 +120,8 @@ jQuery( document ).ready( function( $ ) {
   }
 
 
-  function isThisOpen(location, type = 'trueFalse') {
-    if (type === 'trueFalse') {
-      return location.is_operating;
-    } else if (type === 'numbers') {
-      if (location.is_operating) {
-        return 0;
-      } else {
-        return 1;
-      }
-    }
+  function isThisOpen(location) {
+    return location.is_open;
   }
 
   function isThisATruck(location) {
@@ -147,7 +141,7 @@ jQuery( document ).ready( function( $ ) {
     let num = 0;
     let locationSlug;
     location.meals.forEach(function (meal, i) {
-      num = meal.end_time;
+      // num = meal.end_time;
       for (let k in meal.days) {
         if (meal.days[k] === today) {
           num = meal.end_time;
@@ -160,7 +154,6 @@ jQuery( document ).ready( function( $ ) {
   }
 
   function buildLocationItem(location, i) {
-    console.log(location);
     if (isThisOperating(location)) {
       let locationLatLong = new google.maps.LatLng(location.latitude, location.longitude);
       let distance = google.maps.geometry.spherical.computeDistanceBetween(userLocation, locationLatLong, 3959);
@@ -231,7 +224,6 @@ jQuery( document ).ready( function( $ ) {
   }
 
   function buildMenuItem(meal, slug) {
-    // debugger;
     let hours;
     if (meal.days[0] !== meal.days[meal.days.length - 1]) {
       hours = `${meal.days[0]} to ${meal.days[meal.days.length - 1]}`;
@@ -263,7 +255,6 @@ jQuery( document ).ready( function( $ ) {
     let menuApiCall = $.getJSON(`${apiURL}location/${slug}/meal/${meal.slug}`);
     menuApiCall.done( function(data) {
       // build categories
-        // console.log(data);
       //
       let categories =  data.categories;
       for (let key in categories) {
@@ -287,14 +278,13 @@ jQuery( document ).ready( function( $ ) {
             <div class="menu-info__modal">
               ${itemImg}
               <div class="menu-info__modal--width">
-                <button class="menu-info__trigger menu-info__trigger--close">&times;</button>
+                <button class="menu-info__trigger menu-info__trigger--close">Close</button>
                 <h2 class="menu-info__modal-title">${item.description}</h2>
                 ${replaceMarkDown(item.long_description)}
               </div>
             </div>
           </div>` : '';
 
-        // console.log(item);
 
         $(`[data-cat='${itemCat}-${i}']`).append(`
             <div class="menu__item ${soldOutClass}">
@@ -315,14 +305,12 @@ jQuery( document ).ready( function( $ ) {
   function setMenu(currentLocation) {
     let meals = currentLocation.meals;
     let slug = currentLocation.slug;
-    // console.log(meals);
     let allMeals = [];
     meals.forEach(function(meal, i) {
       if ($.inArray(meal.slug, allMeals) == -1) {
         buildMenuItem(meal, slug);
         buildMenu(meal, slug, i);
         allMeals.push(meal.slug);
-        // console.log(meal);
       } else {
         let hours = setMenuHours(meal);
         let moreHours = `, ${hours}: ${returnTime(meal.start_time)} - ${returnTime(meal.end_time)}`
@@ -335,9 +323,11 @@ jQuery( document ).ready( function( $ ) {
 
   function setSingleTopperInfo(location) {
     let address = `${location.address_street_1} ${location.address_city}, ${location.address_state} ${location.address_zip_code}`;
+    let longDescription = location.long_description ? `<p class="location-topper__about">${location.long_description}</p>` : '';
     $('.location-address').text(address).attr('href', `http://maps.google.com/?q=${address}`);
     $('.location-topper__title').text(location.description);
     $('.location-topper__twitter').text(`@${location.twitter}`).attr('href', `https://twitter.com/${location.twitter}`);
+    $('.location-topper__title').after(longDescription);
 
     if (isThisOpen(location)) {
       $('body').addClass('js-location-is-open');
@@ -349,7 +339,6 @@ jQuery( document ).ready( function( $ ) {
   }
 
   function openCurrentMenu(location) {
-    // debugger;
     // if (isThisOpen(location)) {
       $('.default-repeater__item--menu--hours').addClass('js-repeater-is-open');
       let locationSlug;
@@ -390,7 +379,6 @@ jQuery( document ).ready( function( $ ) {
       })
     } else {
       $('.location-item').each(function() {
-        console.log()
         let $this = $(this);
         $this.show();
         if ( $this.attr(`data-${option}`) !== 'true' ) {
@@ -408,10 +396,8 @@ jQuery( document ).ready( function( $ ) {
       }
     });
 
-    // debugger;
     function amOrPm(time) {
       let Time = time.toString();
-      // debugger;
       if (time === Infinity || time === -Infinity) {
         return 'Closed';
       } else if (time < 1000) {
@@ -439,83 +425,104 @@ jQuery( document ).ready( function( $ ) {
   }
 
   function setHours(days) {
-    console.log(days);
     let openingTime = 0;
     let closingTime = 0;
     let prevIndex = 0;
     let index = 0;
-    let hourTest = [];
+    let dailyHours = [];
     let startDate = null;
     for (let day in days) {
-      index = Object.keys(days).indexOf(day);
-      // debugger
 
-      console.log(null);
+      index = Object.keys(days).indexOf(day);
+
       startDate = day;
       if (days[day].min !== openingTime || days[day].max !== closingTime) {
         if (index === prevIndex) {
-          hourTest.push(`<li><b>${dayArrayAbbr[index]}:</b> <span>${elminateRepeats(days[day].min, days[day].max)}</span></li>`);
+          dailyHours.push(`<li><b>${dayArrayAbbr[index]}:</b> <span>${elminateRepeats(days[day].min, days[day].max)}</span></li>`);
           prevIndex = Object.keys(days).indexOf(day);
         } else if ( index > 1 ) {
-          hourTest.push(`<li><b>${dayArrayAbbr[prevIndex]} – ${dayArrayAbbr[index - 1]}:</b> <span>${elminateRepeats(days[dayArray[prevIndex]].min, days[dayArray[prevIndex]].max)}</span></li>`)
+          dailyHours.push(`<li><b>${dayArrayAbbr[prevIndex]} – ${dayArrayAbbr[index - 1]}:</b> <span>${elminateRepeats(days[dayArray[prevIndex]].min, days[dayArray[prevIndex]].max)}</span></li>`)
           prevIndex = Object.keys(days).indexOf(day);
         } else {
           prevIndex = Object.keys(days).indexOf(day);
         }
-        // debugger;
         openingTime = days[day].min;
         closingTime = days[day].max;
       }
 
       if ( index === 6 ) {
-        // debugger;
         if ( prevIndex === 0 && days[day].min === openingTime && days[day].max === closingTime) { // same as all days since sunday
-          hourTest = [`<li><b>Everyday:</b> <span>${elminateRepeats(days[day].min, days[day].max)}</span></li>`];
+          dailyHours = [`<li><b>Everyday:</b> <span>${elminateRepeats(days[day].min, days[day].max)}</span></li>`];
         } else if ( prevIndex !== 0 && days[day].min === openingTime && days[day].max === closingTime) { // same as previous days
-          hourTest.push(`<li><b>${elminateRepeats(dayArrayAbbr[prevIndex], dayArrayAbbr[index])}:</b> <span>${elminateRepeats(days[dayArray[prevIndex]].min, days[dayArray[prevIndex]].max)}</span></li>`);
+          dailyHours.push(`<li><b>${elminateRepeats(dayArrayAbbr[prevIndex], dayArrayAbbr[index])}:</b> <span>${elminateRepeats(days[dayArray[prevIndex]].min, days[dayArray[prevIndex]].max)}</span></li>`);
         } else if ( prevIndex !== 0 && days[day].min !== openingTime || days[day].max !== closingTime) { // different from previous span of days
-          hourTest.push(`<li><b>${elminateRepeats(dayArrayAbbr[prevIndex], dayArrayAbbr[index - 1])}:</b> <span>${elminateRepeats(days[dayArray[prevIndex]].min, days[dayArray[prevIndex]].max)}</span></li>`);
-          hourTest.push(`<li><b>${dayArrayAbbr[index]}:</b> <span>${elminateRepeats(days[day].min, days[day].max)}</span></li>`);
+          dailyHours.push(`<li><b>${elminateRepeats(dayArrayAbbr[prevIndex], dayArrayAbbr[index - 1])}:</b> <span>${elminateRepeats(days[dayArray[prevIndex]].min, days[dayArray[prevIndex]].max)}</span></li>`);
+          dailyHours.push(`<li><b>${dayArrayAbbr[index]}:</b> <span>${elminateRepeats(days[day].min, days[day].max)}</span></li>`);
         } else {
-          hourTest.push(`<li><b>${dayArrayAbbr[index]}:</b> <span>${elminateRepeats(days[day].min, days[day].max)}</span></li>`);
+          dailyHours.push(`<li><b>${dayArrayAbbr[index]}:</b> <span>${elminateRepeats(days[day].min, days[day].max)}</span></li>`);
         }
       }
     }
-    console.log(hourTest);
     // replace sat && sun with weekend
-    if (hourTest[hourTest.length-1].slice(10) === hourTest[0].slice(10)) {
-        console.log('test')
-        hourTest[0] = `<li><b>Weekends ${hourTest[0].slice(10)}`;
-        hourTest[hourTest.length-1] = '';
+    if (dailyHours[dailyHours.length] > 0 && dailyHours[dailyHours.length-1].slice(10) === dailyHours[0].slice(10)) {
+        dailyHours[0] = `<li><b>Weekends ${dailyHours[0].slice(10)}`;
+        dailyHours[dailyHours.length-1] = '';
     }
 
-    if (hourTest[1].slice(0, 16) === "<li><b>Mon – Fri") {
-      hourTest[1] = `<li><b>Weekdays${hourTest[1].slice(16)}`;
-        // debugger
+    if (dailyHours[1] && dailyHours[1].slice(0, 16) === "<li><b>Mon – Fri") {
+      dailyHours[1] = `<li><b>Weekdays${dailyHours[1].slice(16)}`;
     }
 
-    hourTest.forEach(function(hours) {
+    if (dailyHours[0] === "<li><b>Everyday:</b> <span>0:am – 11:59pm</span></li>") {
+      dailyHours[0] = "<li><b>Everyday:</b> <span>24 Hours</span></li>"
+    }
+
+    dailyHours.forEach(function(hours) {
       $('.hours__list').append(hours);
     })
   };
 
+
+  $( window ).resize(function() {
+    isMobile = $(window).width() < 768;
+    console.log(isMobile)
+  });
+
+  function resetMap(lat, long) {
+    if (isMobile) {
+      $(".map-container").click(function() {
+        if (!$('body').hasClass('map-is-fullscreen')) {
+          $("body").addClass("map-is-fullscreen");
+          initMap(true, lat, long);
+        }
+      });
+      $(".map-close").click(function() {
+        $("body").removeClass("map-is-fullscreen");
+        initMap(false, lat, long);
+      });
+    }
+  }
+
   function initLocationIndex() {
     console.log('is index');
-    initMap();
+    initMap(!isMobile);
     buildLocationsIndex();
     sortLocationsBy('distance');
     $('.location-item--temp, .location-item--clovertrk3').remove();
+
+    resetMap();
   }
 
   function initLocationSingle() {
     console.log('is single');
     let currentLocation = setCurrentPage(eachLocation);
-    initMap(currentLocation.latitude, currentLocation.longitude);
+    initMap(!isMobile, currentLocation.latitude, currentLocation.longitude);
     setAllHours(currentLocation);
     setHours(days);
     setMenu(currentLocation);
     setSingleTopperInfo(currentLocation);
     openCurrentMenu(currentLocation);
+    resetMap(currentLocation.latitude, currentLocation.longitude);
   }
 
   if ($('body').hasClass('page-child')) {

@@ -1,7 +1,7 @@
 @mixin button($font-size) {
   background-color: $clr-white;
   color: $clr-purple;
-  @include font(sans, $font-size);
+  @include font($sans, $font-size);
   border: 4px solid $clr-purple;
   border-radius: 40px;
   box-shadow: $button-shadow;
@@ -46,7 +46,7 @@
   height: $height;
   background-color: $clr-white;
   border: none;
-  @include font(sans, 18px);
+  @include font($sans, 18px);
   color: $gray--dark;
   transition: $transition;
 

@@ -1,0 +1,43 @@
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.pace-inactive {
+  opacity: 0;
+}
+
+.pace .pace-progress {
+  background: #000000;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  transition: all .15s;
+  width: 100%;
+  height: 3px;
+}
+
+@keyframes fade-in {
+  100% {
+    opacity: 1;
+  }
+}
+
+// .nav,
+.content-wrapper,
+.topper-block-mod,
+.footer {
+  // animation: all .5s ease;
+  .js & {
+    opacity: 0;
+    animation: fade-in .3s ease forwards;
+  }
+  // .js .pace-done & {
+  //   opacity: 1;
+  // }
+}
+

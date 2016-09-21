@@ -1,0 +1,28 @@
+{% extends "base.twig" %}
+
+
+{% block content %}
+  {% block page_topper %}
+    {% if post.title %}
+      <h1 class="page-h1">{{post.title}}</h1>
+    {% endif %}
+
+    {% if post.content %}
+      <div class="article-body">
+        {{post.content}}
+      </div>
+    {% endif %}
+
+  {% endblock %}
+  {% block page_body %}
+    {% for year, posts in posts_by_year %}
+      <h3 class="events__title">{{ year }}</h3>
+      <dl>
+	    {% for post in posts %}
+          <dt class="event__title">{{post.date|date("m.d")}}</dt>
+		  <dd class="event__desc"><a href="{{post.link}}">{{post.title}}</a></dd>
+        {% endfor %}
+      </dl>
+	{% endfor %}
+  {% endblock %}
+{% endblock %}

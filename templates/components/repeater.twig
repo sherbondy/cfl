@@ -10,7 +10,7 @@
         {% endif %}
         {% if item.video %}
           <div class="default-repeater__video-mod">
-            {{item.video}}
+            {{item.video|convert_youtube_playlist}}
           </div>
         {% endif %}
       </div>

@@ -2,19 +2,18 @@ $desktop-nav-width: 320px;
 $bp--nav-break: $bp--tablet;
 
 .nav {
-  @include fixed(0 0 n 0);
-  z-index: 1;
-  background: #fff;
-
-  .js-top-nav & {
+  @include mq(max, $bp--nav-break) {
     @include fixed(0 0 n 0);
-    transition: 0
+    z-index: 1;
+    transition: all .35s ease;
+    &.nav-up {
+      transform: translate3d(0,-100%,0);
+    }
   }
 
-  .js-hide-top-nav & {
-    @include absolute(0 0 n 0);
-    transition: 0
-  }
+  background: #fff;
+  z-index: 1;
+
   @include mq($bp--nav-break) {
     @include fixed(0 n 0 0);
     width: $desktop-nav-width;
@@ -27,8 +26,13 @@ $bp--nav-break: $bp--tablet;
 
 .nav__width {
   position: relative;
-  padding: 10px 20px;
+  padding: 10px 20px 10px 15px;
   z-index: 2;
+  background: #fff;
+
+  @include mq($bp--nav-break) {
+    padding: 20px 20px 0px 15px;
+  }
   // margin: 0 auto;
   // border-bottom: $border;
 }
@@ -52,9 +56,9 @@ $bp--nav-break: $bp--tablet;
 }
 
 .nav__trigger {
-  @include absolute(0 0 0 n);
+  @include absolute(7px 0 0 n);
   width: 90px;
-  padding: 0 30px;
+  padding: 0 20px 0 40px;
   background: transparent;
 
   @include mq($bp--nav-break) {
@@ -83,6 +87,26 @@ $bp--nav-break: $bp--tablet;
   @include mq($bp--nav-break) {
    padding: 50px;
    margin-left: $desktop-nav-width;
+  }
+  .topper-block-mod + & {
+
+    padding:  20px;
+
+    @include mq($bp--nav-break) {
+     padding: 50px;
+    }
+  }
+}
+
+.topper-block-mod {
+  padding-top: 79px;
+
+  @include mq($bp--phablet) {
+    padding-top: 84px;
+  }
+
+  @include mq($bp--nav-break) {
+    padding-top: 0;
   }
 }
 
@@ -136,22 +160,28 @@ $bp--nav-break: $bp--tablet;
   // box-shadow: 0 0 20px rgba(0,0,0,.2);
   transition: all .3s $timing;
   z-index: 1;
+  opacity: 0;
+  pointer-events: none;
   // display: none;
   @include mq($bp--phablet) {
     padding-top: 110px;
   }
 
   .js-nav-active & {
+    opacity: 1;
     transform: translate3d(100%, 0, 0);
+    pointer-events: auto;
     display: block;
   }
 
 
   @include mq($bp--nav-break) {
+    opacity: 1;
+    pointer-events: auto;
     position: static;
     left: 0;
     display: block;
-    padding-top: 20px;
+    padding-top: 25px;
 
     .js-nav-active & {
       transform: translate3d(0, 0, 0);
@@ -161,8 +191,7 @@ $bp--nav-break: $bp--tablet;
 
 .nav__block__title {
   @include font($sans, 13px, 800, normal, .05em, caps);
-  margin: 0;
-  // border-bottom: 1px solid;
+  margin: 0 0 1px;
 }
 
 .nav__block__title-link {
@@ -193,7 +222,7 @@ $bp--nav-break: $bp--tablet;
 
 .nav__block {
   padding: 0 0 27px;
-  @include font($sans, 17px);
+  @include font($serif, 17.3px);
 
   &:last-child {
     padding-bottom: 0;
@@ -207,18 +236,24 @@ $bp--nav-break: $bp--tablet;
 
 .nav__footer {
   @include fixed(n 0 0 0);
-  transform: translate3d(-100%, 0, 0);
+  opacity: 0;
+  pointer-events: none;
   transition: all .3s $timing;
   padding: 0 20px 12px;
   background: #fff;
   z-index: 1;
+  transform: translate3d(-100%, 0, 0);
   // display: none;
   .js-nav-active & {
-    transform: translate3d(0, 0, 0);
+    opacity: 1;
+    pointer-events: auto;
     display: block;
+    transform: translate3d(0, 0, 0);
   }
 
   @include mq($bp--nav-break) {
+    opacity: 1;
+    pointer-events: auto;
     transform: translate3d(0, 0, 0);
     right: auto;
     width: ($desktop-nav-width - 1);
@@ -229,15 +264,14 @@ $bp--nav-break: $bp--tablet;
   display: block;
   position: relative;
   border-top: $border;
-  padding: 10px 0 0;
+  padding: 5px 0;
   overflow: hidden;
 }
 
 $social-icons: twitter, instagram, email, search;
-
 .nav__footer__icon {
   float: left;
-  margin-right: 15px;
+  margin-right: 13px;
 
   @each $item in $social-icons {
     &.nav__footer__icon--#{$item} .nav__footer__link {
@@ -246,12 +280,22 @@ $social-icons: twitter, instagram, email, search;
   }
 }
 
+.nav__footer__icon--twitter {
+  margin-right: 12px;
+}
+
 .primary-search {
   @include absolute(0 0 0 n);
   width: 40px;
   transition: all .3s $timing;
+  &:hover .submit--search {
+    transform: scale(1.1);
+  }
   &.js-search-is-active {
     width: 100%;
+    &:hover .submit--search {
+      transform: scale(1);
+    }
   }
 }
 
@@ -271,12 +315,17 @@ $social-icons: twitter, instagram, email, search;
 
 .submit--search {
   // opacity: 0;
-  transition: all .3s $timing;
   pointer-events: none;
   @include absolute(0 0 0 n);
   height: auto;
   background: transparent;
   width: 40px;
+  transition: all .2s;
+
+  &:hover {
+    box-shadow: none;
+    transform: scale(1.1);
+  }
 
   .js-search-is-active & {
     pointer-events: auto;
@@ -286,17 +335,10 @@ $social-icons: twitter, instagram, email, search;
 
 .submit--search {
   background-image: url('../img/icon--search.svg');
-}
-
-.submit--search {
   display: block;
-  background-size: 25px;
+  background-size: 23px;
   background-repeat: no-repeat;
   background-position: 50% 50%;
-
-  &:hover {
-    box-shadow: none;
-  }
 }
 
 .nav__footer__link {
@@ -305,13 +347,19 @@ $social-icons: twitter, instagram, email, search;
   background-size: 25px;
   background-repeat: no-repeat;
   background-position: 50% 50%;
+  transition: all .2s;
 
   &:hover {
     box-shadow: none;
+    transform: scale(1.1);
   }
 }
 
 .nav__footer__icon--search {
   float: right;
   margin-right: 0;
+}
+
+.nav #sb_instagram {
+  display: none;
 }

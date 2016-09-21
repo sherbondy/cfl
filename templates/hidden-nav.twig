@@ -6,13 +6,12 @@
     </li>
     <li class="nav__block">
       <h5 class="nav__block__title"><a class="nav__block__title-link" href="/locations">Locations</a></h5>
-      <p class="nav__block__link"><a href="/locations">Today&rsquo;s menu, {{now|date('m.d')}}</a></p>
-      <p class="nav__block__link"><a href="/locations">Locations &amp; Hours</a></p>
+      <p class="nav__block__link"><a href="/locations">Today&rsquo;s menus &amp; hours,&nbsp;{{now|date('m.d')}}</a></p>
     </li>
 
 
     <li class="nav__block">
-      <h5 class="nav__block__title"><a class="nav__block__title-link" href="/events">Events</a></h5>
+      <h3 class="nav__block__title"><a class="nav__block__title-link" href="/events">Events</a></h3>
       <ul class="nav__block__list">
       {% for event in events|slice(0, 1) %}
         {% if event.info_date == today %}
@@ -27,14 +26,14 @@
               {% if event.url %}
                 <a href="{{event.url}}" target="_blank">Join us for {{event.post_title}} {{date_text}} at {{event.info_time|date("g:i")}}<span class="nav__block__small-cap">{{event.info_time|date("a")}}</span></a>
               {% else %}
-                <a href="/events#{{event.id}}">Join us for {{event.post_title}} {{date_text}} at {{event.info_time|date("g:i")}}<span class="nav__block__small-cap">{{event.info_time|date("a")}}</span></a>
+                <a href="/events/#events">Join us for {{event.post_title}} {{date_text}} at {{event.info_time|date("g:i")}}<span class="nav__block__small-cap">{{event.info_time|date("a")}}</span></a>
               {% endif %}
             </li>
         {% else %}
         {% endif %}
       {% endfor %}
         {% if events %}
-          <li class="nav__block__link"><a href="/events">Other Events</a></li>
+          <li class="nav__block__link"><a href="/events/#events">Other Events</a></li>
         {% else %}
           <li class="nav__block__link"><a href="/events">Events at Clover</a></li>
         {% endif %}
@@ -45,7 +44,7 @@
       <h5 class="nav__block__title"><a class="nav__block__title-link" href="/careers">Careers at Clover</a></h5>
       <ul class="nav__block__list">
 
-        <li class="nav__block__link"><a href="/careers">Welcome Lucia, our newest employee</a></li>
+        <li class="nav__block__link"><a class="nav-employee" href="/were-glad-youre-on-our-team/"></a></li>
         <li class="nav__block__link"><a href="/careers">Join the team</a></li>
       </ul>
     </li>
@@ -69,5 +68,7 @@
     </li>
 
   </ul>
+
+{{options.feed}}
 
 </nav><!-- #nav -->

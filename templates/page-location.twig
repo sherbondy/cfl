@@ -9,19 +9,21 @@
 {% endblock %}
 
 {% block topper %}
-  <div class="location-topper">
-    <div class="location-topper__hgroup">
-      <h3 class="location-topper__title"></h3>
-      <p class="location-topper__about">[placeholder: waiting for api field] Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit quaerat nemo repellat facere distinctio, dolor, omnis dolorum maiores sed.</p>
-      <div class="location-topper__meta">
-        <a class="location-topper__twitter" target="_blank" href=""></a>
-        <span class="location-topper__status"></span>
+  <div class="topper-block-mod">
+    <div class="location-topper">
+      <div class="location-topper__hgroup">
+        <h3 class="location-topper__title"></h3>
+        <div class="location-topper__meta">
+          <a class="location-topper__twitter" target="_blank" href=""></a>
+          <span class="location-topper__status"></span>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="map-container map-container--single" id="map"></div>
-  <div class="locations-form__mod">
-    <a href="" class="location-address"></a>
+    <div class="map-container map-container--single" id="map"></div>
+    <div class="locations-form__mod">
+      <a href="" class="location-address"></a>
+      <button class="map-close">Close</button>
+    </div>
   </div>
 {% endblock %}
 

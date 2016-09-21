@@ -63,7 +63,7 @@ figure {
    2. Prevent iOS text size adjust after orientation change, without disabling user zoom.
    3. Normalize font rendering in Firefox */
 html {
-  background: $clr-base;
+  background: #000;
   font-size: 100%; /* 1 */
   -ms-text-size-adjust: 100%; /* 2 */
   -webkit-text-size-adjust: 100%; /* 2 */

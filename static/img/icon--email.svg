@@ -1,14 +1,17 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>Fill 5 Copy</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="10.-nav" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Open" transform="translate(-177.000000, -819.000000)" fill="#000000">
-            <g id="Group-4" transform="translate(20.000000, 800.000000)">
-                <path d="M179.62365,52.6260327 L174.963601,43.2538869 L182.375265,33.6319098 L172.708179,41.0748023 L163.325624,36.9421753 L191.501049,24.3950893 L179.62365,52.6260327 Z M196.015363,19.7870888 C195.505291,19.2943658 194.745387,19.1521007 194.093049,19.4435706 L158.332467,35.3668498 C157.707888,35.6479101 157.301912,36.2724885 157.305382,36.9560548 C157.305382,37.6465609 157.714828,38.2641995 158.339406,38.5417899 L171.441673,44.3087304 C171.52495,44.4128268 171.597818,44.5308028 171.708854,44.6175498 C171.733143,44.6348992 171.760902,44.638369 171.785191,44.6522486 L178.200999,57.560202 C178.492469,58.1500816 179.096228,58.5213588 179.755505,58.5213588 L179.807554,58.5213588 C180.48765,58.4970696 181.091409,58.0841539 181.35512,57.4630454 L196.40052,21.7024625 C196.67811,21.0431853 196.525435,20.2867515 196.015363,19.7870888 L196.015363,19.7870888 Z" id="Fill-5-Copy"></path>
-            </g>
-        </g>
-    </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 20.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve">
+<title>Fill 5 Copy</title>
+<desc>Created with Sketch.</desc>
+<g id="_x31_0.-nav">
+	<g id="Open" transform="translate(-177.000000, -819.000000)">
+		<g id="Group-4" transform="translate(20.000000, 800.000000)">
+			<path id="Fill-5-Copy" d="M179.6,52.8l-4.7-9.4l7.5-9.7l-9.7,7.5l-9.5-4.2l28.4-12.6L179.6,52.8z M195.2,20.7
+				c-0.5-0.5-1.2-0.6-1.8-0.3l-34.2,15.2c-0.6,0.3-1,0.9-1,1.5c0,0.7,0.4,1.3,1,1.5l12.5,5.5c0.1,0.1,0.1,0.2,0.3,0.3c0,0,0,0,0.1,0
+				l6.1,12.3c0.3,0.6,0.9,0.9,1.5,0.9h0c0.7,0,1.2-0.4,1.5-1l14.4-34.2C195.8,21.9,195.7,21.2,195.2,20.7L195.2,20.7z"/>
+		</g>
+	</g>
+</g>
 </svg>

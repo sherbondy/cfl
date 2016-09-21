@@ -1,12 +1,13 @@
 {% extends "base.twig" %}
 
 {% block content %}
-
   <div class="tease__grid">
     {% for post in posts %}
-      {% if loop.index == 6 %}
+      {% if loop.index == 4 or loop.index == 8  or loop.index == 12 %}
         {% for post in random_posts %}
-            {% include ['tease.twig'] with {'archive': 'true'} %}
+            {% if loop.index == loop.parent.loop.index / 4 %}
+              {% include ['tease.twig'] with {'archive': 'true'} %}
+            {% endif %}
         {% endfor %}
       {% endif %}
       {% include ['tease.twig'] %}

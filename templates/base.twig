@@ -10,7 +10,6 @@
 		{% include 'nav.twig' %}
 
 		{% block topper %}
-			{% if title %}<h1>{{title}}</h1>{% endif %}
 		{% endblock %}
 
 		<section id="content" role="main" class="content-wrapper">
@@ -33,6 +32,7 @@
 		{% endblock %}
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="{{site.theme.link}}/bower_components/Instajam/dist/instajam.min.js"></script>
 		<script src="{{site.theme.link}}/bower_components/quickshare/dist/quickshare.min.js"></script>
 		{% block scripts %}
 		{% endblock %}

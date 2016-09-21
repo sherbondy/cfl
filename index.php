@@ -30,7 +30,7 @@ $args = array(
 
 $context['random_posts'] = Timber::query_posts(
   array(
-    'showposts' => 1,
+    'showposts' => 3,
     'orderby' => 'rand',
     'cat' => -34
   ));
