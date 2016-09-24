@@ -316,10 +316,11 @@ $social-icons: twitter, instagram, email, search;
   width: 100%;
   border-radius: 0;
   height: 40px;
-  // &:hover,
+  &:hover,
   .js-search-is-active & {
     cursor: text;
     border: 1px solid;
+    border-top: 0;
   }
 }
 
