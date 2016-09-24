@@ -1,0 +1,38 @@
+
+{% if post.thumbnail.src %}
+  {% set imageClass = "tease--image" %}
+{% else %}
+  {% set imageClass = "tease--no-image" %}
+{% endif %}
+
+{% if post.post_type == 'page' %}
+
+<article class="tease tease--search tease--{{post.post_type}} {{imageClass}}" id="tease-{{post.ID}}">
+  <a href="{{post.link}}" class="tease__inner">
+    <div class="tease__hgroup">
+      <h2 class="tease__hed">{{post.title}}</h2>
+      <p class="tease__dek">{{post.get_content|excerpt(20)}}</p>
+    </div>
+  </a>
+</article>
+
+{% else %}
+
+<article class="tease tease--search tease--{{post.post_type}} {{imageClass}}" id="tease-{{post.ID}}">
+  <div class="tease__inner">
+
+      {% if post.thumbnail.src %}
+        <a href="{{post.link}}" class="tease__img-mod">
+          <img class="tease__img" src="{{post.thumbnail.src}}" />
+        </a>
+      {% endif %}
+
+      <div class="tease__hgroup">
+        <!-- <a class="tease__overline" href="{{post.category.link}}">{{post.category}}</a> -->
+        <h2 class="tease__hed"><a href="{{post.link}}">{{post.title}}</a></h2>
+        <p class="tease__dek"><span class="tease__date">{{post.date|date("j F, Y")}}:</span> {{post.get_content|excerpt(20)}} <a href="{{post.link}}">Read More</a></p>
+      </div>
+  </div>
+</article>
+
+{% endif %}

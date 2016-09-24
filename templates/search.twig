@@ -12,5 +12,11 @@
 {% endblock %}
 
 {% block content %}
-  {% include 'components/paginated-grid.twig' %}
+  <div class="tease__grid">
+    {% for post in posts %}
+      {% include ['search-tease.twig'] %}
+    {% endfor %}
+  </div>
+  {% include 'pagination.twig' %}
+
 {% endblock %}

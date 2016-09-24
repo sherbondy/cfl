@@ -35,9 +35,8 @@ $context['random_posts'] = Timber::query_posts(
     'cat' => -32
   ));
 
-$context['posts'] = Timber::get_posts($args);
-
-
+query_posts($args);
+$context['posts'] = Timber::get_posts();
 $context['pagination'] = Timber::get_pagination();
 $context['current_page'] = $paged;
 $templates = array( 'index.twig' );

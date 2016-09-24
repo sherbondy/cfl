@@ -20,9 +20,9 @@ jQuery( document ).ready( function( $ ) {
 
 
   $('.primary-search-input').on('focus', function() {
-    $(this).parent().addClass('js-search-is-active');
+    $('body').addClass('js-search-is-active');
   }).on('blur', function() {
-    $(this).parent().removeClass('js-search-is-active');
+    $('body').removeClass('js-search-is-active');
   });
 
   // nav stuff
@@ -84,9 +84,13 @@ jQuery( document ).ready( function( $ ) {
         // This is necessary so you never see what is "behind" the navbar.
         if (st > lastScrollTop && st > navbarHeight){
             // Scroll Down
-            $nav.removeClass('nav-down').addClass('nav-up');
-            $('body').removeClass('js-nav-active');
-            closeNav();
+            if (!$('body').hasClass('js-nav-active')) {
+              $nav.removeClass('nav-down').addClass('nav-up');
+              $('body').removeClass('js-nav-active');
+              closeNav();
+              console.log('hide');
+            }
+            console.log('down');
         } else {
             // Scroll Up
             if(st + $(window).height() < $(document).height()) {
@@ -131,24 +135,26 @@ jQuery( document ).ready( function( $ ) {
    }, intervalDuration);
   }
 
+  function setEmployeeNavText() {
 
-  // Get employee text, either from local storage or instagram
-  var lastUpdate = localStorage.getItem('lastUpdate');
-  var now = moment();
-  var last = moment.unix(lastUpdate);
-  var timeSinceLastUpdate = now.diff(last, 'minutes');
+    // Get employee text, either from local storage or instagram
+    var lastUpdate = localStorage.getItem('lastUpdate');
+    var now = moment();
+    var last = moment.unix(lastUpdate);
+    var timeSinceLastUpdate = now.diff(last, 'minutes');
 
-  if (timeSinceLastUpdate < 60 && localStorage.getItem('employeeText').length ) {
-    // use cache
-    $('.nav-employee').text(localStorage.getItem('employeeText'));
-    $('.nav #sb_instagram').remove();
-  } else {
-    // get fresh data
-    getInstagramNavContent();
-    console.log('getting fresh data');
-    localStorage.setItem('lastUpdate', moment().unix());
+    if (timeSinceLastUpdate < 60 && localStorage.getItem('employeeText').length ) {
+      // use cache
+      $('.nav-employee').text(localStorage.getItem('employeeText'));
+      $('.nav #sb_instagram').remove();
+    } else {
+      // get fresh data
+      getInstagramNavContent();
+      console.log('getting fresh data');
+      localStorage.setItem('lastUpdate', moment().unix());
+    }
   }
 
-
+  setEmployeeNavText();
   quickShare();
 });

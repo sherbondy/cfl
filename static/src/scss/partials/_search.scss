@@ -1,12 +1,14 @@
 .search-topper {
-  padding: 50px;
+  padding: 20px;
+
   @include mq($bp--nav-break) {
     margin-left: $desktop-nav-width;
+    padding: 50px 50px 0;
   }
 }
 
 .search-topper__form {
-  max-width: 900px;
+  max-width: 740px;
   width: 100%;
   position: relative;
   font-size: 60px;
@@ -29,18 +31,24 @@
   color: $clr-base;
   display: block;
   width: 100%;
-  padding-right: 20px;
+  padding: 0 20px 5px 0;
+  border-radius: 0;
 }
 
 .search-topper__submit {
   @include absolute(0 0 2px n);
-  width: 80px;
+  width: 50px;
+  padding: 0;
   background-color: transparent;
   background-image: url('../img/icon--search.svg');
   background-size: 30px;
   background-repeat: no-repeat;
   background-position: 50% 50%;
   transition: all .2s ease;
+  border-radius: 2px;
+  @include mq($bp--nav-break) {
+    width: 80px;
+  }
   &:hover {
     background-color: $clr-spot;
     background-image: url('../img/icon--search--white.svg');

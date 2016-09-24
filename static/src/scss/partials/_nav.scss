@@ -299,7 +299,7 @@ $social-icons: twitter, instagram, email, search;
   &:hover .submit--search {
     transform: scale(1.1);
   }
-  &.js-search-is-active {
+  .js-search-is-active & {
     width: 100%;
     &:hover .submit--search {
       transform: scale(1);
@@ -314,6 +314,7 @@ $social-icons: twitter, instagram, email, search;
   border: none;
   cursor: pointer;
   width: 100%;
+  border-radius: 0;
   height: 40px;
   // &:hover,
   .js-search-is-active & {

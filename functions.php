@@ -9,7 +9,6 @@ if ( ! class_exists( 'Timber' ) ) {
 
 }
 
-
 if ( function_exists('acf_add_options_page') ) {
 	acf_add_options_page();
 }
@@ -53,11 +52,12 @@ class StarterSite extends TimberSite {
 		add_action( 'init', array( $this, 'register_post_types' ) );
 		add_action( 'init', array( $this, 'register_taxonomies' ) );
 		add_action( 'init', array($this, 'arphabet_widgets_init') );
-		add_action( 'pre_get_posts', function ( $query ) {
-		    if ( $query->is_main_query() && !is_admin() && is_archive()) {
-		        $query->set( 'posts_per_page', 12 );
-		    }
-		} );
+		add_action( 'init', array($this, 'update_events'), 99 );
+		// add_action( 'pre_get_posts', function ( $query ) {
+		//     if ( $query->is_main_query() && !is_admin() && is_archive()) {
+		//         $query->set( 'posts_per_page', 12 );
+		//     }
+		// } );
 		parent::__construct();
 	}
 
@@ -113,6 +113,17 @@ class StarterSite extends TimberSite {
 		setup_postdata( $events );
 		return $context;
 	}
+
+
+	function update_events() {
+		global $wp_post_types;
+
+		if ( post_type_exists( 'events' ) ) {
+			// exclude from search results
+			$wp_post_types['events']->exclude_from_search = true;
+		}
+	}
+
 
 
 	function convert_youtube_playlist( $text ) {
