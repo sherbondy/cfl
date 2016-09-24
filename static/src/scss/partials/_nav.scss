@@ -4,8 +4,9 @@ $bp--nav-break: $bp--tablet;
 .nav {
   @include mq(max, $bp--nav-break) {
     @include fixed(0 0 n 0);
-    z-index: 1;
+    z-index: 2;
     transition: all .35s ease;
+    &.nav-hidden,
     &.nav-up {
       transform: translate3d(0,-100%,0);
     }
@@ -79,6 +80,12 @@ $bp--nav-break: $bp--tablet;
   margin: 0 auto;
   position: relative;
   background-color: #fff;
+  z-index: 1;
+
+  .content-wrapper {
+    margin-left: 0;
+    padding: 0;
+  }
 
   @include mq($bp--phablet) {
     padding-top: 110px;
@@ -87,6 +94,7 @@ $bp--nav-break: $bp--tablet;
   @include mq($bp--nav-break) {
    padding: 50px;
    margin-left: $desktop-nav-width;
+
   }
   .topper-block-mod + & {
 
@@ -286,7 +294,7 @@ $social-icons: twitter, instagram, email, search;
 
 .primary-search {
   @include absolute(0 0 0 n);
-  width: 40px;
+  @include size(40px);
   transition: all .3s $timing;
   &:hover .submit--search {
     transform: scale(1.1);
@@ -306,6 +314,7 @@ $social-icons: twitter, instagram, email, search;
   border: none;
   cursor: pointer;
   width: 100%;
+  height: 40px;
   // &:hover,
   .js-search-is-active & {
     cursor: text;

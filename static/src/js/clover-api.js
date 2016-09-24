@@ -8,110 +8,117 @@ jQuery( document ).ready( function( $ ) {
   let now = moment().format('HH:mm:ss');
   let days = {'Sunday': {'allHours':[]}, 'Monday': {'allHours':[]}, 'Tuesday': {'allHours':[]}, 'Wednesday': {'allHours':[]}, 'Thursday': {'allHours':[]}, 'Friday': {'allHours':[]}, 'Saturday': {'allHours':[]}};
   let dayArray = Object.keys( days );
-  let dayArrayAbbr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+  let dayArrayAbbr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   let isMobile = $(window).width() < 768;
-
+  let initialLocation = null;
 
   function initMap(isDraggable, lat, lng) {
-    let styles = [
-      {
-        "featureType": "water",
-        "stylers": [
-          { "saturation": -100 },
-          { "gamma": 0.25 },
-          { "visibility": "simplified" }
-        ]
-      },{
-        "stylers": [
-          { "saturation": -100 }
-        ]
-      },{
-        "stylers": [
-          { "visibility": "simplified" },
-          { "gamma": 1.39 }
-        ]
-      },{
-      }
-    ];
-    let map = new google.maps.Map(document.getElementById('map'), {
-      draggable: isDraggable,
-      zoom: 14,
-      scrollwheel: false,
-      // center: new google.maps.LatLng(42.3601, -71.0589),
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
+    return new Promise(function(resolve, reject) {
+      let styles = [
+        {
+          "featureType": "water",
+          "stylers": [
+            { "saturation": -100 },
+            { "gamma": 0.25 },
+            { "visibility": "simplified" }
+          ]
+        },{
+          "stylers": [
+            { "saturation": -100 }
+          ]
+        },{
+          "stylers": [
+            { "visibility": "simplified" },
+            { "gamma": 1.39 }
+          ]
+        },{
+          }
+      ];
 
-    // map.setOptions({styles: styles});
-    if (lat && lng) {
-      map.setCenter(new google.maps.LatLng(lat, lng));
-      map.setZoom(15);
-    } else {
-
-      let initialLocation = new google.maps.LatLng(42.3601, -71.0589);
-      let browserSupportFlag;
-      map.setCenter(initialLocation);
-      if(navigator.geolocation) {
-        browserSupportFlag = true;
-        navigator.geolocation.getCurrentPosition(function(position) {
-          initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-          userLocation = initialLocation;
-          map.setCenter(initialLocation);
-        }, function() {
-          handleNoGeolocation(browserSupportFlag);
-        });
-      }
-      // Browser doesn't support Geolocation
-      else {
-        browserSupportFlag = false;
-        handleNoGeolocation(browserSupportFlag);
-      }
-
-      function handleNoGeolocation(errorFlag) {
-        if (errorFlag === true) {
-          // alert("Geolocation service failed.");
-          initialLocation = new google.maps.LatLng(42.3601, -71.0589);
-        } else {
-          // alert("Your browser doesn't support geolocation. We've placed you in Siberia.");
-          initialLocation = new google.maps.LatLng(42.3601, -71.0589);
-        }
-        map.setCenter(initialLocation);
-      }
-    }
-
-    let infowindow = new google.maps.InfoWindow();
-
-    let marker, i;
-
-    for (i = 0; i < eachLocation.length; i++) {
-      let locationStatus = isThisOpen(eachLocation[i]) ? 'open' : 'closed';
-      let locationType = isThisATruck(eachLocation[i]) ? 'truck' : 'store';
-
-      marker = new google.maps.Marker({
-        position: new google.maps.LatLng(eachLocation[i].latitude, eachLocation[i].longitude),
-        map: map,
-        icon: `${themeLoc}/static/img/icon--${isThisATruck(eachLocation[i]) ? 'truck' : 'store'}-${isThisOpen(eachLocation[i]) ? 'open' : 'closed'}.svg`
+      let map = new google.maps.Map(document.getElementById('map'), {
+        draggable: isDraggable,
+        zoom: 14,
+        scrollwheel: false,
+        // center: new google.maps.LatLng(42.3601, -71.0589),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
       });
 
-      google.maps.event.addListener(marker, 'mouseover', ( function(marker, i) {
-        return function() {
-          infowindow.setContent(eachLocation[i].description);
-          infowindow.open(map, marker);
-        };
-      })(marker, i));
+      // map.setOptions({styles: styles});
+      if (lat && lng) {
+        map.setCenter(new google.maps.LatLng(lat, lng));
+        map.setZoom(15);
+        console.log('default lat lng');
+        resolve(initialLocation);
+      } else {
 
-      google.maps.event.addListener(marker, 'mouseout', ( function(marker, i) {
-        return function() {
-          infowindow.close();
-        };
-      })(marker, i));
+        let browserSupportFlag;
 
-      google.maps.event.addListener(marker, 'click', ( function(marker, i) {
-        return function() {
-          window.location.replace(`/locations/location/?l=${eachLocation[i].slug}`);
-        };
-      })(marker, i));
+        if (navigator.geolocation) {
+          browserSupportFlag = true;
+          navigator.geolocation.getCurrentPosition(function(position) {
+            initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+            userLocation = initialLocation;
+            map.setCenter(initialLocation);
+            console.log('navigator.geolocation');
+          resolve(initialLocation);
 
-    }
+          }, function() {
+            handleNoGeolocation(browserSupportFlag);
+          });
+        }
+        // Browser doesn't support Geolocation
+        else {
+          browserSupportFlag = false;
+          handleNoGeolocation(browserSupportFlag);
+          console.log('no geolocation');
+        }
+
+        function handleNoGeolocation(errorFlag) {
+          if (errorFlag === true) {
+            console.log('geoloaction failed');
+          } else {
+            console.log('no browser support');
+          }
+          initialLocation = new google.maps.LatLng(42.3601, -71.0589);
+          map.setCenter(initialLocation);
+          resolve(initialLocation);
+        }
+      }
+
+      let infowindow = new google.maps.InfoWindow();
+
+      let marker, i;
+
+      for (i = 0; i < eachLocation.length; i++) {
+        let locationStatus = isThisOpen(eachLocation[i]) ? 'open' : 'closed';
+        let locationType = isThisATruck(eachLocation[i]) ? 'truck' : 'store';
+
+        marker = new google.maps.Marker({
+          position: new google.maps.LatLng(eachLocation[i].latitude, eachLocation[i].longitude),
+          map: map,
+          icon: `${themeLoc}/static/img/icon--${isThisATruck(eachLocation[i]) ? 'truck' : 'store'}-${isThisOpen(eachLocation[i]) ? 'open' : 'closed'}.svg`
+        });
+
+        google.maps.event.addListener(marker, 'mouseover', ( function(marker, i) {
+          return function() {
+            infowindow.setContent(eachLocation[i].description);
+            infowindow.open(map, marker);
+          };
+        })(marker, i));
+
+        google.maps.event.addListener(marker, 'mouseout', ( function(marker, i) {
+          return function() {
+            infowindow.close();
+          };
+        })(marker, i));
+
+        google.maps.event.addListener(marker, 'click', ( function(marker, i) {
+          return function() {
+            window.location.replace(`/locations/location/?l=${eachLocation[i].slug}`);
+          };
+        })(marker, i));
+      }
+    });
   }
 
 
@@ -181,20 +188,13 @@ jQuery( document ).ready( function( $ ) {
           </div>
         </a>
       </li>`;
-      // <a class="location__twitter" href="${twitterUrl}" target="_blank">@${location.twitter}</a>
-      // <a class="location__address" href="${googleUrl}" target="_blank">${address}</a>
-      // <dl class="location__hours">
-      //   <dt>Hours</dt>
-      //   <dd class="location__hours__day"></dd>
-      // </dl>
-      // $locationItem.eq(i).addClass('js-has-data');
       $('.locations-mod').append($locationItem);
     }
   }
 
   function buildLocationsIndex() {
     eachLocation.forEach(function(location, i) {
-      buildLocationItem(location, i);
+      buildLocationItem(location, i, userLocation);
     });
   }
 
@@ -505,12 +505,14 @@ jQuery( document ).ready( function( $ ) {
 
   function initLocationIndex() {
     console.log('is index');
-    initMap(!isMobile);
-    buildLocationsIndex();
-    sortLocationsBy('distance');
-    $('.location-item--temp, .location-item--clovertrk3').remove();
 
-    resetMap();
+    initMap(!isMobile).then((userLocation) => {
+      console.log(`printing ${userLocation}`);
+      buildLocationsIndex();
+      sortLocationsBy('distance');
+      $('.location-item--temp, .location-item--clovertrk3').remove();
+      resetMap();
+    });
   }
 
   function initLocationSingle() {
@@ -534,10 +536,12 @@ jQuery( document ).ready( function( $ ) {
 
   $('body').on('click', '.menu-info__trigger', function() {
     $(this).closest('.menu-info__mod').toggleClass('modal-is-active');
+    $('.nav').toggleClass('nav-hidden');
   })
 
   $(document).keyup(function(e) {
     $('.menu-info__mod').removeClass('modal-is-active');
+    $('.nav').removeClass('nav-hidden');
   });
 
   $('#sort').on('change', function() {

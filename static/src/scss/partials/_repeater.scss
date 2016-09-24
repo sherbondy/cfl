@@ -22,7 +22,12 @@
   padding: 20px 60px 20px 0px;
   transition: all .3s $timing;
   position: relative;
-  @include font($sans, 18px, 800);
+  @include font($sans, 16px, 800);
+
+  @include mq($bp--phablet) {
+    @include font($size: 18px);
+  }
+
   @include mq($bp--tablet) {
     .default-repeater__item:not(.js-repeater-is-open) &:hover {
       background-color: $clr-base;
@@ -115,7 +120,7 @@
       margin-left: 20px;
       float: right;
       width: 50%;
-      max-width: 410px;
+      // max-width: 410px;
     }
   }
 

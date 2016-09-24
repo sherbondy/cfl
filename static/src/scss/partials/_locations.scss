@@ -213,7 +213,7 @@
   padding: 20px;
   overflow: scroll;
   text-align: left;
-  z-index: 1;
+  z-index: 10;
 
   @include mq($bp--nav-break) {
     padding: 50px;
@@ -288,7 +288,7 @@
 }
 
 .menu-info__trigger--close {
-  position: fixed;
+  position: absolute;
   right: 20px;
   top: 20px;
   transition: all .2s $timing;
@@ -495,12 +495,16 @@
   &:after {
     display: block;
     content: '';
-    @include absolute(n 20px 0 n);
+    @include absolute(n 0 0 n);
     @include size(30px);
     background-image: url('../img/icon--select.svg');
     background-repeat: no-repeat;
     background-position: 50% 50%;
     pointer-events: none;
+
+    @include mq(950px) {
+      right: 20px;
+    }
   }
 }
 

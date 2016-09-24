@@ -1,19 +1,23 @@
-var gulp = require('gulp');
-var direque = require('require-dir');
+var gulp          = require('gulp');
+var direque       = require('require-dir');
 
-var autoprefixer = require('gulp-autoprefixer');
-var browser = require('browser-sync').create();
-var cssnano = require('gulp-cssnano');
-var modernizr = require('gulp-modernizr');
-var named = require('vinyl-named');
-var noop = require('gulp-util').noop;
-var sass = require('gulp-sass');
-var sequence = require('run-sequence');
-var sourcemaps = require('gulp-sourcemaps');
-var trash = require('trash');
-var uglify = require('gulp-uglify');
-var webpack = require('webpack-stream');
-const babel = require('gulp-babel');
+var autoprefixer  = require('gulp-autoprefixer');
+var browser       = require('browser-sync').create();
+var cssnano       = require('gulp-cssnano');
+var modernizr     = require('gulp-modernizr');
+var named         = require('vinyl-named');
+var noop          = require('gulp-util').noop;
+var sass          = require('gulp-sass');
+var sequence      = require('run-sequence');
+var sourcemaps    = require('gulp-sourcemaps');
+var minify        = require('gulp-minify');
+var minifyCss     = require('gulp-clean-css');
+var browserify    = require('browserify');
+var babelify      = require('babelify');
+var vinylSource   = require('vinyl-source-stream');
+var vinylBuffer   = require('vinyl-buffer');
+var trash         = require('trash');
+var uglify        = require('gulp-uglify');
 
 var configs = direque('./lib/gulp', {recurse: true});
 var isDev = configs.isDev;
@@ -25,13 +29,36 @@ var _ = configs.options;
  * Pass scripts through Webpack
  */
 function Scripts() {
-  return gulp.src($.scripts.entries)
-  // .pipe(named())
-  // .pipe(webpack(_.webpack))
-  .pipe(babel({
-    presets: ['es2015']
-  }))
-  .pipe(gulp.dest($.scripts.dest));
+
+  var files = [
+      'site.js',
+      'clover-api.js'
+  ];
+
+  var tasks = files.map(function(entry) {
+    var babel = babelify.configure({
+      sourceMaps: true,
+      presets: ['es2015']
+    });
+    return browserify({
+      entries: [entry],
+      transform: [babel],
+      basedir: './static/src/js'
+    })
+    .bundle()
+    .pipe(vinylSource(entry))
+    .pipe(
+      vinylBuffer())
+    .pipe(
+      sourcemaps.init())
+    // .pipe(
+    //   minify({ mangle: false }))
+    .pipe(
+      sourcemaps.write())
+    .pipe(gulp.dest('./static/js'));
+
+    return es.merge.apply(null, tasks);
+  });
 }
 
 // function Scripts() {
@@ -56,6 +83,8 @@ function Styles() {
   )
   .pipe(autoprefixer(_.browsers))
   .pipe(isDev(noop(), cssnano()))
+  // .pipe(
+  //   minifyCss())
   .pipe(isDev(sourcemaps.write(), noop()))
   .pipe(gulp.dest($.styles.dest))
   .pipe(browser.stream());
