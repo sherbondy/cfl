@@ -23,7 +23,7 @@
 
       {% if post.thumbnail.src %}
         <a href="{{post.link}}" class="tease__img-mod">
-          <img class="tease__img" src="{{post.thumbnail.src}}" />
+          <img class="tease__img" src="{{post.thumbnail.src('large')}}" />
         </a>
       {% endif %}
 
