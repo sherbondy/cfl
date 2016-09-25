@@ -39,7 +39,7 @@
 				  <div class="tease__inner">
 				      {% if post.prev.thumbnail.src %}
 				        <a href="{{post.prev.link}}" class="tease__img-mod">
-				          <img class="tease__img" src="{{post.prev.thumbnail.src}}" />
+				          <img class="tease__img" src="{{post.prev.thumbnail.src('large')}}" />
 				        </a>
 				      {% endif %}
 
@@ -61,7 +61,7 @@
 
 				      {% if post.next.thumbnail.src %}
 				        <a href="{{post.next.link}}" class="tease__img-mod">
-				          <img class="tease__img" src="{{post.next.thumbnail.src}}" />
+				          <img class="tease__img" src="{{post.next.thumbnail.src('large')}}" />
 				        </a>
 				      {% endif %}
 
